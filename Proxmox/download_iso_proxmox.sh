@@ -147,17 +147,7 @@ chmod 644 $FILENAME
 echo "========================================================="
 echo "INFO: Permessi impostati a 644 per il file ISO."
 echo "========================================================="
-
-# ======================================================================
-# Aggiornamento della cache di storage di Proxmox
-# Notifica a Proxmox della presenza del nuovo file ISO utilizzando
-# il comando pvesm scan.
-# ======================================================================
-echo "========================================================="
-echo "INFO: Aggiornamento dello storage di Proxmox..."
-echo "========================================================="
-pvesm scan local
-
+echo "Nota: Lo storage 'local' è già configurato automaticamente in Proxmox."
 # ======================================================================
 # Messaggio di completamento
 # Informa l'utente che il processo è terminato e il file è pronto
