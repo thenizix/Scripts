@@ -1,2 +1,3 @@
 # Scripts
- Utility scripts
+ Utility scripts written to simplify some actions repetitive or trivial, basically in bash .
+
