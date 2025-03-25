@@ -13,126 +13,83 @@
 
 source wp_installer.cfg
 
-# Funzione mancante per i permessi
-set_permissions() {
-    echo -e "\033[1;33m🔒 Impostazione permessi...\033[0m"
-    chown -R www-data:www-data "${WP_DIR}"
-    find "${WP_DIR}" -type d -exec chmod 750 {} \;
-    find "${WP_DIR}" -type f -exec chmod 640 {} \;
-    chmod 600 "${WP_DIR}/wp-config.php"
-}
-
-install_wp() {
-    echo -e "\033[1;33m📥 Download WordPress...\033[0m"
+install_wordpress() {
+    echo -e "\033[1;33m📥 Installazione WordPress...\033[0m"
     
-    # Verifica spazio disco (modificato per maggiore accuratezza)
-    local disk_space=$(df --output=avail / | tail -1 | tr -d ' ')
-    if [ "$disk_space" -lt 1048576 ]; then  # Meno di 1GB disponibile
-        echo -e "\033[0;31m❌ Spazio disco insufficiente! Minimo 1GB richiesto.\033[0m"
-        exit 1
-    fi
-    
-    # Download con 3 tentativi
-    for i in {1..3}; do
-        if wget -q https://wordpress.org/latest.tar.gz -P /tmp; then
-            break
-        elif [ "$i" -eq 3 ]; then
-            echo -e "\033[0;31m❌ Download fallito dopo 3 tentativi!\033[0m"
-            exit 1
-        fi
-        sleep 3
-    done
-
-    # Verifica integrità archivio
-    if ! tar -tzf /tmp/latest.tar.gz >/dev/null; then
-        echo -e "\033[0;31m❌ Archivio corrotto! Ricaricare...\033[0m"
-        rm -f /tmp/latest.tar.gz
-        exit 1
-    fi
-
-    # Estrazione con gestione errori
-    if [ -d "${WP_DIR}" ]; then
-        echo -e "\033[1;33mℹ Directory WordPress esistente, backup in corso...\033[0m"
-        mv "${WP_DIR}" "${WP_DIR}.bak.$(date +%Y%m%d%H%M%S)"
-    fi
-
+    # Crea directory se non esiste
     mkdir -p "${WP_DIR}"
-    tar -xzf /tmp/latest.tar.gz -C /var/www/html || {
-        echo -e "\033[0;31m❌ Estrazione fallita! Verifica permessi e spazio.\033[0m"
-        exit 1
-    }
-
-    # Verifica directory estratta
-    local wp_temp="/var/www/html/wordpress"
-    if [ -d "$wp_temp" ]; then
-        if [ "$wp_temp" != "${WP_DIR}" ]; then
-            mv "$wp_temp" "${WP_DIR}" || {
-                echo -e "\033[0;31m❌ Spostamento fallito! Verifica permessi.\033[0m"
-                exit 1
-            }
-        fi
+    
+    # Scarica WordPress solo se necessario
+    if [ ! -f "${WP_DIR}/wp-includes/version.php" ]; then
+        echo -e "\033[1;34m⬇️ Download ultima versione WordPress...\033[0m"
+        wget -q https://wordpress.org/latest.tar.gz -P /tmp || {
+            echo -e "\033[0;31m❌ Download fallito!\033[0m"
+            return 1
+        }
+        
+        # Estrazione
+        tar -xzf /tmp/latest.tar.gz -C /var/www/html || {
+            echo -e "\033[0;31m❌ Estrazione fallita!\033[0m"
+            return 1
+        }
+        
+        # Pulizia
+        rm -f /tmp/latest.tar.gz
     else
-        echo -e "\033[0;31m❌ Directory WordPress non estratta correttamente!\033[0m"
-        exit 1
-    fi
-
-    rm -f /tmp/latest.tar.gz
-}
-
-configure_nginx() {
-    echo -e "\033[1;33m⚙️ Configurazione Nginx...\033[0m"
-    
-    local nginx_conf="/etc/nginx/sites-available/wordpress"
-    
-    # Backup configurazione esistente
-    if [ -f "$nginx_conf" ]; then
-        cp "$nginx_conf" "${nginx_conf}.bak.$(date +%Y%m%d%H%M%S)"
-    fi
-
-    # Template con variabili
-    cat > "$nginx_conf" <<EOF
-server {
-    listen 80;
-    server_name ${DOMAIN};
-    root ${WP_DIR};
-
-    index index.php;
-
-    access_log /var/log/nginx/wordpress.access.log;
-    error_log /var/log/nginx/wordpress.error.log;
-
-    location / {
-        try_files \$uri \$uri/ /index.php?\$args;
-    }
-
-    location ~ \.php\$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php${PHP_VERSION}-fpm.sock;
-        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
-        include fastcgi_params;
-    }
-
-    location ~ /\.ht {
-        deny all;
-    }
-}
-EOF
-
-    # Abilita il sito
-    ln -sf "$nginx_conf" "/etc/nginx/sites-enabled/"
-
-    if ! nginx -t; then
-        echo -e "\033[0;31m❌ Configurazione Nginx non valida!\033[0m"
-        exit 1
+        echo -e "\033[0;32m✔ WordPress già installato\033[0m"
     fi
     
-    systemctl reload nginx
+    # Configura permessi
+    chown -R www-data:www-data "${WP_DIR}"
+    find "${WP_DIR}" -type d -exec chmod 755 {} \;
+    find "${WP_DIR}" -type f -exec chmod 644 {} \;
 }
 
+configure_wp_config() {
+    echo -e "\033[1;33m🔧 Configurazione WordPress...\033[0m"
+    
+    # Crea wp-config.php solo se non esiste
+    if [ ! -f "${WP_DIR}/wp-config.php" ]; then
+        cp "${WP_DIR}/wp-config-sample.php" "${WP_DIR}/wp-config.php"
+        
+        # Genera chiavi di sicurezza
+        local salts=(
+            AUTH_KEY
+            SECURE_AUTH_KEY
+            LOGGED_IN_KEY
+            NONCE_KEY
+            AUTH_SALT
+            SECURE_AUTH_SALT
+            LOGGED_IN_SALT
+            NONCE_SALT
+        )
+        
+        for salt in "${salts[@]}"; do
+            local key=$(openssl rand -base64 48 | tr -d '\n=+/')
+            sed -i "/${salt}/s/put your unique phrase here/${key}/" "${WP_DIR}/wp-config.php"
+        done
+        
+        # Configura database
+        sed -i "s/database_name_here/${MYSQL_WP_DB}/" "${WP_DIR}/wp-config.php"
+        sed -i "s/username_here/${MYSQL_WP_USER}/" "${WP_DIR}/wp-config.php"
+        sed -i "s/password_here/${MYSQL_WP_PASS}/" "${WP_DIR}/wp-config.php"
+        
+        # Hardening
+        echo -e "\n/* Sicurezza aggiuntiva */" >> "${WP_DIR}/wp-config.php"
+        echo "define('DISALLOW_FILE_EDIT', true);" >> "${WP_DIR}/wp-config.php"
+        echo "define('FORCE_SSL_ADMIN', true);" >> "${WP_DIR}/wp-config.php"
+        
+        # Protezione file config
+        chmod 600 "${WP_DIR}/wp-config.php"
+    else
+        echo -e "\033[0;32m✔ Configurazione già esistente\033[0m"
+    fi
+}
+
+# Main
 echo -e "\033[1;36m🚀 Installazione WordPress...\033[0m"
-validate_config
-install_wp
-set_permissions
-configure_nginx
 
-echo -e "\033[0;32m✅ WordPress installato correttamente\033[0m"
+install_wordpress || exit 1
+configure_wp_config || exit 1
+
+echo -e "\033[0;32m✅ Installazione WordPress completata\033[0m"
