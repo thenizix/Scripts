@@ -11,105 +11,68 @@
 #                                                                                #
 # ****************************************************************************** #
 
-# ============================================================================== #
-#                          CONFIGURAZIONE DATABASE MARIADB/MYSQL                 #
-# ============================================================================== #
-# Questo script si occupa di:
-# 1. Configurare la sicurezza di base di MariaDB
-# 2. Creare il database WordPress
-# 3. Configurare l'utente WordPress con i permessi
-# ============================================================================== #
+# ****************************************************************************** #
+#                                                                                #
+#           CONFIGURAZIONE AVANZATA DATABASE MARIADB/MYSQL - WSL/Win             #
+#                                                                                #
+# ****************************************************************************** #
 
-# Caricamento configurazioni condivise
-source $(dirname "$0")/wp_installer.cfg
+source wp_installer.cfg
+exec > >(tee -a wp_install.log) 2>&1
 
-# ============================================================================== #
-#                          IMPOSTAZIONI COLORI E FUNZIONI                        #
-# ============================================================================== #
-RED='\033[0;31m'    # Colore per errori
-GREEN='\033[0;32m'  # Colore per successi
-YELLOW='\033[1;33m' # Colore per avvisi
-NC='\033[0m'        # Reset colore
+# Funzione per configurare la sicurezza di MySQL
+secure_mysql() {
+    echo -e "\033[1;33m🔐 Configurazione sicurezza MySQL...\033[0m"
+    
+    # Primo tentativo con password vuota
+    mysql -u root <<EOF 2>/dev/null || \
+    # Secondo tentativo con password configurata
+    mysql -u root -p"${MYSQL_ROOT_PASS}" <<EOF
+ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASS}';
+DELETE FROM mysql.user WHERE User='';
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+FLUSH PRIVILEGES;
+EOF
 
-# Funzione per eseguire query MySQL con doppio tentativo (con e senza password)
-_execute_mysql() {
-    local query="$1"
-    mysql -u root -p"$MYSQL_ROOT_PASS" -e "$query" 2>/dev/null || mysql -u root -e "$query" 2>/dev/null
+    if [ $? -ne 0 ]; then
+        echo -e "\033[0;31m❌ Configurazione fallita, reset completo MariaDB...\033[0m"
+        systemctl stop mariadb
+        rm -rf /var/lib/mysql/
+        mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+        systemctl start mariadb
+        secure_mysql  # Riprova
+    fi
 }
 
-# Funzione per verificare l'esito dei comandi
-_check() {
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}OK${NC}"
-    else
-        echo -e "${RED}FALLITO${NC}"
+# Funzione per creare il database WordPress
+setup_wp_database() {
+    echo -e "\033[1;33m💾 Creazione database WordPress...\033[0m"
+    mysql -u root -p"${MYSQL_ROOT_PASS}" <<EOF
+CREATE DATABASE IF NOT EXISTS ${MYSQL_WP_DB} 
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE USER IF NOT EXISTS '${MYSQL_WP_USER}'@'localhost' 
+IDENTIFIED BY '${MYSQL_WP_PASS}';
+
+GRANT ALL PRIVILEGES ON ${MYSQL_WP_DB}.* 
+TO '${MYSQL_WP_USER}'@'localhost';
+
+FLUSH PRIVILEGES;
+EOF
+
+    # Verifica che il database sia stato creato
+    if ! mysql -u root -p"${MYSQL_ROOT_PASS}" -e "USE ${MYSQL_WP_DB};" 2>/dev/null; then
+        echo -e "\033[0;31m❌ Creazione database fallita!\033[0m"
         exit 1
     fi
 }
 
-# ============================================================================== #
-#                          CONFIGURAZIONE SICUREZZA MYSQL                        #
-# ============================================================================== #
-echo -e "${YELLOW}[1/2] Configurazione sicurezza MariaDB...${NC}"
+# Main execution
+echo -e "\033[1;36m🚀 Configurazione database...\033[0m"
+validate_config
+secure_mysql
+setup_wp_database
 
-echo -n "Impostazione password root... "
-_execute_mysql "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';"
-_check
-
-echo -n "Rimozione utenti anonimi... "
-_execute_mysql "DELETE FROM mysql.user WHERE User='';"
-_check
-
-echo -n "Rimozione database di test... "
-_execute_mysql "DROP DATABASE IF EXISTS test;"
-_check
-
-echo -n "Rimozione accessi root remoti... "
-_execute_mysql "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
-_check
-
-echo -n "Applicazione modifiche... "
-_execute_mysql "FLUSH PRIVILEGES;"
-_check
-
-# ============================================================================== #
-#                          CREAZIONE DATABASE WORDPRESS                          #
-# ============================================================================== #
-echo -e "${YELLOW}\n[2/2] Configurazione database WordPress...${NC}"
-
-echo -n "Creazione database... "
-_execute_mysql "CREATE DATABASE IF NOT EXISTS $MYSQL_WP_DB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-_check
-
-echo -n "Creazione utente WordPress... "
-_execute_mysql "CREATE USER IF NOT EXISTS '$MYSQL_WP_USER'@'localhost' IDENTIFIED BY '$MYSQL_WP_PASS';"
-_check
-
-echo -n "Assegnazione permessi... "
-_execute_mysql "GRANT ALL PRIVILEGES ON $MYSQL_WP_DB.* TO '$MYSQL_WP_USER'@'localhost';"
-_check
-
-echo -n "Applicazione modifiche... "
-_execute_mysql "FLUSH PRIVILEGES;"
-_check
-
-# ============================================================================== #
-#                          VERIFICA CONFIGURAZIONE                               #
-# ============================================================================== #
-echo -e "${YELLOW}\nVerifica finale configurazione...${NC}"
-
-echo -n "Connessione al database... "
-_execute_mysql "SHOW DATABASES;" | grep -q "$MYSQL_WP_DB"
-_check
-
-echo -n "Verifica utente WordPress... "
-_execute_mysql "SELECT User FROM mysql.user;" | grep -q "$MYSQL_WP_USER"
-_check
-
-# ============================================================================== #
-#                          FINE SCRIPT                                           #
-# ============================================================================== #
-echo -e "${GREEN}\nFase 2 completata con successo!${NC}"
-echo -e "Procedi con l'esecuzione di: ${YELLOW}./3_wordpress_setup.sh${NC}"
-
-# test manuale :   mysql -u $MYSQL_WP_USER -p$MYSQL_WP_PASS -e "SHOW DATABASES;"
+echo -e "\033[0;32m✅ Database configurato correttamente\033[0m"

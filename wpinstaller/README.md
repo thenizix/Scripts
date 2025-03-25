@@ -1,58 +1,62 @@
-# 🚀 WordPress Nginx Auto-Installer (WSL Optimized)
+# WP-Nginx Auto-Installer
 
-> **Automazione completa per installazioni WordPress su WSL/Windows 11**  
-> _Configurazione ottimizzata per VM pulite e sviluppo locale_
+> Strumento per deploy automatizzato di WordPress su stack Nginx-PHP-MySQL (ottimizzato per WSL2/Windows)
 
-[![Licenza GPLv3](https://img.shields.io/badge/Licenza-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+## 🚀 Installazione
 
-## 📌 Funzionalità Principali
-- **Installazione automatica** di WordPress + Nginx + PHP + MariaDB
-- **Configurazione SSL** integrata (self-signed o Let's Encrypt)
-- **Ottimizzato per WSL2** e Windows 11
-- **Pulizia automatica** delle installazioni precedenti
-
-## 🛠️ Prerequisiti
-- Windows 10/11 con WSL2 attivo
-- Distro Ubuntu (consigliata 22.04 LTS)
-- Accesso amministrativo (sudo)
-
-## ⚡ Installazione Rapida
 ```bash
-# 1. Clona il repository
-git clone https://github.com/TheNizix/wordpress-nginx-installer.git
-cd wordpress-nginx-installer
+# 1. Clona solo la directory wpinstaller
+git clone --depth 1 --filter=blob:none --sparse https://github.com/TheNizix/Scripts.git && \
+cd Scripts && git sparse-checkout set wpinstaller && \
+chmod +x wpinstaller/ -R && cd wpinstaller
+```
 
-# 2. Modifica la configurazione (opzionale)
-nano wp_installer.cfg
+## ⚙️ Configurazione
 
-# 3. Avvia l'installazione
+Modificare prima dell'esecuzione:
+```bash
+nano wp_installer.cfg  # Modificare almeno:
+DOMAIN="tuo.dominio"       # O "localhost" per sviluppo
+ADMIN_EMAIL="admin@email"  # Per certificati SSL
+MYSQL_ROOT_PASS="***"      # Cambiare password di default!
+```
+
+## 🏁 Esecuzione
+```bash
 sudo ./launcher.sh
-🌐 Configurazione Dominio
-Modifica DOMAIN nel file di configurazione:
+```
+- **Self-Signed SSL**: Per sviluppo locale
+- **Let's Encrypt**: Per produzione (richiede dominio pubblico)
 
-```bash 
-DOMAIN="miosito.test"  # Sostituisci con il tuo dominio
-ADMIN_EMAIL="admin@miosito.test"
+## 🔧 Stack Installato
+| Componente  | Configurazione |
+|-------------|----------------|
+| Nginx       | Worker ottimizzati, Gzip, Headers sicurezza |
+| PHP-FPM     | Pool dinamico, Memory 256M, Opcache |
+| MariaDB     | Hardening automatico, UTF8mb4 |
+| WordPress   | Ultima versione, permessi sicuri |
 
-🔍 Test dell'Installazione
-bash
-Copy
-# Verifica servizi attivi
-systemctl status nginx mariadb php8.3-fpm
+## 🔒 Hardening
+- Generazione chiavi sicurezza uniche
+- Disabilitazione editor temi/plugin
+- Protezione file sensibili (.htaccess, wp-config)
+- Cipher SSL moderni (TLS 1.2/1.3)
 
-# Test connessione WordPress
-curl -I http://localhost
+## ⚡ Ottimizzazioni
+- **Nginx**: Keepalive 65s, Worker auto, Max body 64M
+- **PHP**: Timeout 300s, Upload 64M, Opcache
+- **DB**: Collation utf8mb4_unicode_ci
 
-📚 Risorse Utili
-(Documentazione WordPress)[https://wordpress.org/support/]
+## 🛠️ Troubleshooting
+```bash
+# Verifica servizi
+systemctl status nginx mariadb phpX.X-fpm
 
-(Configurazione Nginx)[https://nginx.org/en/docs/]
+# Log installazione
+tail -f wp_install.log
 
-(Guida Ufficiale WSL)[https://learn.microsoft.com/it-it/windows/wsl/]
+# Certificati SSL (Let's Encrypt)
+certbot certificates
+```
 
-📜 Licenza
-Questo progetto è rilasciato sotto licenza GPLv3.
-Riusa il codice citando l'autore:
-TheNizix <student@nowhere>  
-👋 Saluti e Baci 🚀
-Happy coding! 💻❤️
+📄 **Licenza**: GPLv3 - [TheNizix](https://github.com/TheNizix)

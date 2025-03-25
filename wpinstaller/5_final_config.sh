@@ -11,69 +11,63 @@
 #                                                                                #
 # ****************************************************************************** #
 
-# ============================================================================== #
-#                          OTTIMIZZAZIONI FINALI                                 #
-# ============================================================================== #
-# Questo script completa l'installazione con:
-# 1. Ottimizzazione PHP-FPM
-# 2. Configurazione WordPress
-# 3. Impostazioni di sicurezza aggiuntive
-# 4. Configurazione automatica cron jobs
-# ============================================================================== #
+# ****************************************************************************** #
+#                                                                                #
+#             OTTIMIZZAZIONI FINALI E HARDENING - WSL/Win                        #
+#                                                                                #
+# ****************************************************************************** #
 
-source $(dirname "$0")/wp_installer.cfg
+source wp_installer.cfg
+exec > >(tee -a wp_install.log) 2>&1
 
-# ============================================================================== #
-#                          IMPOSTAZIONI COLORI E FUNZIONI                        #
-# ============================================================================== #
-RED='\033[0;31m'    # Colore per errori
-GREEN='\033[0;32m'  # Colore per successi
-YELLOW='\033[1;33m' # Colore per avvisi
-NC='\033[0m'        # Reset colore
-
-_check() {
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}OK${NC}"
-    else
-        echo -e "${RED}FALLITO${NC}"
-        exit 1
-    fi
-}
-
-# ============================================================================== #
-#                          OTTIMIZZAZIONE PHP-FPM                                #
-# ============================================================================== #
-echo -e "${YELLOW}[1/4] Ottimizzazione PHP-FPM...${NC}"
-
-echo -n "Configurazione pool PHP... "
-cat > /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf <<EOF
+# Funzione per ottimizzare PHP-FPM
+optimize_php() {
+    echo -e "\033[1;33m⚡ Ottimizzazione PHP-FPM...\033[0m"
+    
+    cat > /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf <<EOF
 [www]
 user = www-data
 group = www-data
 listen = /run/php/php${PHP_VERSION}-fpm.sock
 listen.owner = www-data
 listen.group = www-data
+listen.mode = 0660
+
 pm = dynamic
 pm.max_children = 25
 pm.start_servers = 5
 pm.min_spare_servers = 3
 pm.max_spare_servers = 10
 pm.max_requests = 500
-php_admin_value[upload_max_filesize] = 64M
-php_admin_value[post_max_size] = 64M
-php_admin_value[memory_limit] = 256M
-php_admin_value[max_execution_time] = 300
+
+php_admin_value[memory_limit] = ${PHP_MEMORY_LIMIT}
+php_admin_value[max_execution_time] = ${PHP_MAX_EXECUTION_TIME}
+php_admin_value[upload_max_filesize] = ${PHP_UPLOAD_MAX_FILESIZE}
+php_admin_value[post_max_size] = ${PHP_POST_MAX_SIZE}
 php_admin_value[expose_php] = off
+php_admin_value[disable_functions] = exec,passthru,shell_exec,system
+php_admin_flag[display_errors] = off
 EOF
-_check
 
-# ============================================================================== #
-#                          CONFIGURAZIONE WORDPRESS                              #
-# ============================================================================== #
-echo -e "${YELLOW}[2/4] Configurazione WordPress...${NC}"
+    systemctl restart php${PHP_VERSION}-fpm
+}
 
-echo -n "Creazione wp-config.php... "
-cat > ${WP_DIR}/wp-config.php <<EOF
+# Funzione per configurare WordPress
+configure_wp() {
+    echo -e "\033[1;33m🔧 Configurazione WordPress...\033[0m"
+    
+    # Genera chiavi di sicurezza uniche
+    local auth_key=$(openssl rand -base64 48)
+    local secure_auth_key=$(openssl rand -base64 48)
+    local logged_in_key=$(openssl rand -base64 48)
+    local nonce_key=$(openssl rand -base64 48)
+    local auth_salt=$(openssl rand -base64 48)
+    local secure_auth_salt=$(openssl rand -base64 48)
+    local logged_in_salt=$(openssl rand -base64 48)
+    local nonce_salt=$(openssl rand -base64 48)
+
+    # Crea wp-config.php
+    cat > ${WP_DIR}/wp-config.php <<EOF
 <?php
 define('DB_NAME', '${MYSQL_WP_DB}');
 define('DB_USER', '${MYSQL_WP_USER}');
@@ -81,116 +75,74 @@ define('DB_PASSWORD', '${MYSQL_WP_PASS}');
 define('DB_HOST', 'localhost');
 define('DB_CHARSET', 'utf8mb4');
 define('DB_COLLATE', '');
-define('AUTH_KEY',         '$(openssl rand -base64 48)');
-define('SECURE_AUTH_KEY',  '$(openssl rand -base64 48)');
-define('LOGGED_IN_KEY',    '$(openssl rand -base64 48)');
-define('NONCE_KEY',        '$(openssl rand -base64 48)');
-define('AUTH_SALT',        '$(openssl rand -base64 48)');
-define('SECURE_AUTH_SALT', '$(openssl rand -base64 48)');
-define('LOGGED_IN_SALT',   '$(openssl rand -base64 48)');
-define('NONCE_SALT',       '$(openssl rand -base64 48)');
+
+/* Chiavi di sicurezza uniche */
+define('AUTH_KEY',         '${auth_key}');
+define('SECURE_AUTH_KEY',  '${secure_auth_key}');
+define('LOGGED_IN_KEY',    '${logged_in_key}');
+define('NONCE_KEY',        '${nonce_key}');
+define('AUTH_SALT',        '${auth_salt}');
+define('SECURE_AUTH_SALT', '${secure_auth_salt}');
+define('LOGGED_IN_SALT',   '${logged_in_salt}');
+define('NONCE_SALT',       '${nonce_salt}');
+
+/* Impostazioni HTTPS */
 define('WP_HOME', 'https://${DOMAIN}');
 define('WP_SITEURL', 'https://${DOMAIN}');
-define('WP_AUTO_UPDATE_CORE', true);
-define('FS_METHOD', 'direct');
-define('WP_HTTP_BLOCK_EXTERNAL', true);
-define('WP_ACCESSIBLE_HOSTS', '*.github.com,*.wordpress.org');
+
+/* Debug & Sicurezza */
+define('WP_DEBUG', false);
+define('WP_DEBUG_LOG', false);
+define('WP_DEBUG_DISPLAY', false);
+define('DISALLOW_FILE_EDIT', true);
+define('FORCE_SSL_ADMIN', true);
+
 \$table_prefix = 'wp_';
 if ( !defined('ABSPATH') )
     define('ABSPATH', dirname(__FILE__) . '/');
 require_once(ABSPATH . 'wp-settings.php');
 EOF
-_check
 
-echo -n "Impostazione permessi wp-config.php... "
-chmod 640 ${WP_DIR}/wp-config.php
-chown www-data:www-data ${WP_DIR}/wp-config.php
-_check
-
-# ============================================================================== #
-#                          SICUREZZA AGGIUNTIVA                                  #
-# ============================================================================== #
-echo -e "${YELLOW}[3/4] Hardening aggiuntivo...${NC}"
-
-echo -n "Disabilitazione editor integrato... "
-cat >> ${WP_DIR}/wp-config.php <<EOF
-define('DISALLOW_FILE_EDIT', true);
-EOF
-_check
-
-echo -n "Configurazione file .htaccess... "
-cat > ${WP_DIR}/.htaccess <<EOF
+    # Protezione aggiuntiva
+    touch ${WP_DIR}/.htaccess
+    cat > ${WP_DIR}/.htaccess <<EOF
 # Blocca accesso a file sensibili
 <FilesMatch "^(wp-config\.php|xmlrpc\.php)">
     Require all denied
 </FilesMatch>
 
-# Protezione cartelle
+# Disabilita directory listing
 Options -Indexes
 
-# Blocca hotlinking
+# Protezione anti-hotlinking
 RewriteEngine On
 RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !^https://${DOMAIN} [NC]
 RewriteRule \.(jpg|jpeg|png|gif)$ - [NC,F,L]
+
+# Compressione
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript
+</IfModule>
 EOF
-_check
+}
 
-# ============================================================================== #
-#                          MANUTENZIONE AUTOMATICA                               #
-# ============================================================================== #
-echo -e "${YELLOW}[4/4] Configurazione manutenzione...${NC}"
+# Funzione per impostare i cron jobs
+setup_cron() {
+    echo -e "\033[1;33m⏰ Configurazione cron jobs...\033[0m"
+    
+    # Backup giornaliero del database
+    (crontab -l 2>/dev/null; echo "0 2 * * * mysqldump -u ${MYSQL_WP_USER} -p'${MYSQL_WP_PASS}' ${MYSQL_WP_DB} | gzip > /var/backups/wp_db_$(date +\%Y\%m\%d).sql.gz") | crontab -
+    
+    # Pulizia settimanale
+    (crontab -l 2>/dev/null; echo "0 3 * * 0 find ${WP_DIR}/wp-content/upgrade/ -type d -mtime +7 -exec rm -rf {} +") | crontab -
+}
 
-echo -n "Pulizia automatica aggiornamenti... "
-(crontab -l 2>/dev/null; echo "0 3 * * * find ${WP_DIR}/wp-content/upgrade/ -type d -mtime +7 -exec rm -rf {} +") | crontab -
-_check
+# Main execution
+echo -e "\033[1;36m🚀 Configurazione finale...\033[0m"
+validate_config
+optimize_php
+configure_wp
+setup_cron
 
-echo -n "Backup automatico database... "
-(crontab -l 2>/dev/null; echo "0 2 * * * mysqldump -u ${MYSQL_WP_USER} -p'${MYSQL_WP_PASS}' ${MYSQL_WP_DB} | gzip > /var/backups/wp_db_\$(date +\%Y\%m\%d).sql.gz") | crontab -
-_check
-
-# ============================================================================== #
-#                          RIAVVIO SERVIZI                                       #
-# ============================================================================== #
-echo -e "${YELLOW}\nRiavvio servizi...${NC}"
-
-echo -n "Riavvio PHP-FPM... "
-systemctl restart php${PHP_VERSION}-fpm
-_check
-
-echo -n "Riavvio Nginx... "
-systemctl restart nginx
-_check
-
-# ============================================================================== #
-#                          VERIFICA FINALE                                       #
-# ============================================================================== #
-echo -e "${YELLOW}\nVerifica finale configurazione...${NC}"
-
-echo -n "Verifica connessione database... "
-wp --path=${WP_DIR} db check >/dev/null 2>&1
-_check
-
-echo -n "Verifica HTTPS funzionante... "
-curl -Is https://${DOMAIN} | grep -q "HTTP/.* 200"
-_check
-
-# ============================================================================== #
-#                          FINE SCRIPT                                           #
-# ============================================================================== #
-echo -e "${GREEN}\nConfigurazione completata con successo!${NC}"
-echo -e "Accesso al sito: ${YELLOW}https://${DOMAIN}${NC}"
-echo -e "Credenziali amministratore WordPress:"
-echo -e "  - Database: ${YELLOW}${MYSQL_WP_USER} / ${MYSQL_WP_PASS}${NC}"
-echo -e "  - File di configurazione: ${YELLOW}${WP_DIR}/wp-config.php${NC}"
-
-=== Verifica ===
-
-# Verifica chiavi di sicurezza
-#grep -A1 "AUTH_KEY" ${WP_DIR}/wp-config.php
-
-# Test backup database
-#ls -lh /var/backups/wp_db_*.sql.gz
-
-# Verifica cron jobs
-#crontab -l
+echo -e "\033[0;32m✅ Ottimizzazioni completate\033[0m"
