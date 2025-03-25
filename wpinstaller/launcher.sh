@@ -26,6 +26,27 @@ pre_flight_check() {
     command -v nginx >/dev/null || { echo -e "${RED}❌ Nginx non installato!${NC}"; exit 1; }
 }
 
+
+ run_script() {
+    local script="$1"
+    if [ -f "$script" ]; then
+        echo -e "\033[1;36m▶ Esecuzione di $script...\033[0m"
+        ./"$script"
+    else
+        echo -e "\033[0;31m❌ Script $script non trovato!\033[0m"
+        exit 1
+    fi
+}
+
+full_installation() {
+    run_script "1_system_setup.sh"
+    run_script "2_mysql_setup.sh"
+    run_script "3_wordpress_setup.sh"
+    run_script "4_ssl_setup.sh"
+    run_script "5_final_config.sh"
+    run_script "6_letsencrypt.sh"
+    echo -e "\033[1;32m✅ Installazione completata con successo!\033[0m"
+}
 # Menu interattivo migliorato
 show_menu() {
     while true; do
