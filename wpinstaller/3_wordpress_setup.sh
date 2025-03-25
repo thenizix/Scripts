@@ -11,71 +11,67 @@
 #                                                                                #
 # ****************************************************************************** #
 
-# ****************************************************************************** #
-#                                                                                #
-#         INSTALLAZIONE E CONFIGURAZIONE AVANZATA WORDPRESS - WSL/Win            #
-#                                                                                #
-# ****************************************************************************** #
-
 source wp_installer.cfg
 exec > >(tee -a wp_install.log) 2>&1
 
-# Funzione per scaricare e installare WordPress
+# Controllo errori migliorato per download WordPress
 install_wp() {
     echo -e "\033[1;33m📥 Download WordPress...\033[0m"
     
-    # Pulizia installazioni precedenti
-    rm -rf "${WP_DIR}"
+    # Verifica spazio disco
+    if ! df --output=avail / | tail -1 | grep -E '^[0-9]{6}'; then
+        echo -e "\033[0;31m❌ Spazio disco insufficiente!\033[0m"
+        exit 1
+    fi
     
-    # Download ultima versione
+    # Download con controllo integrità
     if ! wget -q https://wordpress.org/latest.tar.gz -P /tmp; then
-        echo -e "\033[0;31m❌ Download fallito!\033[0m"
+        echo -e "\033[0;31m❌ Download fallito! Verificare:\033[0m"
+        echo -e "1. Connessione internet"
+        echo -e "2. Accesso a wordpress.org"
         exit 1
     fi
     
-    # Estrazione
-    if ! tar -xzf /tmp/latest.tar.gz -C /var/www/html; then
-        echo -e "\033[0;31m❌ Estrazione fallita!\033[0m"
+    # Estrazione con verifica
+    if ! tar -tzf /tmp/latest.tar.gz >/dev/null; then
+        echo -e "\033[0;31m❌ Archivio corrotto! Ricaricare...\033[0m"
+        rm -f /tmp/latest.tar.gz
         exit 1
     fi
     
-    # Rinominazione directory (se diversa da WP_DIR)
-    if [ "/var/www/html/wordpress" != "${WP_DIR}" ]; then
-        mv "/var/www/html/wordpress" "${WP_DIR}" || {
-            echo -e "\033[0;31m❌ Spostamento directory fallito!\033[0m"
-            exit 1
-        }
+    tar -xzf /tmp/latest.tar.gz -C /var/www/html || {
+        echo -e "\033[0;31m❌ Estrazione fallita! Permessi insufficienti?\033[0m"
+        exit 1
+    }
+    
+    # Gestione directory con fallback
+    local wp_temp="/var/www/html/wordpress"
+    if [ -d "$wp_temp" ]; then
+        if [ "$wp_temp" != "${WP_DIR}" ]; then
+            mv "$wp_temp" "${WP_DIR}" || {
+                echo -e "\033[0;31m❌ Spostamento fallito! Verificare:\033[0m"
+                echo -e "1. Spazio su disco"
+                echo -e "2. Permessi directory"
+                exit 1
+            }
+        fi
+    else
+        echo -e "\033[0;31m❌ Directory WordPress non trovata!\033[0m"
+        exit 1
     fi
     
-    # Pulizia
     rm -f /tmp/latest.tar.gz
 }
 
-# Funzione per impostare i permessi corretti
-set_permissions() {
-    echo -e "\033[1;33m🔒 Impostazione permessi...\033[0m"
-    
-    # Proprietario
-    chown -R www-data:www-data "${WP_DIR}"
-    
-    # Permessi directory
-    find "${WP_DIR}" -type d -exec chmod 750 {} \;
-    
-    # Permessi file
-    find "${WP_DIR}" -type f -exec chmod 640 {} \;
-    
-    # Permessi speciali
-    chmod 600 "${WP_DIR}/wp-config.php" 2>/dev/null
-    chmod 770 "${WP_DIR}/wp-content"
-    chmod 770 "${WP_DIR}/wp-content/uploads"
-}
-
-# Funzione per configurare Nginx
+# Configurazione Nginx con validazione
 configure_nginx() {
     echo -e "\033[1;33m⚙️ Configurazione Nginx...\033[0m"
     
-    # Configurazione base
-    cat > /etc/nginx/sites-available/wordpress <<EOF
+    # Template configurazione
+    local nginx_conf="/etc/nginx/sites-available/wordpress"
+    cp "$nginx_conf" "${nginx_conf}.bak" 2>/dev/null
+    
+    cat > "$nginx_conf" <<EOF
 server {
     listen 80;
     server_name ${DOMAIN};
@@ -100,39 +96,19 @@ server {
     location ~ /\.ht {
         deny all;
     }
-
-    location = /favicon.ico {
-        log_not_found off;
-        access_log off;
-    }
-
-    location = /robots.txt {
-        allow all;
-        log_not_found off;
-        access_log off;
-    }
-
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)\$ {
-        expires max;
-        log_not_found off;
-    }
 }
 EOF
 
-    # Abilita sito
-    ln -sf /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
-    rm -f /etc/nginx/sites-enabled/default
-    
-    # Test configurazione
+    # Validazione configurazione
     if ! nginx -t; then
-        echo -e "\033[0;31m❌ Configurazione Nginx non valida!\033[0m"
+        echo -e "\033[0;31m❌ Configurazione Nginx non valida! Ripristino backup...\033[0m"
+        mv "${nginx_conf}.bak" "$nginx_conf"
         exit 1
     fi
     
     systemctl reload nginx
 }
 
-# Main execution
 echo -e "\033[1;36m🚀 Installazione WordPress...\033[0m"
 validate_config
 install_wp

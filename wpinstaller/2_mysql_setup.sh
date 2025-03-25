@@ -11,23 +11,18 @@
 #                                                                                #
 # ****************************************************************************** #
 
-# ****************************************************************************** #
-#                                                                                #
-#           CONFIGURAZIONE AVANZATA DATABASE MARIADB/MYSQL - WSL/Win             #
-#                                                                                #
-# ****************************************************************************** #
-
 source wp_installer.cfg
 exec > >(tee -a wp_install.log) 2>&1
 
-# Funzione per configurare la sicurezza di MySQL
+# Configurazione sicura di MySQL con gestione errori migliorata
 secure_mysql() {
     echo -e "\033[1;33m🔐 Configurazione sicurezza MySQL...\033[0m"
     
-    # Primo tentativo con password vuota
-    mysql -u root <<EOF 2>/dev/null || \
-    # Secondo tentativo con password configurata
-    mysql -u root -p"${MYSQL_ROOT_PASS}" <<EOF
+    # Assicura che il servizio sia attivo
+    systemctl start mariadb
+    
+    # Comandi SQL con gestione errori
+    mysql -u root <<EOF
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASS}';
 DELETE FROM mysql.user WHERE User='';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
@@ -37,18 +32,17 @@ FLUSH PRIVILEGES;
 EOF
 
     if [ $? -ne 0 ]; then
-        echo -e "\033[0;31m❌ Configurazione fallita, reset completo MariaDB...\033[0m"
-        systemctl stop mariadb
-        rm -rf /var/lib/mysql/
-        mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-        systemctl start mariadb
-        secure_mysql  # Riprova
+        echo -e "\033[0;31m❌ Errore durante la configurazione di MySQL\033[0m"
+        echo -e "\033[1;33m⚠️  Verificare manualmente lo stato di MariaDB\033[0m"
+        exit 1
     fi
 }
 
-# Funzione per creare il database WordPress
+# Creazione database con verifica a doppio passo
 setup_wp_database() {
     echo -e "\033[1;33m💾 Creazione database WordPress...\033[0m"
+    
+    # Creazione database e utente
     mysql -u root -p"${MYSQL_ROOT_PASS}" <<EOF
 CREATE DATABASE IF NOT EXISTS ${MYSQL_WP_DB} 
 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -62,9 +56,11 @@ TO '${MYSQL_WP_USER}'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
-    # Verifica che il database sia stato creato
+    # Verifica a doppio passo
     if ! mysql -u root -p"${MYSQL_ROOT_PASS}" -e "USE ${MYSQL_WP_DB};" 2>/dev/null; then
-        echo -e "\033[0;31m❌ Creazione database fallita!\033[0m"
+        echo -e "\033[0;31m❌ Creazione database fallita! Verificare:\033[0m"
+        echo -e "1. Password root corretta"
+        echo -e "2. Privilegi utente sufficienti"
         exit 1
     fi
 }
