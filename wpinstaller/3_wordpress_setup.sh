@@ -61,22 +61,33 @@ configure_wp_settings() {
         cp wp-config-sample.php wp-config.php
         
         # Configurazione database con awk (più robusto di sed)
-        awk -v dbname="${MYSQL_WP_DB}" -v dbuser="${MYSQL_WP_USER}" -v dbpass="${MYSQL_WP_PASS}" '
-            /database_name_here/ {sub("database_name_here", dbname)}
-            /username_here/ {sub("username_here", dbuser)}
-            /password_here/ {sub("password_here", dbpass)}
-            {print}
+        awk -v dbname="${MYSQL_WP_DB}" \
+            -v dbuser="${MYSQL_WP_USER}" \
+            -v dbpass="${MYSQL_WP_PASS}" '
+            /database_name_here/ { gsub("database_name_here", dbname) }
+            /username_here/ { gsub("username_here", dbuser) }
+            /password_here/ { gsub("password_here", dbpass) }
+            { print }
         ' wp-config.php > wp-config.temp && mv wp-config.temp wp-config.php
         
         # Aggiungi impostazioni di sicurezza
-        echo -e "\n/* Impostazioni di sicurezza */" >> wp-config.php
-        echo "define('DISALLOW_FILE_EDIT', true);" >> wp-config.php
-        echo "define('FORCE_SSL_ADMIN', true);" >> wp-config.php
+        {
+            echo ""
+            echo "/* Impostazioni di sicurezza */"
+            echo "define('DISALLOW_FILE_EDIT', true);"
+            echo "define('FORCE_SSL_ADMIN', true);"
+        } >> wp-config.php
         
         # Genera chiavi di sicurezza
         for key in AUTH_KEY SECURE_AUTH_KEY LOGGED_IN_KEY NONCE_KEY AUTH_SALT SECURE_AUTH_SALT LOGGED_IN_SALT NONCE_SALT; do
             salt=$(openssl rand -base64 48 | tr -dc 'a-zA-Z0-9!@#$%^&*()_+-=' | head -c 64)
-            sed -i "/${key}/s/put your unique phrase here/${salt}/" wp-config.php
+            # Usa awk invece di sed per la sostituzione
+            awk -v key="${key}" -v salt="${salt}" '
+                $0 ~ key { 
+                    sub(/put your unique phrase here/, salt) 
+                }
+                { print }
+            ' wp-config.php > wp-config.temp && mv wp-config.temp wp-config.php
         done
     fi
     
