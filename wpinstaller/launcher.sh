@@ -42,88 +42,41 @@ run_script() {
         return 1
     fi
     
-    if ! bash "$script"; then
-        echo -e "${RED}❌ Errore durante $script!${NC}"
+    # Esegui in subshell per catturare meglio gli errori
+    (bash "$script")
+    local status=$?
+    
+    if [ $status -ne 0 ]; then
+        echo -e "${RED}❌ Errore durante $script (status: $status)${NC}"
         echo -e "${YELLOW}ℹ Consulta il log: $LOG_FILE${NC}"
-        return 1
+        return $status
     fi
     
     return 0
 }
 
-# Installazione completa
 full_installation() {
     echo -e "\n${BLUE}🚀 INIZIO INSTALLAZIONE COMPLETA 🚀${NC}"
     
-    for script in "${SCRIPTS[@]}"; do
+    # Esegui gli script base
+    for script in "1_system_setup.sh" "2_mysql_setup.sh" "3_wordpress_setup.sh"; do
         if ! run_script "$script"; then
             echo -e "${RED}❌ Installazione interrotta!${NC}"
             exit 1
         fi
     done
     
+    # Chiedi all'utente se vuole configurare SSL
+    read -p "Configurare SSL? [s/n]: " ssl_choice
+    case "$ssl_choice" in
+        [sS]*) run_script "4_ssl_setup.sh" ;;
+        *) echo -e "${YELLOW}ℹ SSL non configurato${NC}" ;;
+    esac
+    
+    # Configurazioni finali
+    run_script "5_final_config.sh"
+    
     echo -e "\n${GREEN}✅ INSTALLAZIONE COMPLETATA!${NC}"
     echo -e "${YELLOW}ℹ Log completo: $LOG_FILE${NC}"
+    echo -e "\n${BLUE}🔗 URL Admin: http://${DOMAIN}/wp-admin${NC}"
 }
-
-# Configurazione SSL
-ssl_setup() {
-    echo -e "\n${BLUE}🔐 CONFIGURAZIONE SSL${NC}"
-    run_script "4_ssl_setup.sh"
-}
-
-# Riparazione
-repair_installation() {
-    echo -e "\n${BLUE}🔧 RIPARAZIONE INSTALLAZIONE${NC}"
-    run_script "5_final_config.sh"
-}
-
-# Menu principale
-show_menu() {
-    while true; do
-        clear
-        echo -e "${BLUE}
-===================================================
-      INSTALLAZIONE WORDPRESS SU NGINX - WSL/Win
-===================================================
-${NC}"
-        echo -e "${YELLOW}1.${NC} Installazione completa"
-        echo -e "${YELLOW}2.${NC} Configurazione SSL"
-        echo -e "${YELLOW}3.${NC} Riparazione installazione"
-        echo -e "${YELLOW}4.${NC} Uscita"
-        echo -ne "\n${BLUE}Scelta: ${NC}"
-        
-        read -r choice
-        case $choice in
-            1) full_installation; break ;;
-            2) ssl_setup; break ;;
-            3) repair_installation; break ;;
-            4) exit 0 ;;
-            *) echo -e "${RED}Scelta non valida!${NC}"; sleep 1 ;;
-        esac
-    done
-}
-
-# Verifica preliminare
-pre_flight_check() {
-    echo -e "${BLUE}🔍 Verifica preliminare...${NC}"
-    
-    # Verifica root
-    if [ "$(id -u)" -ne 0 ]; then
-        echo -e "${RED}❌ Esegui come root/sudo!${NC}"
-        exit 1
-    fi
-    
-    # Verifica file di configurazione
-    if [ ! -f "wp_installer.cfg" ]; then
-        echo -e "${RED}❌ File wp_installer.cfg mancante!${NC}"
-        exit 1
-    fi
-    
-    echo -e "${GREEN}✅ Tutti i controlli superati${NC}"
-}
-
-# Main
-exec > >(tee -a "$LOG_FILE") 2>&1
-pre_flight_check
-show_menu
