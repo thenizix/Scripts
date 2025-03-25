@@ -10,17 +10,19 @@
 #    Updated: 2025/03/25 15:00:00 by TheNizix         ###   ######## Firenze     #
 #                                                                                #
 # ****************************************************************************** #
-#Converti i cr di TUTTI i file .sh contemporaneamente:
-#dos2unix *.sh
-# ================= CONFIGURAZIONE COLORI =================
+
+# Configurazione colori
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-# ================= VARIABILI GLOBALI =================
-LOG_FILE="wp_install.log"
+# Percorsi script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+LOG_FILE="$SCRIPT_DIR/wp_install.log"
+
+# Lista script in ordine di esecuzione
 SCRIPTS=(
     "1_system_setup.sh"
     "2_mysql_setup.sh"
@@ -30,36 +32,7 @@ SCRIPTS=(
     "6_letsencrypt.sh"
 )
 
-# ================= FUNZIONI PRINCIPALI =================
-
-# Verifica preliminare prima dell'esecuzione
-pre_flight_check() {
-    echo -e "${BLUE}🔍 Verifica preliminare...${NC}"
-    
-    # Verifica permessi root
-    if [ "$(id -u)" -ne 0 ]; then
-        echo -e "${RED}❌ Questo script deve essere eseguito come root!${NC}"
-        exit 1
-    fi
-    
-    # Verifica presenza file di configurazione
-    if [ ! -f "wp_installer.cfg" ]; then
-        echo -e "${RED}❌ File di configurazione wp_installer.cfg mancante!${NC}"
-        exit 1
-    fi
-    
-    # Verifica script di installazione
-    for script in "${SCRIPTS[@]}"; do
-        if [ ! -f "$script" ]; then
-            echo -e "${RED}❌ Script $script mancante!${NC}"
-            exit 1
-        fi
-    done
-    
-    echo -e "${GREEN}✅ Tutti i controlli superati${NC}"
-}
-
-# Esegue uno script con logging e gestione errori
+# Funzione per eseguire gli script
 run_script() {
     local script="$1"
     echo -e "\n${BLUE}▶ Esecuzione di $script...${NC}"
@@ -70,8 +43,8 @@ run_script() {
     fi
     
     if ! bash "$script"; then
-        echo -e "${RED}❌ Errore durante l'esecuzione di $script!${NC}"
-        echo -e "${YELLOW}ℹ Consulta il file di log $LOG_FILE per i dettagli${NC}"
+        echo -e "${RED}❌ Errore durante $script!${NC}"
+        echo -e "${YELLOW}ℹ Consulta il log: $LOG_FILE${NC}"
         return 1
     fi
     
@@ -89,8 +62,8 @@ full_installation() {
         fi
     done
     
-    echo -e "\n${GREEN}✅ INSTALLAZIONE COMPLETATA CON SUCCESSO!${NC}"
-    echo -e "${YELLOW}ℹ Log completo disponibile in $LOG_FILE${NC}"
+    echo -e "\n${GREEN}✅ INSTALLAZIONE COMPLETATA!${NC}"
+    echo -e "${YELLOW}ℹ Log completo: $LOG_FILE${NC}"
 }
 
 # Configurazione SSL
@@ -99,13 +72,13 @@ ssl_setup() {
     run_script "4_ssl_setup.sh"
 }
 
-# Riparazione installazione
+# Riparazione
 repair_installation() {
     echo -e "\n${BLUE}🔧 RIPARAZIONE INSTALLAZIONE${NC}"
     run_script "5_final_config.sh"
 }
 
-# Menu interattivo
+# Menu principale
 show_menu() {
     while true; do
         clear
@@ -126,18 +99,31 @@ ${NC}"
             2) ssl_setup; break ;;
             3) repair_installation; break ;;
             4) exit 0 ;;
-            *) echo -e "${RED}Scelta non valida! Riprovare.${NC}"; sleep 1 ;;
+            *) echo -e "${RED}Scelta non valida!${NC}"; sleep 1 ;;
         esac
     done
 }
 
-# ================= ESECUZIONE PRINCIPALE =================
-main() {
-    # Reindirizza stdout e stderr al log file
-    exec > >(tee -a "$LOG_FILE") 2>&1
+# Verifica preliminare
+pre_flight_check() {
+    echo -e "${BLUE}🔍 Verifica preliminare...${NC}"
     
-    pre_flight_check
-    show_menu
+    # Verifica root
+    if [ "$(id -u)" -ne 0 ]; then
+        echo -e "${RED}❌ Esegui come root/sudo!${NC}"
+        exit 1
+    fi
+    
+    # Verifica file di configurazione
+    if [ ! -f "wp_installer.cfg" ]; then
+        echo -e "${RED}❌ File wp_installer.cfg mancante!${NC}"
+        exit 1
+    fi
+    
+    echo -e "${GREEN}✅ Tutti i controlli superati${NC}"
 }
 
-main "$@"
+# Main
+exec > >(tee -a "$LOG_FILE") 2>&1
+pre_flight_check
+show_menu
