@@ -2,9 +2,9 @@
 # ****************************************************************************** #
 #                                                                                #
 #                                                         :::      ::::::::      #
-#    1_system_setup.sh                                   :+:      :+:    :+:     #
+#    1_system_setup.sh                                 :+:      :+:    :+:      #
 #                                                     +:+ +:+         +:+        #
-#    By: TheNizix                                   +#+  +:+       +#+           #
+#    By: TheNizix <thenizix@protonmail.com>         +#+  +:+       +#+           #
 #                                                 +#+#+#+#+#+   +#+              #
 #    Created: 2025/03/25 15:00:00 by TheNizix          #+#    #+#                #
 #    Updated: 2025/03/25 15:00:00 by TheNizix         ###   ######## Firenze     #
@@ -12,9 +12,8 @@
 # ****************************************************************************** #
 
 source wp_installer.cfg
-exec > >(tee -a wp_install.log) 2>&1
 
-# Funzione migliorata per verificare la connessione internet
+# Funzione per verificare la connessione internet
 check_internet() {
     echo -e "\033[1;33m🔍 Verifica connessione internet...\033[0m"
     if ! ping -c 1 -W 3 google.com &>/dev/null; then
@@ -31,7 +30,7 @@ clean_previous() {
     # Arresto servizi specifici
     systemctl stop nginx mariadb php${PHP_VERSION}-fpm 2>/dev/null
     
-    # Rimozione mirata dei pacchetti (evitando wildcard pericolosi)
+    # Rimozione mirata dei pacchetti
     apt purge -y nginx mariadb-server php${PHP_VERSION}-fpm \
        php${PHP_VERSION}-mysql php${PHP_VERSION}-curl php${PHP_VERSION}-gd \
        php${PHP_VERSION}-mbstring php${PHP_VERSION}-xml php${PHP_VERSION}-zip \
@@ -44,16 +43,6 @@ clean_previous() {
     find /var/www/ -type d -exec chmod 755 {} \;
     find /var/www/ -type f -exec chmod 644 {} \;
 }
-
-
-check_mariadb_installation() {
-    if ! command -v mariadb &>/dev/null; then
-        echo -e "\033[0;31m❌ MariaDB non installato correttamente!\033[0m"
-        apt purge -y mariadb*
-        apt install -y mariadb-server
-    fi
-}
-
 
 # Verifica presenza dipendenze critiche
 check_dependencies() {
@@ -69,6 +58,27 @@ check_dependencies() {
     if [ ${#missing[@]} -gt 0 ]; then
         echo -e "\033[0;31m❌ Componenti mancanti: ${missing[*]}\033[0m"
         apt update && apt install -y "${missing[@]}" || exit 1
+    fi
+}
+
+# Ottimizzazione configurazione Nginx
+optimize_nginx() {
+    echo -e "\033[1;33m⚡ Ottimizzazione Nginx...\033[0m"
+    
+    local nginx_conf="/etc/nginx/nginx.conf"
+    cp "$nginx_conf" "${nginx_conf}.bak"
+    
+    # Impostazioni ottimizzate
+    sed -i "s/^worker_processes.*/worker_processes ${NGINX_WORKER_PROCESSES};/" "$nginx_conf"
+    sed -i "s/^worker_connections.*/worker_connections ${NGINX_WORKER_CONNECTIONS};/" "$nginx_conf"
+    sed -i "s/^keepalive_timeout.*/keepalive_timeout ${NGINX_KEEPALIVE_TIMEOUT};/" "$nginx_conf"
+    sed -i "s/^client_max_body_size.*/client_max_body_size ${NGINX_CLIENT_MAX_BODY_SIZE};/" "$nginx_conf"
+    
+    # Verifica configurazione
+    if ! nginx -t; then
+        echo -e "\033[0;31m❌ Configurazione Nginx non valida! Ripristino backup...\033[0m"
+        mv "${nginx_conf}.bak" "$nginx_conf"
+        exit 1
     fi
 }
 

@@ -2,9 +2,9 @@
 # ****************************************************************************** #
 #                                                                                #
 #                                                         :::      ::::::::      #
-#    3_wordpress_setup.sh                               :+:      :+:    :+:      #
+#    3_wordpress_setup.sh                              :+:      :+:    :+:      #
 #                                                     +:+ +:+         +:+        #
-#    By: TheNizix                                   +#+  +:+       +#+           #
+#    By: TheNizix <thenizix@protonmail.com>         +#+  +:+       +#+           #
 #                                                 +#+#+#+#+#+   +#+              #
 #    Created: 2025/03/25 15:00:00 by TheNizix          #+#    #+#                #
 #    Updated: 2025/03/25 15:00:00 by TheNizix         ###   ######## Firenze     #
@@ -12,65 +12,84 @@
 # ****************************************************************************** #
 
 source wp_installer.cfg
-exec > >(tee -a wp_install.log) 2>&1
 
-# Controllo errori migliorato per download WordPress
+# Funzione mancante per i permessi
+set_permissions() {
+    echo -e "\033[1;33m🔒 Impostazione permessi...\033[0m"
+    chown -R www-data:www-data "${WP_DIR}"
+    find "${WP_DIR}" -type d -exec chmod 750 {} \;
+    find "${WP_DIR}" -type f -exec chmod 640 {} \;
+    chmod 600 "${WP_DIR}/wp-config.php"
+}
+
 install_wp() {
     echo -e "\033[1;33m📥 Download WordPress...\033[0m"
     
-    # Verifica spazio disco
-    if ! df --output=avail / | tail -1 | grep -E '^[0-9]{6}'; then
-        echo -e "\033[0;31m❌ Spazio disco insufficiente!\033[0m"
+    # Verifica spazio disco (modificato per maggiore accuratezza)
+    local disk_space=$(df --output=avail / | tail -1 | tr -d ' ')
+    if [ "$disk_space" -lt 1048576 ]; then  # Meno di 1GB disponibile
+        echo -e "\033[0;31m❌ Spazio disco insufficiente! Minimo 1GB richiesto.\033[0m"
         exit 1
     fi
     
-    # Download con controllo integrità
-    if ! wget -q https://wordpress.org/latest.tar.gz -P /tmp; then
-        echo -e "\033[0;31m❌ Download fallito! Verificare:\033[0m"
-        echo -e "1. Connessione internet"
-        echo -e "2. Accesso a wordpress.org"
-        exit 1
-    fi
-    
-    # Estrazione con verifica
+    # Download con 3 tentativi
+    for i in {1..3}; do
+        if wget -q https://wordpress.org/latest.tar.gz -P /tmp; then
+            break
+        elif [ "$i" -eq 3 ]; then
+            echo -e "\033[0;31m❌ Download fallito dopo 3 tentativi!\033[0m"
+            exit 1
+        fi
+        sleep 3
+    done
+
+    # Verifica integrità archivio
     if ! tar -tzf /tmp/latest.tar.gz >/dev/null; then
         echo -e "\033[0;31m❌ Archivio corrotto! Ricaricare...\033[0m"
         rm -f /tmp/latest.tar.gz
         exit 1
     fi
-    
+
+    # Estrazione con gestione errori
+    if [ -d "${WP_DIR}" ]; then
+        echo -e "\033[1;33mℹ Directory WordPress esistente, backup in corso...\033[0m"
+        mv "${WP_DIR}" "${WP_DIR}.bak.$(date +%Y%m%d%H%M%S)"
+    fi
+
+    mkdir -p "${WP_DIR}"
     tar -xzf /tmp/latest.tar.gz -C /var/www/html || {
-        echo -e "\033[0;31m❌ Estrazione fallita! Permessi insufficienti?\033[0m"
+        echo -e "\033[0;31m❌ Estrazione fallita! Verifica permessi e spazio.\033[0m"
         exit 1
     }
-    
-    # Gestione directory con fallback
+
+    # Verifica directory estratta
     local wp_temp="/var/www/html/wordpress"
     if [ -d "$wp_temp" ]; then
         if [ "$wp_temp" != "${WP_DIR}" ]; then
             mv "$wp_temp" "${WP_DIR}" || {
-                echo -e "\033[0;31m❌ Spostamento fallito! Verificare:\033[0m"
-                echo -e "1. Spazio su disco"
-                echo -e "2. Permessi directory"
+                echo -e "\033[0;31m❌ Spostamento fallito! Verifica permessi.\033[0m"
                 exit 1
             }
         fi
     else
-        echo -e "\033[0;31m❌ Directory WordPress non trovata!\033[0m"
+        echo -e "\033[0;31m❌ Directory WordPress non estratta correttamente!\033[0m"
         exit 1
     fi
-    
+
     rm -f /tmp/latest.tar.gz
 }
 
-# Configurazione Nginx con validazione
 configure_nginx() {
     echo -e "\033[1;33m⚙️ Configurazione Nginx...\033[0m"
     
-    # Template configurazione
     local nginx_conf="/etc/nginx/sites-available/wordpress"
-    cp "$nginx_conf" "${nginx_conf}.bak" 2>/dev/null
     
+    # Backup configurazione esistente
+    if [ -f "$nginx_conf" ]; then
+        cp "$nginx_conf" "${nginx_conf}.bak.$(date +%Y%m%d%H%M%S)"
+    fi
+
+    # Template con variabili
     cat > "$nginx_conf" <<EOF
 server {
     listen 80;
@@ -99,10 +118,11 @@ server {
 }
 EOF
 
-    # Validazione configurazione
+    # Abilita il sito
+    ln -sf "$nginx_conf" "/etc/nginx/sites-enabled/"
+
     if ! nginx -t; then
-        echo -e "\033[0;31m❌ Configurazione Nginx non valida! Ripristino backup...\033[0m"
-        mv "${nginx_conf}.bak" "$nginx_conf"
+        echo -e "\033[0;31m❌ Configurazione Nginx non valida!\033[0m"
         exit 1
     fi
     

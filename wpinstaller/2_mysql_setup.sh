@@ -2,9 +2,9 @@
 # ****************************************************************************** #
 #                                                                                #
 #                                                         :::      ::::::::      #
-#    2_mysql_setup.sh                                   :+:      :+:    :+:      #
+#    2_mysql_setup.sh                                  :+:      :+:    :+:      #
 #                                                     +:+ +:+         +:+        #
-#    By: TheNizix                                   +#+  +:+       +#+           #
+#    By: TheNizix <thenizix@protonmail.com>         +#+  +:+       +#+           #
 #                                                 +#+#+#+#+#+   +#+              #
 #    Created: 2025/03/25 15:00:00 by TheNizix          #+#    #+#                #
 #    Updated: 2025/03/25 15:00:00 by TheNizix         ###   ######## Firenze     #
@@ -12,7 +12,6 @@
 # ****************************************************************************** #
 
 source wp_installer.cfg
-exec > >(tee -a wp_install.log) 2>&1
 
 secure_mysql() {
     echo -e "\033[1;33m🔐 Configurazione sicurezza MySQL...\033[0m"
