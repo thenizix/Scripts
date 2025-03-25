@@ -10,7 +10,8 @@
 #    Updated: 2025/03/25 15:00:00 by TheNizix         ###   ######## Firenze     #
 #                                                                                #
 # ****************************************************************************** #
-
+#Converti i cr di TUTTI i file .sh contemporaneamente:
+#dos2unix *.sh
 # ================= CONFIGURAZIONE COLORI =================
 RED='\033[0;31m'
 GREEN='\033[0;32m'
