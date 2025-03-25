@@ -1,62 +1,20 @@
-# WP-Nginx Auto-Installer
+# WP-NGINX Auto-Installer 🚀
 
-> Strumento per deploy automatizzato di WordPress su stack Nginx-PHP-MySQL (ottimizzato per WSL2/Windows)
+> One-command WordPress deployment on Nginx-PHP-MySQL stack with automatic hardening
 
-## 🚀 Installazione
+## 📦 Quick Start
 
 ```bash
-# 1. Clona solo la directory wpinstaller
-git clone --depth 1 --filter=blob:none --sparse https://github.com/TheNizix/Scripts.git && \
-cd Scripts && git sparse-checkout set wpinstaller && \
-chmod +x wpinstaller/ -R && cd wpinstaller
-```
-
-## ⚙️ Configurazione
-
-Modificare prima dell'esecuzione:
-```bash
-nano wp_installer.cfg  # Modificare almeno:
-DOMAIN="tuo.dominio"       # O "localhost" per sviluppo
-ADMIN_EMAIL="admin@email"  # Per certificati SSL
-MYSQL_ROOT_PASS="***"      # Cambiare password di default!
-```
-
-## 🏁 Esecuzione
-```bash
+git clone --depth=1 https://github.com/TheNizix/Scripts.git
+cd Scripts/wpinstaller
 sudo ./launcher.sh
-```
-- **Self-Signed SSL**: Per sviluppo locale
-- **Let's Encrypt**: Per produzione (richiede dominio pubblico)
+🔧 Configuration Edit wp_installer.cfg before running:
 
-## 🔧 Stack Installato
-| Componente  | Configurazione |
-|-------------|----------------|
-| Nginx       | Worker ottimizzati, Gzip, Headers sicurezza |
-| PHP-FPM     | Pool dinamico, Memory 256M, Opcache |
-| MariaDB     | Hardening automatico, UTF8mb4 |
-| WordPress   | Ultima versione, permessi sicuri |
-
-## 🔒 Hardening
-- Generazione chiavi sicurezza uniche
-- Disabilitazione editor temi/plugin
-- Protezione file sensibili (.htaccess, wp-config)
-- Cipher SSL moderni (TLS 1.2/1.3)
-
-## ⚡ Ottimizzazioni
-- **Nginx**: Keepalive 65s, Worker auto, Max body 64M
-- **PHP**: Timeout 300s, Upload 64M, Opcache
-- **DB**: Collation utf8mb4_unicode_ci
-
-## 🛠️ Troubleshooting
-```bash
-# Verifica servizi
-systemctl status nginx mariadb phpX.X-fpm
-
-# Log installazione
+DOMAIN="yourdomain.com"       # Or "localhost" for development ADMIN_EMAIL="admin@email.com" # For SSL certificates MYSQL_ROOT_PASS="StrongPass!" # Change default credentials! 🌟 Features Automatic Stack Deployment: Nginx (optimized workers + security headers) PHP-FPM (Opcache + 256M memory) MariaDB (utf8mb4 + hardening) SSL Options: Auto-configured Self-Signed (dev) Let's Encrypt (production) WordPress: Secure wp-config.php Disabled file editor Correct permissions 🛠️ Troubleshooting
+Check services
+systemctl status nginx mariadb php${PHP_VERSION}-fpm
+View installation log
 tail -f wp_install.log
+Test SSL (Let's Encrypt)
+certbot certificates 📄 License: GPLv3 - TheNizix
 
-# Certificati SSL (Let's Encrypt)
-certbot certificates
-```
-
-📄 **Licenza**: GPLv3 - [TheNizix](https://github.com/TheNizix)

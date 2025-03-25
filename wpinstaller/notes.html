@@ -1,90 +1,71 @@
+
+**notes.html**
+```html
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WP-Nginx Installer Docs</title>
+    <title>WP-Nginx Installer Technical Notes</title>
     <style>
-        body{font-family:monospace;max-width:900px;margin:0 auto;padding:20px;color:#333;line-height:1.5}
-        h1,h2,h3{border-bottom:1px solid #ddd;padding-bottom:5px;margin-top:1.5em}
-        code,pre{background:#f5f5f5;padding:2px 5px;border-radius:3px}
-        pre{padding:10px;overflow-x:auto}
-        table{width:100%;border-collapse:collapse;margin:1em 0}
-        th,td{padding:8px;text-align:left;border-bottom:1px solid #ddd}
-        th{background:#f0f0f0}
-        .note{background:#e7f5ff;padding:10px;border-left:4px solid #4dabf7;margin:1em 0}
-        .warning{background:#fff3bf;padding:10px;border-left:4px solid #ffd43b;margin:1em 0}
+        body { font-family: 'SF Mono', monospace; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6 }
+        h1, h2, h3 { color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5px }
+        code { background: #f8f9fa; padding: 2px 5px; border-radius: 3px }
+        pre { background: #292d3e; color: #bfc7d5; padding: 15px; overflow-x: auto }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px }
+        .card { background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1) }
     </style>
 </head>
 <body>
-    <h1>WP-Nginx Auto-Installer</h1>
-    <p><em>Strumento per deploy automatizzato di WordPress su stack Nginx-PHP-MySQL</em></p>
+    <h1>WP-Nginx Installer Technical Specifications</h1>
 
-    <h2>📦 Installazione</h2>
-    <pre># 1. Clona il repository
-git clone --depth 1 --filter=blob:none --sparse https://github.com/TheNizix/Scripts.git && \
-cd Scripts && git sparse-checkout set wpinstaller && \
-chmod +x wpinstaller/ -R && cd wpinstaller</pre>
+    <div class="grid">
+        <div class="card">
+            <h2>📦 Stack Components</h2>
+            <ul>
+                <li><strong>Nginx</strong>: Worker processes optimized for CPU cores</li>
+                <li><strong>PHP-FPM</strong>: Dynamic process manager with Opcache</li>
+                <li><strong>MariaDB</strong>: utf8mb4 charset with secure collation</li>
+            </ul>
+        </div>
 
-    <div class="note">
-        <strong>Ottimizzazione:</strong> Il comando usa <code>--depth 1</code> e <code>--filter=blob:none</code> per minimizzare il download.
+        <div class="card">
+            <h2>🔒 Security Features</h2>
+            <ul>
+                <li>Automatic generation of 64-character salts</li>
+                <li>DISALLOW_FILE_EDIT enabled by default</li>
+                <li>Secure file permissions (755/644)</li>
+                <li>SSL cipher suite: TLS 1.2/1.3 only</li>
+            </ul>
+        </div>
     </div>
 
-    <h2>⚙️ Configurazione</h2>
-    <p>Modificare <code>wp_installer.cfg</code> prima dell'esecuzione:</p>
-    <pre>nano wp_installer.cfg  # Modificare almeno:
-DOMAIN="tuo.dominio"       # O "localhost" per sviluppo
-ADMIN_EMAIL="admin@email"  # Per certificati SSL
-MYSQL_ROOT_PASS="***"      # Cambiare password di default!</pre>
+    <h2>⚙️ Configuration Details</h2>
+    <pre># Nginx Optimization
+worker_processes: auto
+worker_connections: 1024
+keepalive_timeout: 65s
+client_max_body_size: 64M
 
-    <h2>🚀 Esecuzione</h2>
-    <pre>sudo ./launcher.sh</pre>
-    <p>Selezionare il tipo di SSL:</p>
+# PHP Settings
+memory_limit: 256M
+max_execution_time: 300
+opcache.enable: 1</pre>
+
+    <h2>🔧 Installation Flow</h2>
+    <ol>
+        <li>System packages installation (1_system_setup.sh)</li>
+        <li>Database configuration (2_mysql_setup.sh)</li>
+        <li>WordPress core setup (3_wordpress_setup.sh)</li>
+        <li>SSL configuration (4_ssl_setup.sh)</li>
+        <li>Final hardening (5_final_config.sh)</li>
+    </ol>
+
+    <h2>⚠️ Common Issues</h2>
     <ul>
-        <li><strong>Self-Signed</strong>: Per sviluppo locale (automatico)</li>
-        <li><strong>Let's Encrypt</strong>: Per produzione (richiede dominio pubblico)</li>
-    </ul>
-
-    <h2>🔧 Componenti Installati</h2>
-    <table>
-        <tr><th>Software</th><th>Configurazione</th></tr>
-        <tr><td>Nginx</td><td>Worker ottimizzati, Gzip, Headers di sicurezza</td></tr>
-        <tr><td>PHP-FPM</td><td>Pool dinamico, Memory limit 256M, Opcache</td></tr>
-        <tr><td>MariaDB</td><td>Hardening automatico, Utente dedicato WP</td></tr>
-        <tr><td>WordPress</td><td>Ultima versione, permessi sicuri</td></tr>
-    </table>
-
-    <h2>🔒 Hardening Automatico</h2>
-    <ul>
-        <li>Generazione chiavi di sicurezza uniche in wp-config.php</li>
-        <li>Disabilitazione editor temi/plugin (<code>DISALLOW_FILE_EDIT</code>)</li>
-        <li>Protezione file sensibili (.htaccess, wp-config.php)</li>
-        <li>Configurazione SSL con cipher moderni (TLS 1.2/1.3)</li>
-    </ul>
-
-    <h2>⚡ Ottimizzazioni</h2>
-    <table>
-        <tr><th>Tipo</th><th>Dettaglio</th></tr>
-        <tr><td>Nginx</td><td>Keepalive 65s, Worker processes auto, Client max body 64M</td></tr>
-        <tr><td>PHP</td><td>Max execution 300s, Upload 64M, Opcache enabled</td></tr>
-        <tr><td>Database</td><td>UTF8mb4, Collation utf8mb4_unicode_ci</td></tr>
-    </table>
-
-    <h2>🛠️ Troubleshooting</h2>
-    <div class="warning">
-        <strong>Errori comuni:</strong>
-        <ul>
-            <li><code>Porta 80 occupata</code>: Fermare altri webserver (Apache, IIS)</li>
-            <li><code>PHP non esegue</code>: Verificare <code>systemctl status phpX.X-fpm</code></li>
-            <li><code>Certificati invalid</code>: Per Let's Encrypt usare <code>certbot renew --dry-run</code></li>
-        </ul>
-    </div>
-
-    <h2>📚 Risorse</h2>
-    <ul>
-        <li>Log installazione: <code>wp_install.log</code></li>
-        <li>Config Nginx: <code>/etc/nginx/sites-available/wordpress</code></li>
-        <li>Config PHP: <code>/etc/php/X.X/fpm/pool.d/www.conf</code></li>
+        <li><strong>Port 80 occupied</strong>: Stop other web servers first</li>
+        <li><strong>DB connection fails</strong>: Verify MariaDB is running</li>
+        <li><strong>SSL errors</strong>: Check domain resolution for Let's Encrypt</li>
     </ul>
 </body>
 </html>
