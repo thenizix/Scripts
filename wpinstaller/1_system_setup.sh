@@ -45,6 +45,16 @@ clean_previous() {
     find /var/www/ -type f -exec chmod 644 {} \;
 }
 
+
+check_mariadb_installation() {
+    if ! command -v mariadb &>/dev/null; then
+        echo -e "\033[0;31m❌ MariaDB non installato correttamente!\033[0m"
+        apt purge -y mariadb*
+        apt install -y mariadb-server
+    fi
+}
+
+
 # Verifica presenza dipendenze critiche
 check_dependencies() {
     local required=("wget" "tar" "systemctl" "openssl")
