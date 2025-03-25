@@ -19,7 +19,7 @@
 ## ⚡ Installazione Rapida
 ```bash
 # 1. Clona il repository
-git clone https://github.com/tuorepo/wordpress-nginx-installer.git
+git clone https://github.com/TheNizix/wordpress-nginx-installer.git
 cd wordpress-nginx-installer
 
 # 2. Modifica la configurazione (opzionale)
