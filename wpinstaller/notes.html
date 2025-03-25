@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Note Installazione WordPress</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 0; padding: 20px; color: #333; }
+        h1, h2, h3 { color: #2c3e50; }
+        h2 { border-bottom: 2px solid #3498db; padding-bottom: 5px; }
+        .container { max-width: 900px; margin: auto; }
+        .nav { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        .nav a { margin-right: 15px; text-decoration: none; color: #2980b9; }
+        .nav a:hover { text-decoration: underline; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #3498db; color: white; }
+        tr:hover { background-color: #f5f5f5; }
+        .icon { font-size: 1.2em; margin-right: 5px; }
+        .warning { background-color: #fff3cd; padding: 15px; border-left: 5px solid #ffc107; margin: 20px 0; }
+        .success { background-color: #d4edda; padding: 15px; border-left: 5px solid #28a745; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Note di Installazione WordPress</h1>
+        
+        <div class="nav">
+            <h2>Indice</h2>
+            <a href="#launcher">Launcher</a>
+            <a href="#system">System Setup</a>
+            <a href="#mysql">MySQL Setup</a>
+            <a href="#wordpress">WordPress Setup</a>
+            <a href="#ssl">SSL Setup</a>
+            <a href="#final">Final Config</a>
+            <a href="#cfg">Configurazione</a>
+        </div>
+
+        <!-- Sezione Launcher -->
+        <section id="launcher">
+            <h2>🚀 launcher.sh</h2>
+            <div class="success">
+                <p><span class="icon">✔</span> <strong>Novità principali:</strong></p>
+                <ul>
+                    <li>Gestione errore avanzata con log completo</li>
+                    <li>Scelta tra modalità sviluppo/produzione</li>
+                    <li>Report finale dettagliato</li>
+                </ul>
+            </div>
+
+            <table>
+                <tr>
+                    <th>Funzionalità</th>
+                    <th>Dettaglio</th>
+                </tr>
+                <tr>
+                    <td>📋 <strong>Controlli iniziali</strong></td>
+                    <td>Verifica root, file di configurazione e dipendenze</td>
+                </tr>
+                <tr>
+                    <td>🔧 <strong>Scelta SSL</strong></td>
+                    <td>Menu interattivo per selezionare tipo certificato</td>
+                </tr>
+                <tr>
+                    <td>📊 <strong>Logging</strong></td>
+                    <td>Registrazione timestampata in <code>wp_install.log</code></td>
+                </tr>
+            </table>
+
+            <div class="warning">
+                <p><span class="icon">⚠️</span> <strong>Nota importante:</strong> Per installazioni di produzione, modificare il campo <code>DOMAIN</code> nel file di configurazione prima dell'esecuzione.</p>
+            </div>
+        </section>
+
+        <!-- Sezione System Setup -->
+        <section id="system">
+            <h2>🖥️ 1_system_setup.sh</h2>
+            <p><strong>Miglioramenti chiave:</strong></p>
+            <ul>
+                <li>Gestione automatica DNS fallback</li>
+                <li>Pulizia più approfondita delle installazioni precedenti</li>
+                <li>Verifica stato servizi dopo l'installazione</li>
+            </ul>
+
+            <table>
+                <tr>
+                    <td>🌐 <strong>Connessione internet</strong></td>
+                    <td>Configura automaticamente Google DNS (8.8.8.8) se necessario</td>
+                </tr>
+                <tr>
+                    <td>🧹 <strong>Pulizia sistema</strong></td>
+                    <td>Rimuove completamente Nginx, PHP e MySQL esistenti</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Sezione MySQL -->
+        <section id="mysql">
+            <h2>🐬 2_mysql_setup.sh</h2>
+            <div class="success">
+                <p><span class="icon">✔</span> <strong>Sicurezza migliorata:</strong></p>
+                <ul>
+                    <li>Doppio tentativo di connessione (con/senza password)</li>
+                    <li>Set caratteri utf8mb4 per supporto Unicode completo</li>
+                    <li>Verifica finale della configurazione</li>
+                </ul>
+            </div>
+
+            <p><strong>Comandi utili per verifica:</strong></p>
+            <pre>mysql -u $MYSQL_WP_USER -p$MYSQL_WP_PASS -e "SHOW DATABASES;"</pre>
+        </section>
+
+        <!-- Altre sezioni... -->
+        
+        <section id="cfg">
+            <h2>⚙️ wp_installer.cfg</h2>
+            <p><strong>Nuove opzioni aggiunte:</strong></p>
+            <table>
+                <tr>
+                    <td>📧 <code>ADMIN_EMAIL</code></td>
+                    <td>Email per notifiche e certificati SSL</td>
+                </tr>
+                <tr>
+                    <td>⚡ <code>NGINX_WORKER_PROCESSES</code></td>
+                    <td>Ottimizzazione prestazioni Nginx</td>
+                </tr>
+            </table>
+        </section>
+    </div>
+
+        <!-- Sezione WordPress Setup -->
+        <section id="wordpress">
+            <h2>💻 3_wordpress_setup.sh</h2>
+            <div class="success">
+                <p><span class="icon">✔</span> <strong>Ottimizzazioni chiave:</strong></p>
+                <ul>
+                    <li>Permessi file/directory più sicuri</li>
+                    <li>Configurazione Nginx ottimizzata per WordPress</li>
+                    <li>Protezione file sensibili (.htaccess)</li>
+                </ul>
+            </div>
+
+            <table>
+                <tr>
+                    <th>Percorso</th>
+                    <th>Permessi</th>
+                    <th>Descrizione</th>
+                </tr>
+                <tr>
+                    <td><code>wp-content/</code></td>
+                    <td>770</td>
+                    <td>Permessi speciali per upload</td>
+                </tr>
+                <tr>
+                    <td><code>wp-config.php</code></td>
+                    <td>640</td>
+                    <td>Protezione file configurazione</td>
+                </tr>
+            </table>
+
+            <div class="warning">
+                <p><span class="icon">⚠️</span> <strong>Attenzione:</strong> Dopo l'installazione, configurare manualmente WordPress visitando <a href="http://localhost/wp-admin/install.php" target="_blank">http://localhost/wp-admin/install.php</a></p>
+            </div>
+        </section>
+
+        <!-- Sezione SSL Setup -->
+        <section id="ssl">
+            <h2>🔐 4_ssl_setup.sh</h2>
+            <p><strong>Configurazione SSL avanzata:</strong></p>
+            <ul>
+                <li>Generazione certificati self-signed con OpenSSL</li>
+                <li>Redirect automatico HTTP → HTTPS</li>
+                <li>Cipher ottimizzati per sicurezza</li>
+            </ul>
+
+            <table>
+                <tr>
+                    <td>📜 <strong>Certificati</strong></td>
+                    <td><code>/etc/nginx/ssl/</code></td>
+                    <td>Validi per 365 giorni</td>
+                </tr>
+                <tr>
+                    <td>🛡️ <strong>Protocolli</strong></td>
+                    <td>TLSv1.2/1.3</td>
+                    <td>Disabilitati SSLv3 e TLSv1.0/1.1</td>
+                </tr>
+            </table>
+
+            <p><strong>Verifica certificato:</strong></p>
+            <pre>openssl x509 -in /etc/nginx/ssl/localhost.crt -text -noout</pre>
+        </section>
+
+        <!-- Sezione Final Config -->
+        <section id="final">
+            <h2>✨ 5_final_config.sh</h2>
+            <div class="success">
+                <p><span class="icon">✔</span> <strong>Ottimizzazioni finali:</strong></p>
+                <ul>
+                    <li>Generazione chiavi di sicurezza casuali</li>
+                    <li>Configurazione automatica cron jobs</li>
+                    <li>Hardening PHP-FPM</li>
+                </ul>
+            </div>
+
+            <table>
+                <tr>
+                    <td>🔄 <strong>Cron Jobs</strong></td>
+                    <td>Backup giornalieri DB</td>
+                    <td><code>/var/backups/</code></td>
+                </tr>
+                <tr>
+                    <td>⚡ <strong>PHP-FPM</strong></td>
+                    <td>Pool dinamico</td>
+                    <td>Ottimizzato per carico medio</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Sezione LetsEncrypt -->
+        <section id="letsencrypt">
+            <h2>🌍 6_letsencrypt.sh</h2>
+            <p><strong>Per installazioni di produzione:</strong></p>
+            <ul>
+                <li>Configurazione automatica con Certbot</li>
+                <li>Rinnovo automatico certificati</li>
+                <li>Redirect HTTP → HTTPS</li>
+            </ul>
+
+            <div class="warning">
+                <p><span class="icon">⚠️</span> <strong>Prerequisiti:</strong></p>
+                <ul>
+                    <li>Dominio pubblico configurato</li>
+                    <li>Porta 80 accessibile dall'esterno</li>
+                    <li>Record DNS puntante al server</li>
+                </ul>
+            </div>
+
+            <p><strong>Comandi utili:</strong></p>
+            <pre>certbot certificates          # Lista certificati
+certbot renew --dry-run   # Test rinnovo</pre>
+        </section>
+
+        <!-- Sezione Troubleshooting -->
+        <section id="troubleshooting">
+            <h2>🔧 Troubleshooting</h2>
+            <table>
+                <tr>
+                    <th>Problema</th>
+                    <th>Soluzione</th>
+                </tr>
+                <tr>
+                    <td>Errori Nginx</td>
+                    <td><code>nginx -t</code> (test configurazione)</td>
+                </tr>
+                <tr>
+                    <td>PHP non funzionante</td>
+                    <td><code>systemctl status php${PHP_VERSION}-fpm</code></td>
+                </tr>
+                <tr>
+                    <td>Permessi file</td>
+                    <td><code>chown -R www-data:www-data ${WP_DIR}</code></td>
+                </tr>
+            </table>
+
+            <p><strong>Log importanti:</strong></p>
+            <ul>
+                <li>Nginx error log: <code>/var/log/nginx/error.log</code></li>
+                <li>PHP-FPM log: <code>/var/log/php${PHP_VERSION}-fpm.log</code></li>
+                <li>Log installazione: <code>wp_install.log</code></li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <footer style="margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">
+            <p>📚 <strong>Documentazione utile:</strong></p>
+            <ul>
+                <li><a href="https://wordpress.org/support/" target="_blank">Supporto WordPress</a></li>
+                <li><a href="https://nginx.org/en/docs/" target="_blank">Documentazione Nginx</a></li>
+                <li><a href="https://www.php.net/manual/en/" target="_blank">Manuale PHP</a></li>
+            </ul>
+            <p>🔄 <strong>Aggiornamenti:</strong> Controlla periodicamente <a href="https://github.com/yourrepo" target="_blank">il repository GitHub</a> per nuovi aggiornamenti.</p>
+        </footer>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
