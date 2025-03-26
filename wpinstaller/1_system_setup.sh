@@ -23,7 +23,6 @@ check_repair_packages() {
         mariadb-server
         "php${PHP_VERSION}-fpm"
         "php${PHP_VERSION}-mysql"
-        "php${PHP_VERSION}-curl"
         "php${PHP_VERSION}-gd"
         "php${PHP_VERSION}-mbstring"
         "php${PHP_VERSION}-xml"
