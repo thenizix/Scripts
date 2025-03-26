@@ -41,9 +41,11 @@ The correct wordpress installation would to be made from the wp php installer, s
 
 - Remember to secure the instance deleting any trace of installers.
 
--Maybe this software could have some silly redundancy or ingenuity, maybe i reinvented the wheel.. but is useful and instead to modify something, i tried to make it express from myself.
-but...
-I'm proud like a child of this, lost hours tryng to fixing sed , and i become a fan of awk..  
+-Maybe this software could have some silly redundancy or ingenuity, maybe i reinvented the wheel.
+instead to modify something, i tried to make it express from myself.
+So...
+I'm proud like a child of this, lost hours trying to fix
+sed idiosyncrasies, and i become a fan of awk..  
 - Built in some hours using VSCode and Deepseek 3.1
-- as a student i would share anyway the 42 logo, and way to learn and share, even if this is not a 42 project.
-Pull it and make it better, let me know.
+- As a student i would share anyway the 42 logo, and our way to learn and share, even if this is not a 42 project.
+Pull it if you need and make it better, let me know.
