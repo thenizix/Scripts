@@ -1,0 +1,6 @@
+2025-03-26 19:38:25 - [1;33m🧹 Pulizia eventuale installazione precedente...[0m
+2025-03-26 19:38:25 - [0;31m❌ Errore nella pulizia del database![0m
+2025-03-26 19:42:05 - [1;33m🧹 Pulizia installazione precedente...[0m
+2025-03-26 19:42:05 - [0;31m❌ Connessione a MySQL fallita con le credenziali correnti[0m
+2025-03-26 19:42:05 - [0;31m❌ Impossibile connettersi a MySQL. Verifica il servizio e le credenziali.[0m
+2025-03-26 19:42:05 - [0;31m❌ Pulizia iniziale fallita, verificare i log[0m
