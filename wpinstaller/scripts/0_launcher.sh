@@ -1,4 +1,5 @@
 #!/bin/bash
+# wpinstaller/scripts/0_launcher.sh
 # MENU PRINCIPALE CON GESTIONE ERRORI MIGLIORATA
 
 set -euo pipefail
@@ -8,6 +9,12 @@ trap 'echo "Errore a linea $LINENO"; exit 1' ERR
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 CONFIG_FILE="${SCRIPT_DIR}/../config/wp_installer.cfg"
 LOG_DIR="${SCRIPT_DIR}/../logs"
+
+# Verifica root
+if [ "$(id -u)" -ne 0 ]; then
+    echo -e "\033[0;31mQuesto script richiede privilegi di root. Eseguire con sudo.\033[0m"
+    exit 1
+fi
 
 # Funzioni
 show_banner() {

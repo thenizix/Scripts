@@ -1,4 +1,5 @@
 #!/bin/bash
+# wpinstaller/scripts/3_wordpress_setup.sh
 # INSTALLAZIONE WORDPRESS - GESTIONE PERMESSI E CREDENZIALI
 
 set -euo pipefail
@@ -27,69 +28,125 @@ check_directory_perms() {
     return 0
 }
 
+# Funzione: Verifica dipendenze
+check_dependencies() {
+    echo "🔍 Verifica dipendenze..." | tee -a "$LOG_FILE"
+    
+    # Verifica database
+    if ! mysql -u "${MYSQL_WP_USER}" -p"${MYSQL_WP_PASS}" -e "SHOW TABLES FROM \`${MYSQL_WP_DB}\`;" &>/dev/null; then
+        echo "❌ Connessione database fallita. Eseguire prima lo script di configurazione database." | tee -a "$LOG_FILE"
+        exit 1
+    fi
+    
+    # Verifica Nginx
+    if ! command -v nginx &>/dev/null || ! ${SERVICE_CMD} nginx status &>/dev/null; then
+        echo "❌ Nginx non installato o non in esecuzione. Eseguire prima lo script di configurazione sistema." | tee -a "$LOG_FILE"
+        exit 1
+    fi
+    
+    # Verifica PHP
+    if ! command -v php &>/dev/null; then
+        echo "❌ PHP non installato. Eseguire prima lo script di configurazione sistema." | tee -a "$LOG_FILE"
+        exit 1
+    fi
+}
+
 # Main Process
 {
     echo "=== INSTALLAZIONE WORDPRESS ===" | tee -a "$LOG_FILE"
     
-    # 1. Preparazione ambiente
+    # 1. Verifica dipendenze
+    check_dependencies
+    
+    # 2. Preparazione directory
     echo "🗂️ Preparazione directory ${WP_DIR}..." | tee -a "$LOG_FILE"
-    sudo rm -rf "${WP_DIR}"
-    sudo mkdir -p "${WP_DIR}"
-    sudo chown -R ${WP_UID}:${WP_GID} "${WP_DIR}"
-    sudo chmod ${DIR_PERMS} "${WP_DIR}"
+    mkdir -p "${WP_DIR}"
+    chown -R "${WP_UID}:${WP_GID}" "${WP_DIR}"
+    chmod "${DIR_PERMS}" "${WP_DIR}"
     
     # Verifica permessi
-    check_directory_perms "${WP_DIR}" "$(id -u ${WP_UID})" "$(id -g ${WP_GID})" || exit 1
+    wp_uid_num=$(id -u "${WP_UID}")
+    wp_gid_num=$(id -g "${WP_GID}")
+    check_directory_perms "${WP_DIR}" "${wp_uid_num}" "${wp_gid_num}" || exit 1
 
-    # 2. Installazione WP-CLI
+    # 3. Installazione WP-CLI
     echo "📥 Installazione WP-CLI..." | tee -a "$LOG_FILE"
-    sudo curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-    sudo chmod +x /usr/local/bin/wp
-    sudo chown root:root /usr/local/bin/wp
+    if ! command -v wp &>/dev/null; then
+        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        chmod +x wp-cli.phar
+        mv wp-cli.phar /usr/local/bin/wp
+    fi
 
-    # 3. Download WordPress
+    # 4. Download WordPress
     echo "⬇️ Download WordPress..." | tee -a "$LOG_FILE"
-    sudo -u ${WP_UID} wp core download \
-        --locale=it_IT \
-        --path="${WP_DIR}" \
-        --force
+    cd "${WP_DIR}"
+    if su -s /bin/bash "${WP_UID}" -c "wp core is-installed --path='${WP_DIR}'" 2>/dev/null; then
+        echo "ℹ️ WordPress già installato, salto il download" | tee -a "$LOG_FILE"
+    else
+        su -s /bin/bash "${WP_UID}" -c "wp core download --locale=it_IT --path='${WP_DIR}'"
+    fi
 
-    # 4. Configurazione wp-config.php
+    # 5. Configurazione wp-config.php
     echo "🔧 Creazione wp-config.php..." | tee -a "$LOG_FILE"
-    sudo -u ${WP_UID} wp config create \
-        --dbname="${MYSQL_WP_DB}" \
-        --dbuser="${MYSQL_WP_USER}" \
-        --dbpass="${MYSQL_WP_PASS}" \
-        --path="${WP_DIR}" \
-        --extra-php <<PHP
+    if [ ! -f "${WP_DIR}/wp-config.php" ]; then
+        su -s /bin/bash "${WP_UID}" -c "wp config create \
+            --dbname='${MYSQL_WP_DB}' \
+            --dbuser='${MYSQL_WP_USER}' \
+            --dbpass='${MYSQL_WP_PASS}' \
+            --path='${WP_DIR}' \
+            --extra-php <<PHP
 define('FS_METHOD', 'direct');
 define('WP_AUTO_UPDATE_CORE', false);
-PHP
+define('WP_DEBUG', ${WP_DEBUG});
+define('DISALLOW_FILE_EDIT', true);
+PHP"
+    else
+        echo "ℹ️ wp-config.php già esistente" | tee -a "$LOG_FILE"
+    fi
 
-    # 5. Installazione WordPress
-    ADMIN_PASS=$(openssl rand -base64 16 | tr -dc 'a-zA-Z0-9!@#$%^&*()_+-=')
+    # 6. Installazione WordPress
     echo "🚀 Installazione WordPress..." | tee -a "$LOG_FILE"
-    sudo -u ${WP_UID} wp core install \
-        --url="${DOMAIN}" \
-        --title="Sito WordPress" \
-        --admin_user="admin" \
-        --admin_password="${ADMIN_PASS}" \
-        --admin_email="${ADMIN_EMAIL}" \
-        --path="${WP_DIR}"
+    if su -s /bin/bash "${WP_UID}" -c "wp core is-installed --path='${WP_DIR}'" 2>/dev/null; then
+        echo "ℹ️ WordPress già installato" | tee -a "$LOG_FILE"
+        
+        # Aggiorna admin password se necessario
+        ADMIN_USER_EXISTS=$(su -s /bin/bash "${WP_UID}" -c "wp user get admin --path='${WP_DIR}' --field=login" 2>/dev/null || echo "")
+        if [ -n "${ADMIN_USER_EXISTS}" ]; then
+            ADMIN_PASS=$(openssl rand -base64 16 | tr -dc 'a-zA-Z0-9!@#$%^&*()_+-=' | head -c 16)
+            su -s /bin/bash "${WP_UID}" -c "wp user update admin --user_pass='${ADMIN_PASS}' --path='${WP_DIR}'"
+            echo "ℹ️ Password admin aggiornata" | tee -a "$LOG_FILE"
+        fi
+    else
+        ADMIN_PASS=$(openssl rand -base64 16 | tr -dc 'a-zA-Z0-9!@#$%^&*()_+-=' | head -c 16)
+        su -s /bin/bash "${WP_UID}" -c "wp core install \
+            --url='${DOMAIN}' \
+            --title='Sito WordPress' \
+            --admin_user='admin' \
+            --admin_password='${ADMIN_PASS}' \
+            --admin_email='${ADMIN_EMAIL}' \
+            --path='${WP_DIR}'"
+    fi
 
-    # 6. Hardening sicurezza
+    # 7. Hardening sicurezza
     echo "🛡️ Applicazione misure di sicurezza..." | tee -a "$LOG_FILE"
-    sudo find "${WP_DIR}" -type d -exec chmod ${DIR_PERMS} {} \;
-    sudo find "${WP_DIR}" -type f -exec chmod ${FILE_PERMS} {} \;
-    sudo chmod 600 "${WP_DIR}/wp-config.php"
-    sudo chown ${WP_UID}:${WP_GID} "${WP_DIR}/wp-config.php"
+    find "${WP_DIR}" -type d -exec chmod "${DIR_PERMS}" {} \;
+    find "${WP_DIR}" -type f -exec chmod "${FILE_PERMS}" {} \;
+    chmod 600 "${WP_DIR}/wp-config.php"
+    chown -R "${WP_UID}:${WP_GID}" "${WP_DIR}"
 
-    # 7. Configurazione aggiuntiva
-    sudo -u ${WP_UID} wp config set DISALLOW_FILE_EDIT true --raw --path="${WP_DIR}"
-    sudo -u ${WP_UID} wp config set WP_DEBUG ${WP_DEBUG} --raw --path="${WP_DIR}"
+    # 8. Configurazione lingua italiana
+    echo "🌍 Configurazione italiano..." | tee -a "$LOG_FILE"
+    su -s /bin/bash "${WP_UID}" -c "wp language core install it_IT --path='${WP_DIR}' --activate"
 
     echo "✅ WordPress installato correttamente!" | tee -a "$LOG_FILE"
     echo "   URL Admin: http://${DOMAIN}/wp-admin" | tee -a "$LOG_FILE"
     echo "   Username: admin" | tee -a "$LOG_FILE"
     echo "   Password: ${ADMIN_PASS}" | tee -a "$LOG_FILE"
+    
+    # Salva credenziali in un file
+    echo "WordPress admin login" > "${SCRIPT_DIR}/../logs/wp_credentials.txt"
+    echo "URL: http://${DOMAIN}/wp-admin" >> "${SCRIPT_DIR}/../logs/wp_credentials.txt"
+    echo "Username: admin" >> "${SCRIPT_DIR}/../logs/wp_credentials.txt"
+    echo "Password: ${ADMIN_PASS}" >> "${SCRIPT_DIR}/../logs/wp_credentials.txt"
+    chmod 600 "${SCRIPT_DIR}/../logs/wp_credentials.txt"
 }

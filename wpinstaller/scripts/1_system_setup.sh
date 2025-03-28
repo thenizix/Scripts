@@ -1,87 +1,106 @@
 #!/bin/bash
-
-# ==============================================
-# WordPress MySQL Setup Script
-# Version: 2.0 (Fixed and Secure)
-# ==============================================
+# wpinstaller/scripts/1_system_setup.sh
+# CONFIGURAZIONE SISTEMA - INSTALLAZIONE PACCHETTI NECESSARI
 
 set -euo pipefail
-trap 'echo "Error at line $LINENO"; exit 1' ERR
+trap 'echo "Errore a linea $LINENO"; exit 1' ERR
 
-# --- Configuration ---
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CONFIG_FILE="${SCRIPT_DIR}/../config/wp_installer.cfg"
-LOG_FILE="${SCRIPT_DIR}/../logs/mysql_setup.log"
-MYSQL_WP_DB="wordpress"  # Default database name
+# Caricamento configurazione
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "${SCRIPT_DIR}/../config/wp_installer.cfg"
+LOG_FILE="${SCRIPT_DIR}/../logs/system_setup.log"
 
-# Initialize logging
-mkdir -p "${SCRIPT_DIR}/../logs"
-exec > >(tee -a "${LOG_FILE}") 2>&1
+exec > >(tee -a "$LOG_FILE") 2>&1
 
-echo "=== DATABASE SETUP STARTED ==="
-echo "🕒 Timestamp: $(date)"
-
-# --- Load Configuration ---
-source "${CONFIG_FILE}"
-
-# Verify required variables
-declare -a REQUIRED_VARS=("MYSQL_ROOT_PASS" "MYSQL_WP_PASS")
-for var in "${REQUIRED_VARS[@]}"; do
-    if [ -z "${!var}" ]; then
-        echo "❌ Error: Missing $var in config"
-        exit 1
-    fi
-done
-
-# --- Database Functions ---
-start_mysql() {
-    echo "🔧 Starting MySQL service..."
-    for attempt in {1..3}; do
-        if sudo service mysql start; then
-            if mysqladmin ping -uroot --silent; then
-                return 0
-            fi
-        fi
-        sleep 2
-    done
-    echo "❌ Failed to start MySQL"
-    return 1
+# Funzioni
+update_system() {
+    echo "🔄 Aggiornamento repository..." | tee -a "$LOG_FILE"
+    apt-get update
+    apt-get upgrade -y
 }
 
-secure_installation() {
-    echo "🔐 Securing MariaDB installation..."
-    sudo mysql -uroot <<EOF
-ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASS}';
-DELETE FROM mysql.user WHERE User='';
-DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-DROP DATABASE IF EXISTS test;
-DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
-CREATE DATABASE IF NOT EXISTS ${MYSQL_WP_DB};
-CREATE USER IF NOT EXISTS 'wordpress'@'localhost' IDENTIFIED BY '${MYSQL_WP_PASS}';
-GRANT ALL PRIVILEGES ON ${MYSQL_WP_DB}.* TO 'wordpress'@'localhost';
-FLUSH PRIVILEGES;
-EOF
+install_packages() {
+    echo "📦 Installazione pacchetti necessari..." | tee -a "$LOG_FILE"
+    apt-get install -y \
+        nginx \
+        mariadb-server \
+        php${PHP_VERSION} \
+        php${PHP_VERSION}-fpm \
+        php${PHP_VERSION}-mysql \
+        php${PHP_VERSION}-curl \
+        php${PHP_VERSION}-gd \
+        php${PHP_VERSION}-intl \
+        php${PHP_VERSION}-mbstring \
+        php${PHP_VERSION}-soap \
+        php${PHP_VERSION}-xml \
+        php${PHP_VERSION}-zip \
+        curl \
+        wget \
+        unzip \
+        openssl
 }
 
-# --- Main Execution ---
-if start_mysql; then
-    if mysql -uroot -p"${MYSQL_ROOT_PASS}" -e "SELECT 1" >/dev/null 2>&1; then
-        echo "ℹ️ MySQL already secured"
+configure_nginx() {
+    echo "🔧 Configurazione Nginx..." | tee -a "$LOG_FILE"
+    
+    # Seleziona template appropriato
+    local template
+    if [ "${ENV_MODE}" = "prod" ]; then
+        template="${SCRIPT_DIR}/../templates/nginx-prod.conf"
     else
-        secure_installation
+        template="${SCRIPT_DIR}/../templates/nginx-local.conf"
     fi
-
-    # Verify database access
-    if mysql -uroot -p"${MYSQL_ROOT_PASS}" -e "USE ${MYSQL_WP_DB}" >/dev/null 2>&1; then
-        echo "ℹ️ Database ${MYSQL_WP_DB} already exists"
-    else
-        echo "💽 Creating database ${MYSQL_WP_DB}"
-        mysql -uroot -p"${MYSQL_ROOT_PASS}" <<EOF
-CREATE DATABASE ${MYSQL_WP_DB};
-EOF
+    
+    # Applica sostituzioni
+    local config_content
+    config_content=$(cat "$template" | sed \
+        -e "s|{{SERVER_PORT}}|${SERVER_PORT}|g" \
+        -e "s|{{DOMAIN}}|${DOMAIN}|g" \
+        -e "s|{{WP_DIR}}|${WP_DIR}|g" \
+        -e "s|{{PHP_VERSION}}|${PHP_VERSION}|g")
+    
+    # Salva configurazione
+    echo "$config_content" > "/etc/nginx/sites-available/wordpress"
+    
+    # Attiva configurazione
+    if [ -f "/etc/nginx/sites-enabled/default" ]; then
+        rm /etc/nginx/sites-enabled/default
     fi
-fi
+    
+    if [ ! -L "/etc/nginx/sites-enabled/wordpress" ]; then
+        ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
+    fi
+}
 
-echo "✅ Database setup completed successfully!"
-echo "=== DATABASE SETUP FINISHED ==="
-exit 0
+configure_php() {
+    echo "🔧 Configurazione PHP..." | tee -a "$LOG_FILE"
+    
+    # Aumenta limiti
+    sed -i 's/memory_limit = .*/memory_limit = 256M/' /etc/php/${PHP_VERSION}/fpm/php.ini
+    sed -i 's/upload_max_filesize = .*/upload_max_filesize = 64M/' /etc/php/${PHP_VERSION}/fpm/php.ini
+    sed -i 's/post_max_size = .*/post_max_size = 64M/' /etc/php/${PHP_VERSION}/fpm/php.ini
+    sed -i 's/max_execution_time = .*/max_execution_time = 300/' /etc/php/${PHP_VERSION}/fpm/php.ini
+    
+    # Disabilita funzioni pericolose
+    sed -i 's/;?disable_functions =.*/disable_functions = exec,passthru,shell_exec,system,proc_open,popen,parse_ini_file,show_source/' /etc/php/${PHP_VERSION}/fpm/php.ini
+}
+
+restart_services() {
+    echo "🔄 Riavvio servizi..." | tee -a "$LOG_FILE"
+    
+    ${SERVICE_CMD} php${PHP_VERSION}-fpm restart
+    ${SERVICE_CMD} nginx restart
+}
+
+# Main process
+{
+    echo "=== CONFIGURAZIONE SISTEMA ===" | tee -a "$LOG_FILE"
+    
+    update_system
+    install_packages
+    configure_nginx
+    configure_php
+    restart_services
+    
+    echo "✅ Configurazione sistema completata!" | tee -a "$LOG_FILE"
+}
