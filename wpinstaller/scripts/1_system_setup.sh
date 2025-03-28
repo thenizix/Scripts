@@ -1,91 +1,87 @@
 #!/bin/bash
-# ****************************************************************************** #
-#                                                                                #
-#                                                         :::      ::::::::      #
-#    1_system_setup.sh                                  :+:      :+:    :+:      #
-#                                                     +:+ +:+         +:+        #
-#    By: thenizix <thenizix@protonmail.com>         +#+  +:+       +#+           #
-#                                                 +#+#+#+#+#+   +#+              #
-#    Created: 2024/03/27 12:00:00 by thenizix          #+#    #+#                #
-#    Updated: 2024/03/27 12:00:00 by thenizix         ###   ########.it          #
-#                                                                                #
-# ****************************************************************************** #
 
-# Carica configurazioni
+# ==============================================
+# WordPress MySQL Setup Script
+# Version: 2.0 (Fixed and Secure)
+# ==============================================
+
+set -euo pipefail
+trap 'echo "Error at line $LINENO"; exit 1' ERR
+
+# --- Configuration ---
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "${SCRIPT_DIR}/../config/wp_installer.cfg"
+CONFIG_FILE="${SCRIPT_DIR}/../config/wp_installer.cfg"
+LOG_FILE="${SCRIPT_DIR}/../logs/mysql_setup.log"
+MYSQL_WP_DB="wordpress"  # Default database name
 
-# ============================================================================== #
-# FUNZIONI DI INSTALLAZIONE
-# ============================================================================== #
+# Initialize logging
+mkdir -p "${SCRIPT_DIR}/../logs"
+exec > >(tee -a "${LOG_FILE}") 2>&1
 
-install_packages() {
-    echo -e "\033[1;34m\nInstallo pacchetti necessari...\033[0m"
-    
-    # Lista pacchetti base
-    local packages=(
-        "nginx"
-        "mariadb-server"
-        "php${PHP_VERSION}-fpm"
-        "php${PHP_VERSION}-mysql"
-        "curl"
-        "unzip"
-        "openssl"
-    )
-    
-    # Aggiunge Certbot solo se necessario
-    if [ "$SSL_TYPE" = "letsencrypt" ]; then
-        packages+=("certbot" "python3-certbot-nginx")
-    fi
-    
-    # Installazione effettiva
-    if ! apt-get update --fix-missing || ! apt-get install -y "${packages[@]}"; then
-        echo -e "\033[0;31m❌ Installazione pacchetti fallita!\033[0m" >&2
+echo "=== DATABASE SETUP STARTED ==="
+echo "🕒 Timestamp: $(date)"
+
+# --- Load Configuration ---
+source "${CONFIG_FILE}"
+
+# Verify required variables
+declare -a REQUIRED_VARS=("MYSQL_ROOT_PASS" "MYSQL_WP_PASS")
+for var in "${REQUIRED_VARS[@]}"; do
+    if [ -z "${!var}" ]; then
+        echo "❌ Error: Missing $var in config"
         exit 1
     fi
+done
+
+# --- Database Functions ---
+start_mysql() {
+    echo "🔧 Starting MySQL service..."
+    for attempt in {1..3}; do
+        if sudo service mysql start; then
+            if mysqladmin ping -uroot --silent; then
+                return 0
+            fi
+        fi
+        sleep 2
+    done
+    echo "❌ Failed to start MySQL"
+    return 1
 }
 
-configure_nginx() {
-    echo -e "\033[1;34m\nConfiguro Nginx...\033[0m"
-    
-    # Percorsi file
-    local template_file="${SCRIPT_DIR}/../templates/nginx-${ENV_MODE}.conf"
-    local target_file="/etc/nginx/sites-available/wordpress"
-    
-    # Verifica template
-    if [ ! -f "$template_file" ]; then
-        echo -e "\033[0;31m❌ Template Nginx non trovato!\033[0m" >&2
-        exit 1
-    fi
-    
-    # Sostituisce placeholder nel template
-    sed -e "s/{{DOMAIN}}/${DOMAIN}/g" \
-       -e "s|{{WP_DIR}}|${WP_DIR}|g" \
-       -e "s/{{PHP_VERSION}}/${PHP_VERSION}/g" \
-       -e "s/{{SERVER_PORT}}/${SERVER_PORT}/g" \
-       "$template_file" > "$target_file"
-    
-    # Abilita il sito
-    ln -sf "$target_file" "/etc/nginx/sites-enabled/"
-    
-    # Riavvia Nginx
-    if ! nginx -t || ! systemctl restart nginx; then
-        echo -e "\033[0;31m❌ Errore configurazione Nginx!\033[0m" >&2
-        exit 1
-    fi
+secure_installation() {
+    echo "🔐 Securing MariaDB installation..."
+    sudo mysql -uroot <<EOF
+ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASS}';
+DELETE FROM mysql.user WHERE User='';
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+CREATE DATABASE IF NOT EXISTS ${MYSQL_WP_DB};
+CREATE USER IF NOT EXISTS 'wordpress'@'localhost' IDENTIFIED BY '${MYSQL_WP_PASS}';
+GRANT ALL PRIVILEGES ON ${MYSQL_WP_DB}.* TO 'wordpress'@'localhost';
+FLUSH PRIVILEGES;
+EOF
 }
 
-# ============================================================================== #
-# MAIN
-# ============================================================================== #
+# --- Main Execution ---
+if start_mysql; then
+    if mysql -uroot -p"${MYSQL_ROOT_PASS}" -e "SELECT 1" >/dev/null 2>&1; then
+        echo "ℹ️ MySQL already secured"
+    else
+        secure_installation
+    fi
 
-echo -e "\033[1;36m=== CONFIGURAZIONE SISTEMA ===\033[0m"
+    # Verify database access
+    if mysql -uroot -p"${MYSQL_ROOT_PASS}" -e "USE ${MYSQL_WP_DB}" >/dev/null 2>&1; then
+        echo "ℹ️ Database ${MYSQL_WP_DB} already exists"
+    else
+        echo "💽 Creating database ${MYSQL_WP_DB}"
+        mysql -uroot -p"${MYSQL_ROOT_PASS}" <<EOF
+CREATE DATABASE ${MYSQL_WP_DB};
+EOF
+    fi
+fi
 
-install_packages
-configure_nginx
-
-# Abilita servizi
-systemctl enable nginx mariadb php${PHP_VERSION}-fpm
-systemctl restart mariadb php${PHP_VERSION}-fpm
-
-echo -e "\033[0;32m\n✅ Sistema configurato correttamente!\033[0m"
+echo "✅ Database setup completed successfully!"
+echo "=== DATABASE SETUP FINISHED ==="
+exit 0

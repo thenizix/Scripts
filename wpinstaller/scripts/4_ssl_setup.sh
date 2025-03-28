@@ -1,72 +1,71 @@
 #!/bin/bash
-# ****************************************************************************** #
-#                                                                                #
-#                                                         :::      ::::::::      #
-#    4_ssl_setup.sh                                     :+:      :+:    :+:      #
-#                                                     +:+ +:+         +:+        #
-#    By: thenizix <thenizix@protonmail.com>         +#+  +:+       +#+           #
-#                                                 +#+#+#+#+#+   +#+              #
-#    Created: 2024/03/27 12:00:00 by thenizix          #+#    #+#                #
-#    Updated: 2024/03/27 12:00:00 by thenizix         ###   ########.it          #
-#                                                                                #
-# ****************************************************************************** #
+# CONFIGURAZIONE SSL
 
-# Configurazioni
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CONFIG_DIR="${SCRIPT_DIR}/../config"
-source "${CONFIG_DIR}/wp_installer.cfg" || {
-    echo -e "\033[0;31m❌ Errore nel caricamento della configurazione\033[0m" >&2
-    exit 1
-}
+set -euo pipefail
+trap 'echo "Errore a linea $LINENO"; exit 1' ERR
 
-# Verifica permessi root
-if [ "$(id -u)" -ne 0 ]; then
-    echo -e "\033[0;31m❌ Lo script deve essere eseguito come root!\033[0m" >&2
-    exit 1
-}
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "${SCRIPT_DIR}/../config/wp_installer.cfg"
+LOG_FILE="${SCRIPT_DIR}/../logs/ssl_setup.log"
 
-# Funzione per Let's Encrypt
-setup_letsencrypt() {
-    echo -e "\033[1;34mConfigurazione Let's Encrypt...\033[0m"
-    if ! command -v certbot >/dev/null; then
-        echo -e "\033[0;31m❌ Certbot non installato! Esegui prima 1_system_setup.sh\033[0m" >&2
-        exit 1
-    fi
+exec > >(tee -a "$LOG_FILE") 2>&1
 
-    # Ottieni certificato
-    if ! certbot --nginx -d "${DOMAIN}" --non-interactive --agree-tos -m "${ADMIN_EMAIL}"; then
-        echo -e "\033[0;31m❌ Errore nella generazione del certificato\033[0m" >&2
-        exit 1
-    fi
-
-    # Aggiungi rinnovo automatico a cron
-    (crontab -l 2>/dev/null; echo "0 12 * * * certbot renew --quiet") | crontab -
-}
-
-# Funzione per Self-Signed
-setup_selfsigned() {
-    echo -e "\033[1;34mConfigurazione certificato self-signed...\033[0m"
-    mkdir -p /etc/ssl/{certs,private}
+# Funzioni
+generate_selfsigned() {
+    echo "🔐 Generazione certificato self-signed..." | tee -a "$LOG_FILE"
+    sudo mkdir -p /etc/ssl/{certs,private}
+    sudo chmod 700 /etc/ssl/private
     
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         -keyout /etc/ssl/private/nginx-selfsigned.key \
         -out /etc/ssl/certs/nginx-selfsigned.crt \
-        -subj "/CN=${DOMAIN}" 2>/dev/null || {
-        echo -e "\033[0;31m❌ Errore nella generazione del certificato\033[0m" >&2
-        exit 1
-    }
+        -subj "/CN=${DOMAIN}" \
+        -addext "subjectAltName=DNS:${DOMAIN}" 2>&1 | tee -a "$LOG_FILE"
+    
+    # Configurazione Diffie-Hellman
+    sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048 2>&1 | tee -a "$LOG_FILE"
 }
 
-# Main
-echo -e "\033[1;36m=== CONFIGURAZIONE SSL (${SSL_TYPE}) ===\033[0m"
+# Main process
+{
+    echo "=== CONFIGURAZIONE SSL ==="
 
-case "$SSL_TYPE" in
-    letsencrypt) setup_letsencrypt ;;
-    selfsigned) setup_selfsigned ;;
-    none) echo -e "\033[1;33m⚠ SSL disabilitato\033[0m"; exit 0 ;;
-    *) echo -e "\033[0;31m❌ Tipo SSL non valido: ${SSL_TYPE}\033[0m" >&2; exit 1 ;;
-esac
+    case "${SSL_TYPE}" in
+        letsencrypt)
+            if [ "${DOMAIN}" = "localhost" ]; then
+                echo "❌ Let's Encrypt non supporta localhost" | tee -a "$LOG_FILE"
+                exit 1
+            fi
+            
+            echo "📦 Installazione Certbot..." | tee -a "$LOG_FILE"
+            sudo apt-get install -y certbot python3-certbot-nginx | tee -a "$LOG_FILE"
+            
+            echo "🔐 Richiesta certificato..." | tee -a "$LOG_FILE"
+            sudo certbot --nginx -d "${DOMAIN}" --non-interactive --agree-tos -m "${ADMIN_EMAIL}" | tee -a "$LOG_FILE"
+            ;;
+            
+        selfsigned)
+            generate_selfsigned
+            ;;
+            
+        none)
+            echo "ℹ️ SSL disabilitato" | tee -a "$LOG_FILE"
+            exit 0
+            ;;
+            
+        *)
+            echo "❌ Tipo SSL non valido: ${SSL_TYPE}" | tee -a "$LOG_FILE"
+            exit 1
+            ;;
+    esac
 
-# Riavvia Nginx
-systemctl restart nginx
-echo -e "\033[0;32m✅ SSL configurato correttamente!\033[0m"
+    # Riavvio Nginx
+    echo "🔄 Riavvio Nginx..." | tee -a "$LOG_FILE"
+    if grep -qi "microsoft" /proc/version; then
+        sudo service nginx restart | tee -a "$LOG_FILE"
+    else
+        sudo systemctl restart nginx | tee -a "$LOG_FILE"
+    fi
+
+    echo "✅ Configurazione SSL completata!" | tee -a "$LOG_FILE"
+}

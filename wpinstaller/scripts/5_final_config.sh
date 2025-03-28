@@ -1,131 +1,64 @@
 #!/bin/bash
-# ****************************************************************************** #
-#                                                                                #
-#                                                         :::      ::::::::      #
-#    5_final_config.sh                                 :+:      :+:    :+:      #
-#                                                     +:+ +:+         +:+        #
-#    By: thenizix <thenizix@protonmail.com>         +#+  +:+       +#+           #
-#                                                 +#+#+#+#+#+   +#+              #
-#    Created: 2024/03/27 12:00:00 by thenizix          #+#    #+#                #
-#    Updated: 2024/03/27 12:00:00 by thenizix         ###   ########.it          #
-#                                                                                #
-# ****************************************************************************** #
+# VERIFICA FINALE
 
-# Configurazioni
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-CONFIG_DIR="${SCRIPT_DIR}/../config"
+set -euo pipefail
+trap 'echo "Errore a linea $LINENO"; exit 1' ERR
 
-# Caricamento configurazioni
-source "${CONFIG_DIR}/wp_installer.cfg" || {
-    echo -e "\033[0;31m❌ Errore nel caricamento della configurazione\033[0m" >&2
-    exit 1
-}
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "${SCRIPT_DIR}/../config/wp_installer.cfg"
+LOG_FILE="${SCRIPT_DIR}/../logs/final_check.log"
 
-# Verifica permessi root
-if [ "$(id -u)" -ne 0 ]; then
-    echo -e "\033[0;31m❌ Lo script deve essere eseguito come root!\033[0m" >&2
-    exit 1
-fi
+exec > >(tee -a "$LOG_FILE") 2>&1
 
 # Funzioni
 check_services() {
-    local services=("nginx" "mariadb" "php${PHP_VERSION}-fpm")
-    local all_ok=true
-    
+    local services=("nginx" "mysql" "php${PHP_VERSION}-fpm")
     for service in "${services[@]}"; do
-        if ! systemctl is-active "$service" >/dev/null; then
-            echo -e "\033[0;31m❌ Servizio ${service} non attivo!\033[0m" >&2
-            all_ok=false
+        echo "🔍 Verifica servizio ${service}..." | tee -a "$LOG_FILE"
+        if grep -qi "microsoft" /proc/version; then
+            if ! service "${service}" status | grep -q "active (running)"; then
+                echo "❌ Servizio ${service} non attivo" | tee -a "$LOG_FILE"
+                return 1
+            fi
+        else
+            if ! systemctl is-active "${service}" >/dev/null; then
+                echo "❌ Servizio ${service} non attivo" | tee -a "$LOG_FILE"
+                return 1
+            fi
         fi
     done
-    
-    if ! "$all_ok"; then
-        return 1
-    fi
 }
 
-check_wordpress() {
-    if ! wp core is-installed --path="${WP_DIR}"; then
-        echo -e "\033[0;31m❌ WordPress non sembra essere installato correttamente!\033[0m" >&2
-        return 1
-    fi
-}
+# Main process
+{
+    echo "=== VERIFICA FINALE ==="
 
-check_ssl() {
-    if [ "$SSL_TYPE" != "none" ]; then
-        if [ "$SSL_TYPE" = "letsencrypt" ]; then
-            if [ ! -f "/etc/letsencrypt/live/${DOMAIN}/fullchain.pem" ]; then
-                echo -e "\033[0;31m❌ Certificato Let's Encrypt non trovato!\033[0m" >&2
-                return 1
-            fi
-        elif [ "$SSL_TYPE" = "selfsigned" ]; then
-            if [ ! -f "/etc/ssl/certs/nginx-selfsigned.crt" ]; then
-                echo -e "\033[0;31m❌ Certificato self-signed non trovato!\033[0m" >&2
-                return 1
-            fi
-        fi
-        
-        # Verifica connessione HTTPS
-        if ! curl -sSk "https://${DOMAIN}" >/dev/null 2>&1; then
-            echo -e "\033[0;31m❌ Connessione HTTPS non funzionante!\033[0m" >&2
-            return 1
-        fi
-    fi
-}
+    # Verifica servizi
+    check_services || exit 1
 
-show_summary() {
-    echo -e "\n\033[1;36m=== Riepilogo Configurazione ===\033[0m"
-    echo -e "\033[1;34mDominio:\033[0m ${DOMAIN}"
-    echo -e "\033[1;34mPorta:\033[0m ${SERVER_PORT}"
-    echo -e "\033[1;34mAmbiente:\033[0m ${ENV_MODE}"
-    echo -e "\033[1;34mSSL:\033[0m ${SSL_TYPE}"
-    echo -e "\033[1;34mPHP Version:\033[0m ${PHP_VERSION}"
-    echo -e "\033[1;34mPercorso WordPress:\033[0m ${WP_DIR}"
-    
-    if [ "$ENV_MODE" = "local" ]; then
-        echo -e "\n\033[1;33mAccesso WordPress:\033[0m http://${DOMAIN}:${SERVER_PORT}"
-    else
-        if [ "$SSL_TYPE" != "none" ]; then
-            echo -e "\n\033[1;33mAccesso WordPress:\033[0m https://${DOMAIN}"
-        else
-            echo -e "\n\033[1;33mAccesso WordPress:\033[0m http://${DOMAIN}"
-        fi
-    fi
-    
-    echo -e "\n\033[1;33mCredenziali Amministratore:\033[0m"
-    echo -e "Utente: admin"
-    echo -e "Password: admin"
-    echo -e "\033[1;31m⚠ Cambiare le credenziali dopo il primo accesso!\033[0m"
-    
-    if [ -f "/root/mysql_credentials.txt" ]; then
-        echo -e "\n\033[1;33mCredenziali MySQL salvate in:\033[0m /root/mysql_credentials.txt"
-    fi
-}
-
-main() {
-    echo -e "\033[1;36m=== Verifica Finale ===\033[0m"
-    
-    local all_checks_passed=true
-    
-    if ! check_services; then
-        all_checks_passed=false
-    fi
-    
-    if ! check_wordpress; then
-        all_checks_passed=false
-    fi
-    
-    if [ "$SSL_TYPE" != "none" ] && ! check_ssl; then
-        all_checks_passed=false
-    fi
-    
-    if "$all_checks_passed"; then
-        echo -e "\033[0;32m✅ Tutti i controlli superati con successo!\033[0m"
-        show_summary
-    else
-        echo -e "\033[0;31m❌ Alcuni controlli hanno fallito!\033[0m" >&2
+    # Verifica WordPress
+    echo "🔍 Verifica installazione WordPress..." | tee -a "$LOG_FILE"
+    if ! sudo -u www-data wp core is-installed --path="${WP_DIR}"; then
+        echo "❌ WordPress non installato correttamente" | tee -a "$LOG_FILE"
         exit 1
     fi
-}
 
-main
+    # Verifica connessione database
+    echo "🔍 Verifica connessione database..." | tee -a "$LOG_FILE"
+    if ! sudo -u www-data wp db check --path="${WP_DIR}"; then
+        echo "❌ Connessione database fallita" | tee -a "$LOG_FILE"
+        exit 1
+    fi
+
+    # Verifica SSL (se abilitato)
+    if [ "${SSL_TYPE}" != "none" ]; then
+        echo "🔍 Verifica SSL..." | tee -a "$LOG_FILE"
+        if ! curl -Isk "https://${DOMAIN}" | grep -q "HTTP/.* 200"; then
+            echo "❌ Connessione HTTPS fallita" | tee -a "$LOG_FILE"
+            exit 1
+        fi
+    fi
+
+    echo "✅ Tutti i controlli superati!" | tee -a "$LOG_FILE"
+    echo "🌍 Sito accessibile all'indirizzo: $([ "${SSL_TYPE}" != "none" ] && echo "https" || echo "http")://${DOMAIN}" | tee -a "$LOG_FILE"
+}

@@ -1,107 +1,107 @@
 #!/bin/bash
-# ****************************************************************************** #
-#                                                                                #
-#                                                         :::      ::::::::      #
-#    2_mysql_setup.sh                                   :+:      :+:    :+:      #
-#                                                     +:+ +:+         +:+        #
-#    By: thenizix <thenizix@protonmail.com>         +#+  +:+       +#+           #
-#                                                 +#+#+#+#+#+   +#+              #
-#    Created: 2024/03/27 12:00:00 by thenizix          #+#    #+#                #
-#    Updated: 2024/03/27 12:00:00 by thenizix         ###   ########.it          #
-#                                                                                #
-# ****************************************************************************** #
+# SCRIPT DI CONFIGURAZIONE MYSQL - GESTIONE CREDENZIALI SICURE
 
-# Configurazioni
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="${SCRIPT_DIR%/*}"
-source "${PROJECT_ROOT}/config/wp_installer.cfg"
+set -euo pipefail
+trap 'echo "❌ Errore a linea $LINENO"; exit 1' ERR
 
-# Caricamento configurazioni
-source "${CONFIG_DIR}/wp_installer.cfg" || {
-    echo -e "\033[0;31m❌ Errore nel caricamento della configurazione\033[0m" >&2
-    exit 1
+# Caricamento configurazione
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "${SCRIPT_DIR}/../config/wp_installer.cfg"
+LOG_FILE="${SCRIPT_DIR}/../logs/mysql_setup.log"
+
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+# Funzione: Verifica connessione MySQL
+check_mysql_connection() {
+    local user="$1"
+    local pass="$2"
+    if ! mysql -u"${user}" -p"${pass}" -e "SHOW DATABASES;" &>/dev/null; then
+        echo "❌ Connessione fallita per ${user}" | tee -a "$LOG_FILE"
+        return 1
+    fi
+    return 0
 }
 
-# Verifica permessi root
-if [ "$(id -u)" -ne 0 ]; then
-    echo -e "\033[0;31m❌ Lo script deve essere eseguito come root!\033[0m" >&2
-    exit 1
-fi
-
-# Funzioni
-secure_mysql() {
-    echo -e "\033[1;34mConfigurazione sicura di MySQL...\033[0m"
+# Funzione: Configurazione sicura iniziale
+secure_mysql_installation() {
+    echo "🔐 Configurazione sicura MariaDB..." | tee -a "$LOG_FILE"
     
-    # Crea un file temporaneo per le query SQL
-    local temp_file=$(mktemp)
-    
-    cat > "$temp_file" <<EOF
-ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASS}';
-DELETE FROM mysql.user WHERE User='';
-DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-DROP DATABASE IF EXISTS test;
-DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
-FLUSH PRIVILEGES;
-EOF
+    # Comandi SQL in blocco per evitare injection
+    mysql -uroot <<-SQL
+        -- Rimozione utenti anonimi
+        DELETE FROM mysql.user WHERE User='';
+        
+        -- Rimozione database di test
+        DROP DATABASE IF EXISTS test;
+        DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+        
+        -- Ricrea utente root con password
+        ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASS}';
+        
+        -- Crea database WordPress
+        CREATE DATABASE IF NOT EXISTS \`${MYSQL_WP_DB}\`
+            CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+        
+        -- Crea utente dedicato con permessi ristretti
+        CREATE USER IF NOT EXISTS '${MYSQL_WP_USER}'@'localhost'
+            IDENTIFIED BY '${MYSQL_WP_PASS}';
+        
+        -- Assegna permessi solo al database WordPress
+        GRANT ALL PRIVILEGES ON \`${MYSQL_WP_DB}\`.* 
+            TO '${MYSQL_WP_USER}'@'localhost';
+        
+        -- Applica modifiche
+        FLUSH PRIVILEGES;
+SQL
 
-    if ! mysql -uroot < "$temp_file"; then
-        echo -e "\033[0;31m❌ Errore nella configurazione sicura di MySQL\033[0m" >&2
-        rm -f "$temp_file"
+    # Verifica finale
+    echo "🔍 Verifica credenziali..." | tee -a "$LOG_FILE"
+    check_mysql_connection "root" "${MYSQL_ROOT_PASS}" || exit 1
+    check_mysql_connection "${MYSQL_WP_USER}" "${MYSQL_WP_PASS}" || exit 1
+}
+
+# Main Process
+{
+    echo "=== CONFIGURAZIONE DATABASE ===" | tee -a "$LOG_FILE"
+    
+    # 1. Verifica installazione MariaDB
+    if ! dpkg -l mariadb-server >/dev/null; then
+        echo "❌ MariaDB non installato" | tee -a "$LOG_FILE"
         exit 1
     fi
-    
-    rm -f "$temp_file"
-}
 
-setup_database() {
-    echo -e "\033[1;34mCreazione database WordPress...\033[0m"
-    
-    local temp_file=$(mktemp)
-    
-    cat > "$temp_file" <<EOF
-CREATE DATABASE IF NOT EXISTS ${MYSQL_WP_DB} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER IF NOT EXISTS '${MYSQL_WP_USER}'@'localhost' IDENTIFIED BY '${MYSQL_WP_PASS}';
-GRANT ALL PRIVILEGES ON ${MYSQL_WP_DB}.* TO '${MYSQL_WP_USER}'@'localhost';
-FLUSH PRIVILEGES;
-EOF
+    # 2. Avvio servizio con tentativi multipli
+    for attempt in {1..3}; do
+        echo "🔄 Tentativo $attempt di avvio MariaDB..." | tee -a "$LOG_FILE"
+        if sudo ${SERVICE_CMD} start mysql; then
+            # Attesa connessione
+            until mysqladmin ping -uroot --silent; do
+                sleep 2
+                echo "⏳ Attesa avvio MariaDB..." | tee -a "$LOG_FILE"
+            done
+            break
+        else
+            echo "⚠️ Fallito tentativo $attempt" | tee -a "$LOG_FILE"
+            sleep 5
+        fi
+    done
 
-    if ! mysql -uroot -p"${MYSQL_ROOT_PASS}" < "$temp_file"; then
-        echo -e "\033[0;31m❌ Errore nella creazione del database WordPress\033[0m" >&2
-        rm -f "$temp_file"
+    # 3. Applica configurazione sicura
+    secure_mysql_installation
+
+    # 4. Verifica finale
+    echo "🔍 Test operazioni database..." | tee -a "$LOG_FILE"
+    mysql -u"${MYSQL_WP_USER}" -p"${MYSQL_WP_PASS}" -e "
+        CREATE TABLE IF NOT EXISTS \`${MYSQL_WP_DB}\`.test_creds (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            test_value VARCHAR(100)
+        ENGINE=InnoDB;
+        DROP TABLE \`${MYSQL_WP_DB}\`.test_creds;" || {
+        echo "❌ Test database fallito" | tee -a "$LOG_FILE"
         exit 1
-    fi
-    
-    rm -f "$temp_file"
-}
+    }
 
-save_credentials() {
-    local cred_file="/root/mysql_credentials.txt"
-    
-    echo -e "=== Credenziali MySQL ===" > "$cred_file"
-    echo -e "Root Password: ${MYSQL_ROOT_PASS}" >> "$cred_file"
-    echo -e "\n=== Database WordPress ===" >> "$cred_file"
-    echo -e "Database Name: ${MYSQL_WP_DB}" >> "$cred_file"
-    echo -e "DB User: ${MYSQL_WP_USER}" >> "$cred_file"
-    echo -e "DB Password: ${MYSQL_WP_PASS}" >> "$cred_file"
-    
-    chmod 600 "$cred_file"
-    echo -e "\033[1;33m⚠ Credenziali salvate in ${cred_file}\033[0m"
+    echo "✅ Database configurato correttamente!" | tee -a "$LOG_FILE"
+    echo "   Database: ${MYSQL_WP_DB}" | tee -a "$LOG_FILE"
+    echo "   Utente: ${MYSQL_WP_USER}" | tee -a "$LOG_FILE"
 }
-
-main() {
-    echo -e "\033[1;36m=== Configurazione MySQL ===\033[0m"
-    
-    # Verifica che MySQL sia attivo
-    if ! systemctl is-active mariadb >/dev/null; then
-        echo -e "\033[0;31m❌ MySQL/MariaDB non è attivo!\033[0m" >&2
-        exit 1
-    fi
-    
-    secure_mysql
-    setup_database
-    save_credentials
-    
-    echo -e "\033[0;32m✅ MySQL configurato correttamente!\033[0m"
-}
-
-main

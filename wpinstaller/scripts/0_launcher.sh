@@ -1,116 +1,93 @@
 #!/bin/bash
-# ****************************************************************************** #
-#                                                                                #
-#                                                         :::      ::::::::      #
-#    0_launcher.sh                                      :+:      :+:    :+:      #
-#                                                     +:+ +:+         +:+        #
-#    By: thenizix <thenizix@protonmail.com>         +#+  +:+       +#+           #
-#                                                 +#+#+#+#+#+   +#+              #
-#    Created: 2024/03/27 12:00:00 by thenizix          #+#    #+#                #
-#    Updated: 2024/03/27 12:00:00 by thenizix         ###   ########.it          #
-#                                                                                #
-# ****************************************************************************** #
+# MENU PRINCIPALE CON GESTIONE ERRORI MIGLIORATA
 
-# ============================================================================== #
-# CONFIGURAZIONE PATH
-# ============================================================================== #
+set -euo pipefail
+trap 'echo "Errore a linea $LINENO"; exit 1' ERR
 
-# Determina il percorso assoluto dello script
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+# Percorsi file
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+CONFIG_FILE="${SCRIPT_DIR}/../config/wp_installer.cfg"
+LOG_DIR="${SCRIPT_DIR}/../logs"
 
-# Percorso base del progetto (una directory sopra scripts/)
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-
-# Percorsi configurazione
-CONFIG_DIR="${PROJECT_ROOT}/config"
-WP_CONFIG="${CONFIG_DIR}/wp_installer.cfg"
-ENV_CONFIG="${CONFIG_DIR}/env.cfg"
-
-# ============================================================================== #
-# FUNZIONI DI UTILITÀ
-# ============================================================================== #
-
-# Verifica la presenza dei file essenziali
-check_requirements() {
-    local missing=0
-    
-    # Verifica file di configurazione
-    if [ ! -f "$WP_CONFIG" ]; then
-        echo -e "\033[0;31m❌ File wp_installer.cfg mancante in ${CONFIG_DIR}\033[0m"
-        missing=$((missing+1))
-    fi
-    
-    if [ ! -f "$ENV_CONFIG" ]; then
-        echo -e "\033[0;31m❌ File env.cfg mancante in ${CONFIG_DIR}\033[0m"
-        missing=$((missing+1))
-    fi
-    
-    # Verifica permessi root
-    if [ "$(id -u)" -ne 0 ]; then
-        echo -e "\033[0;31m❌ Lo script richiede permessi root. Usa: sudo $0\033[0m"
-        missing=$((missing+1))
-    fi
-    
-    return $missing
-}
-
-# Carica le configurazioni
-load_config() {
-    if ! source "$WP_CONFIG"; then
-        echo -e "\033[0;31m❌ Errore nel file wp_installer.cfg (sintassi non valida)\033[0m" >&2
-        exit 1
-    fi
-    
-    if ! source "$ENV_CONFIG"; then
-        echo -e "\033[0;31m❌ Errore nel file env.cfg (sintassi non valida)\033[0m" >&2
-        exit 1
-    fi
-}
-
-# ============================================================================== #
-# MENU PRINCIPALE
-# ============================================================================== #
-
-show_menu() {
+# Funzioni
+show_banner() {
     clear
-    echo -e "\033[1;36m=== WP-NGINX INSTALLER ===\033[0m"
-    echo -e "Ambiente: \033[1;33m${ENV_MODE}\033[0m"
-    echo -e "Dominio: \033[1;33m${DOMAIN}\033[0m"
-    echo -e "Porta: \033[1;33m${SERVER_PORT}\033[0m"
-    echo -e "SSL: \033[1;33m${SSL_TYPE}\033[0m"
-    echo ""
-    echo "1. Installazione Completa"
-    echo "2. Cambia Porta"
-    echo "3. Configura SSL"
-    echo "4. Verifica Installazione"
-    echo "0. Esci"
+    echo -e "\033[1;36m"
+    echo " ██████╗ ██████╗ ███████╗██████╗ "
+    echo "██╔═══██╗██╔══██╗██╔════╝██╔══██╗"
+    echo "██║   ██║██████╔╝█████╗  ██████╔╝"
+    echo "██║   ██║██╔═══╝ ██╔══╝  ██╔══██╗"
+    echo "╚██████╔╝██║     ███████╗██║  ██║"
+    echo " ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝"
+    echo -e "\033[0m"
+    echo " WordPress Installer v2.0"
+    echo "========================="
 }
 
-# ============================================================================== #
-# MAIN
-# ============================================================================== #
-
-# Verifica prerequisiti
-if ! check_requirements; then
-    exit 1
-fi
-
-# Carica configurazioni
-load_config
-
-# Loop menu principale
-while true; do
-    show_menu
-    read -p "Scelta: " choice
+run_script() {
+    local script_name="$1"
+    local script_path="${SCRIPT_DIR}/${script_name}"
+    local log_file="${LOG_DIR}/${script_name%.*}.log"
     
+    if [ ! -f "$script_path" ]; then
+        echo -e "\033[0;31m[ERRORE] File ${script_name} non trovato\033[0m"
+        return 1
+    fi
+    
+    echo -e "\n\033[1;34m[ESECUZIONE] ${script_name}\033[0m"
+    echo -e "Log dettagliato: ${log_file}\n"
+    
+    if ! bash -x "$script_path" 2>&1 | tee "$log_file"; then
+        echo -e "\033[0;31m[ERRORE] Script ${script_name} fallito (codice $?)\033[0m"
+        echo -e "\033[0;33mConsultare il log per dettagli: ${log_file}\033[0m"
+        return 1
+    fi
+}
+
+full_installation() {
+    local steps=(
+        "1_system_setup.sh"
+        "2_mysql_setup.sh"
+        "3_wordpress_setup.sh"
+        "4_ssl_setup.sh"
+        "5_final_config.sh"
+    )
+    
+    for step in "${steps[@]}"; do
+        if ! run_script "$step"; then
+            echo -e "\033[0;31m[INSTALLAZIONE INTERROTTA]\033[0m"
+            exit 1
+        fi
+    done
+}
+
+# Main
+mkdir -p "$LOG_DIR"
+chmod 700 "$LOG_DIR"
+
+while true; do
+    show_banner
+    echo -e "\033[1;37mMENU PRINCIPALE:\033[0m"
+    echo "1) Installazione Completa"
+    echo "2) Configura Sistema"
+    echo "3) Configura Database"
+    echo "4) Installa WordPress"
+    echo "5) Configura SSL"
+    echo "6) Verifica Finale"
+    echo "7) Esci"
+    echo -ne "\n\033[1;37mSeleziona opzione: \033[0m"
+    
+    read -r choice
     case $choice in
-        1) bash "${SCRIPT_DIR}/1_system_setup.sh" ;;
-        2) bash "${SCRIPT_DIR}/2_change_port.sh" ;;
-        3) bash "${SCRIPT_DIR}/3_ssl_setup.sh" ;;
-        4) bash "${SCRIPT_DIR}/4_verify_install.sh" ;;
-        0) exit 0 ;;
-        *) echo -e "\033[0;31mScelta non valida!\033[0m" ;;
+        1) full_installation ;;
+        2) run_script "1_system_setup.sh" ;;
+        3) run_script "2_mysql_setup.sh" ;;
+        4) run_script "3_wordpress_setup.sh" ;;
+        5) run_script "4_ssl_setup.sh" ;;
+        6) run_script "5_final_config.sh" ;;
+        7) exit 0 ;;
+        *) echo -e "\033[0;31mOpzione non valida!\033[0m" ;;
     esac
     
-    read -p "Premi INVIO per continuare..." -r
+    read -rp "Premi INVIO per continuare..." -n 1
 done
