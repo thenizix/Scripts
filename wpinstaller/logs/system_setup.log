@@ -1,2076 +1,0 @@
-🚀 Aggiornamento sistema...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
-Reading package lists...
-Building dependency tree...
-Reading state information...
-1 package can be upgraded. Run 'apt list --upgradable' to see it.
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...
-Building dependency tree...
-Reading state information...
-Calculating upgrade...
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-The following upgrades have been deferred due to phasing:
-  openssh-client
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-📦 Installazione pacchetti base...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...
-Building dependency tree...
-Reading state information...
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-🐘 Configurazione PHP-FPM...
-🔧 Configurazione Nginx...
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
-✅ Configurazione sistema completata!
-🚀 Aggiornamento sistema...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
-Get:4 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [822 kB]
-Get:5 http://security.ubuntu.com/ubuntu noble-security/universe Translation-en [177 kB]
-Hit:6 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Get:7 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [960 kB]
-Get:8 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1043 kB]
-Fetched 3255 kB in 2s (1798 kB/s)
-Reading package lists...
-Building dependency tree...
-Reading state information...
-1 package can be upgraded. Run 'apt list --upgradable' to see it.
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...
-Building dependency tree...
-Reading state information...
-Calculating upgrade...
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-The following upgrades have been deferred due to phasing:
-  openssh-client
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-📦 Installazione pacchetti base...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...
-Building dependency tree...
-Reading state information...
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-🔧 Configurazione MariaDB...
-Synchronizing state of mariadb.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
-Executing: /usr/lib/systemd/systemd-sysv-install enable mariadb
-✅ mariadb attivo correttamente
-🐘 Configurazione PHP-FPM...
-🔌 Configurazione Nginx...
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
-✅ Configurazione sistema completata!
-🚀 Aggiornamento sistema...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
-Reading package lists...
-Building dependency tree...
-Reading state information...
-1 package can be upgraded. Run 'apt list --upgradable' to see it.
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...
-Building dependency tree...
-Reading state information...
-Calculating upgrade...
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-The following upgrades have been deferred due to phasing:
-  openssh-client
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-📦 Installazione pacchetti base...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...
-Building dependency tree...
-Reading state information...
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php-fpm is already the newest version (2:8.3+93ubuntu2).
-php-mysql is already the newest version (2:8.3+93ubuntu2).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-The following NEW packages will be installed:
-  php-curl
-0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
-Need to get 1836 B of archives.
-After this operation, 11.3 kB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble/main amd64 php-curl all 2:8.3+93ubuntu2 [1836 B]
-Fetched 1836 B in 0s (7019 B/s)
-Selecting previously unselected package php-curl.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 125631 files and directories currently installed.)
-Preparing to unpack .../php-curl_2%3a8.3+93ubuntu2_all.deb ...
-Unpacking php-curl (2:8.3+93ubuntu2) ...
-Setting up php-curl (2:8.3+93ubuntu2) ...
-🔧 Configurazione MariaDB...
-Synchronizing state of mariadb.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
-Executing: /usr/lib/systemd/systemd-sysv-install enable mariadb
-🚀 Starting system setup
-🔄 Updating package lists...
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...
-📦 Installing core packages...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php-fpm is already the newest version (2:8.3+93ubuntu2).
-php-mysql is already the newest version (2:8.3+93ubuntu2).
-php-curl is already the newest version (2:8.3+93ubuntu2).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-The following NEW packages will be installed:
-  php-gd php-mbstring php-xml php-zip
-0 upgraded, 4 newly installed, 0 to remove and 1 not upgraded.
-Need to get 7366 B of archives.
-After this operation, 45.1 kB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble/main amd64 php-gd all 2:8.3+93ubuntu2 [1830 B]
-Get:2 http://archive.ubuntu.com/ubuntu noble/universe amd64 php-mbstring all 2:8.3+93ubuntu2 [1848 B]
-Get:3 http://archive.ubuntu.com/ubuntu noble/main amd64 php-xml all 2:8.3+93ubuntu2 [1856 B]
-Get:4 http://archive.ubuntu.com/ubuntu noble/universe amd64 php-zip all 2:8.3+93ubuntu2 [1832 B]
-Fetched 7366 B in 0s (19.4 kB/s)
-Selecting previously unselected package php-gd.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 125634 files and directories currently installed.)
-Preparing to unpack .../php-gd_2%3a8.3+93ubuntu2_all.deb ...
-Unpacking php-gd (2:8.3+93ubuntu2) ...
-Selecting previously unselected package php-mbstring.
-Preparing to unpack .../php-mbstring_2%3a8.3+93ubuntu2_all.deb ...
-Unpacking php-mbstring (2:8.3+93ubuntu2) ...
-Selecting previously unselected package php-xml.
-Preparing to unpack .../php-xml_2%3a8.3+93ubuntu2_all.deb ...
-Unpacking php-xml (2:8.3+93ubuntu2) ...
-Selecting previously unselected package php-zip.
-Preparing to unpack .../php-zip_2%3a8.3+93ubuntu2_all.deb ...
-Unpacking php-zip (2:8.3+93ubuntu2) ...
-Setting up php-xml (2:8.3+93ubuntu2) ...
-Setting up php-mbstring (2:8.3+93ubuntu2) ...
-Setting up php-zip (2:8.3+93ubuntu2) ...
-Setting up php-gd (2:8.3+93ubuntu2) ...
-🔧 Verifying MariaDB installation...
-🛠️ Applying WSL-specific fixes...
-🔄 Attempting to start MariaDB (try 1/3)...
-🚀 Starting system setup
-🔄 Updating package lists...
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...
-📦 Installing core packages...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php-fpm is already the newest version (2:8.3+93ubuntu2).
-php-mysql is already the newest version (2:8.3+93ubuntu2).
-php-curl is already the newest version (2:8.3+93ubuntu2).
-php-gd is already the newest version (2:8.3+93ubuntu2).
-php-xml is already the newest version (2:8.3+93ubuntu2).
-php-mbstring is already the newest version (2:8.3+93ubuntu2).
-php-zip is already the newest version (2:8.3+93ubuntu2).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-🔧 Verifying MariaDB installation...
-🛠️ Applying WSL-specific fixes...
-🔄 Attempting to start MariaDB (try 1/3)...
-🚀 Starting system setup
-🔄 Updating package lists...
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
-Reading package lists...
-📦 Installing core packages...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php-fpm is already the newest version (2:8.3+93ubuntu2).
-php-mysql is already the newest version (2:8.3+93ubuntu2).
-php-curl is already the newest version (2:8.3+93ubuntu2).
-php-gd is already the newest version (2:8.3+93ubuntu2).
-php-xml is already the newest version (2:8.3+93ubuntu2).
-php-mbstring is already the newest version (2:8.3+93ubuntu2).
-php-zip is already the newest version (2:8.3+93ubuntu2).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-🔧 Verifying MariaDB installation...
-🛠️ Applying WSL-specific fixes...
-🔄 Attempting to start MariaDB (try 1/3)...
-Avvio configurazione sistema...
-Aggiornamento repository...
-Aggiornamento repository...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
-Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
-Get:4 http://security.ubuntu.com/ubuntu noble-security/main amd64 c-n-f Metadata [7068 B]
-Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Get:6 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1043 kB]
-Get:7 http://archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [263 kB]
-Fetched 1565 kB in 2s (968 kB/s)
-Reading package lists...
-Building dependency tree...
-Reading state information...
-1 package can be upgraded. Run 'apt list --upgradable' to see it.
-Installazione pacchetti base...
-Installazione pacchetti base...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-The following package was automatically installed and is no longer required:
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-Gestione servizio: mariadb -> start
-Gestione servizio: mariadb -> start
-Avvio configurazione sistema...
-Aggiornamento repository...
-Aggiornamento repository...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
-Get:4 http://security.ubuntu.com/ubuntu noble-security/main amd64 Components [8960 B]
-Get:5 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Components [212 B]
-Get:6 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Components [51.9 kB]
-Get:7 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
-Get:8 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Components [212 B]
-Get:9 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [151 kB]
-Get:10 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 c-n-f Metadata [13.5 kB]
-Get:11 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Components [212 B]
-Get:12 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1044 kB]
-Get:13 http://archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [263 kB]
-Get:14 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [365 kB]
-Get:15 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
-Get:16 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [7076 B]
-Get:17 http://archive.ubuntu.com/ubuntu noble-backports/restricted amd64 Components [216 B]
-Get:18 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [15.7 kB]
-Get:19 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Components [212 B]
-Fetched 2300 kB in 2s (1225 kB/s)
-Reading package lists...
-Building dependency tree...
-Reading state information...
-1 package can be upgraded. Run 'apt list --upgradable' to see it.
-Installazione pacchetti base...
-Installazione pacchetti base...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-The following package was automatically installed and is no longer required:
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-Gestione servizio: mariadb -> start
-Gestione servizio: mariadb -> start
-Job for mariadb.service failed because a timeout was exceeded.
-See "systemctl status mariadb.service" and "journalctl -xeu mariadb.service" for details.
-Errore: mariadb non in esecuzione dopo start
-Errore: mariadb non in esecuzione dopo start
-Gestione servizio: php8.3-fpm -> start
-Gestione servizio: php8.3-fpm -> start
-Configurazione Nginx...
-Configurazione Nginx...
-2025/03/27 23:07:58 [emerg] 1941#1941: directive "listen" is not terminated by ";" in /etc/nginx/sites-enabled/wordpress:16
-nginx: configuration file /etc/nginx/nginx.conf test failed
-Gestione servizio: nginx -> restart
-Gestione servizio: nginx -> restart
-Job for nginx.service failed because the control process exited with error code.
-See "systemctl status nginx.service" and "journalctl -xeu nginx.service" for details.
-Errore: nginx non in esecuzione dopo restart
-Errore: nginx non in esecuzione dopo restart
-Configurazione sistema completata!
-Configurazione sistema completata!
-Aggiornamento repository...
-Avvio configurazione sistema...
-Aggiornamento repository...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...
-Building dependency tree...
-Reading state information...
-1 package can be upgraded. Run 'apt list --upgradable' to see it.
-Installazione pacchetti base...
-Installazione pacchetti base...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-The following package was automatically installed and is no longer required:
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-Job for mariadb.service failed because of unavailable resources or another system error.
-See "systemctl status mariadb.service" and "journalctl -xeu mariadb.service" for details.
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-Avvio configurazione sistema...
-Aggiornamento repository...
-Aggiornamento repository...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [960 kB]
-Get:6 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1044 kB]
-Fetched 2130 kB in 2s (948 kB/s)
-Reading package lists...
-Building dependency tree...
-Reading state information...
-1 package can be upgraded. Run 'apt list --upgradable' to see it.
-Installazione pacchetti base...
-Installazione pacchetti base...
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-The following package was automatically installed and is no longer required:
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
-Job for mariadb.service failed because of unavailable resources or another system error.
-See "systemctl status mariadb.service" and "journalctl -xeu mariadb.service" for details.
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-/mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/1_system_setup.sh: line 40: verifica_servizio_attivo: command not found
-ERRORE: Timeout servizio mariadb
-+ echo '=== INIZIO CONFIGURAZIONE SISTEMA ==='
-=== INIZIO CONFIGURAZIONE SISTEMA ===
-+ echo 'Aggiornamento repository e pacchetti...'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Aggiornamento repository e pacchetti...
-Aggiornamento repository e pacchetti...
-+ sudo apt-get update -y
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease
-Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
-Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [960 kB]
-Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [960 kB]
-Get:6 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1044 kB]
-Get:6 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1044 kB]
-Fetched 2130 kB in 1s (2314 kB/s)
-Reading package lists...Fetched 2130 kB in 1s (2314 kB/s)
-Reading package lists...
-
-+ sudo apt-get upgrade -y
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-Calculating upgrade...Calculating upgrade...
-
-The following package was automatically installed and is no longer required:
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-The following packages will be upgraded:
-The following packages will be upgraded:
-  openssh-client
-  openssh-client
-1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-Need to get 905 kB of archives.
-After this operation, 1024 B of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 openssh-client amd64 1:9.6p1-3ubuntu13.9 [905 kB]
-1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-Need to get 905 kB of archives.
-After this operation, 1024 B of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 openssh-client amd64 1:9.6p1-3ubuntu13.9 [905 kB]
-Fetched 905 kB in 0s (2091 kB/s)
-Fetched 905 kB in 0s (2091 kB/s)
-(Reading database ... (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 60%(Reading database ... 65%(Reading database ... 65%(Reading database ... 70%(Reading database ... 70%(Reading database ... 75%(Reading database ... 75%(Reading database ... 80%(Reading database ... 80%(Reading database ... 85%(Reading database ... 85%(Reading database ... 90%(Reading database ... 90%(Reading database ... 95%(Reading database ... 95%(Reading database ... 100%(Reading database ... 125646 files and directories currently installed.)
-(Reading database ... 100%(Reading database ... 125646 files and directories currently installed.)
-Preparing to unpack .../openssh-client_1%3a9.6p1-3ubuntu13.9_amd64.deb ...
-Preparing to unpack .../openssh-client_1%3a9.6p1-3ubuntu13.9_amd64.deb ...
-Unpacking openssh-client (1:9.6p1-3ubuntu13.9) over (1:9.6p1-3ubuntu13.8) ...
-Unpacking openssh-client (1:9.6p1-3ubuntu13.9) over (1:9.6p1-3ubuntu13.8) ...
-Setting up openssh-client (1:9.6p1-3ubuntu13.9) ...
-Setting up openssh-client (1:9.6p1-3ubuntu13.9) ...
-Processing triggers for man-db (2.12.0-4build2) ...
-Processing triggers for man-db (2.12.0-4build2) ...
-+ echo 'Installazione pacchetti principali...'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Installazione pacchetti principali...
-Installazione pacchetti principali...
-+ sudo apt-get install -y nginx mariadb-server php8.3 php8.3-fpm php8.3-mysql php8.3-curl php8.3-gd php8.3-xml php8.3-mbstring php8.3-zip php8.3-intl curl unzip git
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mbstring is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-zip is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-intl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-curl is already the newest version (8.5.0-2ubuntu10.6).
-unzip is already the newest version (6.0-28ubuntu4.1).
-git is already the newest version (1:2.43.0-1ubuntu7.2).
-The following package was automatically installed and is no longer required:
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mbstring is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-zip is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-intl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-curl is already the newest version (8.5.0-2ubuntu10.6).
-unzip is already the newest version (6.0-28ubuntu4.1).
-git is already the newest version (1:2.43.0-1ubuntu7.2).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-The following NEW packages will be installed:
-The following NEW packages will be installed:
-  php8.3
-  php8.3
-0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
-Need to get 9178 B of archives.
-After this operation, 63.5 kB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 php8.3 all 8.3.6-0ubuntu0.24.04.3 [9178 B]
-0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
-Need to get 9178 B of archives.
-After this operation, 63.5 kB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 php8.3 all 8.3.6-0ubuntu0.24.04.3 [9178 B]
-Fetched 9178 B in 0s (80.0 kB/s)
-Fetched 9178 B in 0s (80.0 kB/s)
-Selecting previously unselected package php8.3.
-(Reading database ... Selecting previously unselected package php8.3.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 60%(Reading database ... 65%(Reading database ... 65%(Reading database ... 70%(Reading database ... 70%(Reading database ... 75%(Reading database ... 75%(Reading database ... 80%(Reading database ... 80%(Reading database ... 85%(Reading database ... 85%(Reading database ... 90%(Reading database ... 90%(Reading database ... 95%(Reading database ... 95%(Reading database ... 100%(Reading database ... 125646 files and directories currently installed.)
-(Reading database ... 100%(Reading database ... 125646 files and directories currently installed.)
-Preparing to unpack .../php8.3_8.3.6-0ubuntu0.24.04.3_all.deb ...
-Preparing to unpack .../php8.3_8.3.6-0ubuntu0.24.04.3_all.deb ...
-Unpacking php8.3 (8.3.6-0ubuntu0.24.04.3) ...
-Unpacking php8.3 (8.3.6-0ubuntu0.24.04.3) ...
-Setting up php8.3 (8.3.6-0ubuntu0.24.04.3) ...
-Setting up php8.3 (8.3.6-0ubuntu0.24.04.3) ...
-+ echo 'Configurazione iniziale MariaDB...'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Configurazione iniziale MariaDB...
-Configurazione iniziale MariaDB...
-+ sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-Installing MariaDB/MySQL system tables in '/var/lib/mysql' ...
-2025-03-28 19:01:52 0 [ERROR] mariadbd: Can't lock aria control file '/var/lib/mysql/aria_log_control' for exclusive use, error: 11. Will retry for 30 seconds
-2025-03-28 19:02:22 0 [ERROR] mariadbd: Got error 'Could not get an exclusive lock; file is probably in use by another process' when trying to use aria control file '/var/lib/mysql/aria_log_control'
-2025-03-28 19:02:22 0 [ERROR] Plugin 'Aria' registration as a STORAGE ENGINE failed.
-2025-03-28 19:02:22 0 [ERROR] InnoDB: Unable to lock ./ibdata1 error: 11
-2025-03-28 19:02:22 0 [ERROR] InnoDB: Plugin initialization aborted with error Generic error
-2025-03-28 19:02:22 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
-2025-03-28 19:02:22 0 [ERROR] Failed to initialize plugins.
-2025-03-28 19:02:22 0 [ERROR] Aborting
-
-Installation of system tables failed!  Examine the logs in
-/var/lib/mysql for more information.
-
-The problem could be conflicting information in an external
-my.cnf files. You can ignore these by doing:
-
-    shell> /usr/bin/mysql_install_db --defaults-file=~/.my.cnf
-
-You can also try to start the mariadbd daemon with:
-
-    shell> /usr/sbin/mariadbd --skip-grant-tables --general-log &
-
-and use the command line tool /usr/bin/mariadb
-to connect to the mysql database and look at the grant tables:
-
-    shell> /usr/bin/mariadb -u root mysql
-    MariaDB> show tables;
-
-Try '/usr/sbin/mariadbd --help' if you have problems with paths.  Using
---general-log gives you a log in /var/lib/mysql that may be helpful.
-
-The latest information about mysql_install_db is available at
-https://mariadb.com/kb/en/installing-system-tables-mysql_install_db
-You can find the latest source at https://downloads.mariadb.org and
-the maria-discuss email list at https://launchpad.net/~maria-discuss
-
-Please check all of the above before submitting a bug report
-at https://mariadb.org/jira
-
-++ echo 'Errore a linea 82'
-Errore a linea 82
-++ exit 1
-+ echo '=== INIZIO CONFIGURAZIONE SISTEMA ==='
-=== INIZIO CONFIGURAZIONE SISTEMA ===
-++ date
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-+ echo '🕒 Timestamp: Fri Mar 28 19:10:39 CET 2025'
-🕒 Timestamp: Fri Mar 28 19:10:39 CET 2025
-🕒 Timestamp: Fri Mar 28 19:10:39 CET 2025
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-++ grep -qi microsoft /proc/version
-++ echo WSL
-+ echo '🔍 Ambiente: WSL'
-🔍 Ambiente: WSL
-🔍 Ambiente: WSL
-+ echo '🔄 Aggiornamento repository e pacchetti...'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-🔄 Aggiornamento repository e pacchetti...
-🔄 Aggiornamento repository e pacchetti...
-+ sudo apt-get update -y
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...Reading package lists...
-
-+ sudo apt-get upgrade -y
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-Calculating upgrade...Calculating upgrade...
-
-The following package was automatically installed and is no longer required:
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-+ echo '📦 Installazione pacchetti principali...'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-📦 Installazione pacchetti principali...
-📦 Installazione pacchetti principali...
-+ sudo apt-get install -y nginx mariadb-server php8.3 php8.3-fpm php8.3-mysql php8.3-curl php8.3-gd php8.3-xml php8.3-mbstring php8.3-zip php8.3-intl curl unzip git
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3 is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mbstring is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-zip is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-intl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-curl is already the newest version (8.5.0-2ubuntu10.6).
-unzip is already the newest version (6.0-28ubuntu4.1).
-git is already the newest version (1:2.43.0-1ubuntu7.2).
-The following package was automatically installed and is no longer required:
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3 is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mbstring is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-zip is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-intl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-curl is already the newest version (8.5.0-2ubuntu10.6).
-unzip is already the newest version (6.0-28ubuntu4.1).
-git is already the newest version (1:2.43.0-1ubuntu7.2).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-+ install_mariadb
-+ echo '🔧 Installazione e configurazione MariaDB...'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-🔧 Installazione e configurazione MariaDB...
-🔧 Installazione e configurazione MariaDB...
-+ sudo apt-get remove --purge mariadb-server mariadb-client -y
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following packages were automatically installed and are no longer required:
-  galera-4 libcgi-fast-perl libcgi-pm-perl libclone-perl
-  libconfig-inifiles-perl libdbd-mysql-perl libdbi-perl libencode-locale-perl
-  libfcgi-bin libfcgi-perl libfcgi0t64 libhtml-parser-perl libhtml-tagset-perl
-  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
-  liblwp-mediatypes-perl libmariadb3 libmysqlclient21 libterm-readkey-perl
-  libtimedate-perl liburi-perl liburing2 libwrap0 libxmlrpc-epi0t64
-  mariadb-client-core mariadb-common mariadb-server-core mysql-common pv socat
-Use 'sudo apt autoremove' to remove them.
-The following packages will be REMOVED:
-  mariadb-client* mariadb-plugin-provider-bzip2* mariadb-plugin-provider-lz4*
-  mariadb-plugin-provider-lzma* mariadb-plugin-provider-lzo*
-  mariadb-plugin-provider-snappy* mariadb-server*
-0 upgraded, 0 newly installed, 7 to remove and 0 not upgraded.
-After this operation, 120 MB disk space will be freed.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 125651 files and directories currently installed.)
-Removing mariadb-plugin-provider-snappy (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-plugin-provider-lzo (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-plugin-provider-bzip2 (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-plugin-provider-lz4 (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-plugin-provider-lzma (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-+ echo '=== INIZIO CONFIGURAZIONE SISTEMA ==='
-=== INIZIO CONFIGURAZIONE SISTEMA ===
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-++ date
-+ echo '🕒 Timestamp: Fri Mar 28 19:16:31 CET 2025'
-🕒 Timestamp: Fri Mar 28 19:16:31 CET 2025
-🕒 Timestamp: Fri Mar 28 19:16:31 CET 2025
-++ grep -qi microsoft /proc/version
-++ echo WSL
-+ echo '🔍 Ambiente: WSL'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-🔍 Ambiente: WSL
-🔍 Ambiente: WSL
-+ echo '🔄 Aggiornamento repository e pacchetti...'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-🔄 Aggiornamento repository e pacchetti...
-🔄 Aggiornamento repository e pacchetti...
-+ sudo apt-get update -y
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...Reading package lists...
-
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-+ sudo apt-get upgrade -y
-E: dpkg was interrupted, you must manually run 'sudo dpkg --configure -a' to correct the problem. 
-++ echo 'Errore a linea 139'
-Errore a linea 139
-++ exit 1
-+ echo '=== INIZIO CONFIGURAZIONE SISTEMA ==='
-=== INIZIO CONFIGURAZIONE SISTEMA ===
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-++ date
-+ echo '🕒 Timestamp: Fri Mar 28 19:17:15 CET 2025'
-🕒 Timestamp: Fri Mar 28 19:17:15 CET 2025
-🕒 Timestamp: Fri Mar 28 19:17:15 CET 2025
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-++ grep -qi microsoft /proc/version
-++ echo WSL
-+ echo '🔍 Ambiente: WSL'
-🔍 Ambiente: WSL
-🔍 Ambiente: WSL
-+ echo '🔄 Aggiornamento repository e pacchetti...'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-🔄 Aggiornamento repository e pacchetti...
-🔄 Aggiornamento repository e pacchetti...
-+ sudo apt-get update -y
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
-Reading package lists...Reading package lists...
-
-+ sudo apt-get upgrade -y
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-Calculating upgrade...Calculating upgrade...
-
-The following package was automatically installed and is no longer required:
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-1 not fully installed or removed.
-After this operation, 0 B of additional disk space will be used.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-1 not fully installed or removed.
-After this operation, 0 B of additional disk space will be used.
-Setting up mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-Could not execute systemctl:  at /usr/bin/deb-systemd-invoke line 148.
-Could not execute systemctl:  at /usr/bin/deb-systemd-invoke line 148.
-+ echo '📦 Installazione pacchetti principali...'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-📦 Installazione pacchetti principali...
-📦 Installazione pacchetti principali...
-+ sudo apt-get install -y nginx mariadb-server php8.3 php8.3-fpm php8.3-mysql php8.3-curl php8.3-gd php8.3-xml php8.3-mbstring php8.3-zip php8.3-intl curl unzip git
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3 is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mbstring is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-zip is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-intl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-curl is already the newest version (8.5.0-2ubuntu10.6).
-unzip is already the newest version (6.0-28ubuntu4.1).
-git is already the newest version (1:2.43.0-1ubuntu7.2).
-The following package was automatically installed and is no longer required:
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3 is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mbstring is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-zip is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-intl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-curl is already the newest version (8.5.0-2ubuntu10.6).
-unzip is already the newest version (6.0-28ubuntu4.1).
-git is already the newest version (1:2.43.0-1ubuntu7.2).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-+ install_mariadb
-+ echo '🔧 Installazione e configurazione MariaDB...'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-🔧 Installazione e configurazione MariaDB...
-🔧 Installazione e configurazione MariaDB...
-+ sudo apt-get remove --purge mariadb-server mariadb-client -y
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following packages were automatically installed and are no longer required:
-  galera-4 libcgi-fast-perl libcgi-pm-perl libclone-perl
-  libconfig-inifiles-perl libdbd-mysql-perl libdbi-perl libencode-locale-perl
-  libfcgi-bin libfcgi-perl libfcgi0t64 libhtml-parser-perl libhtml-tagset-perl
-  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
-  liblwp-mediatypes-perl libmariadb3 libmysqlclient21 libterm-readkey-perl
-  libtimedate-perl liburi-perl liburing2 libwrap0 libxmlrpc-epi0t64
-  mariadb-client-core mariadb-common mariadb-server-core mysql-common pv socat
-Use 'sudo apt autoremove' to remove them.
-The following packages will be REMOVED:
-  mariadb-client* mariadb-server*
-0 upgraded, 0 newly installed, 2 to remove and 0 not upgraded.
-After this operation, 120 MB disk space will be freed.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 125626 files and directories currently installed.)
-Removing mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-client (1:10.11.8-0ubuntu0.24.04.1) ...
-Processing triggers for man-db (2.12.0-4build2) ...
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 125419 files and directories currently installed.)
-Purging configuration files for mariadb-client (1:10.11.8-0ubuntu0.24.04.1) ...
-Purging configuration files for mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-[?1049h[22;0;0t[1;24r[4l[?25l(B[m[37m[40m[1;24r[H[2J[1;1H[97m[45m[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K[1;1H[37mPackage configuration[6;2H[30m[47m┌──────────────────────┤ [31mConfiguring mariadb-server[30m ├───────────────────────┐[7;2H│                                                                           │[97m[40m [8;2H[30m[47m│ The /var/lib/mysql directory which contains the MariaDB databases is      │[97m[40m [9;2H[30m[47m│ about to be removed.                                                      │[97m[40m [10;2H[30m[47m│                                                                           │[97m[40m [11;2H[30m[47m│ If you're removing the MariaDB package in order to later install a more   │[97m[40m [12;2H[30m[47m│ recent version or if a different mariadb-server package is already using  │[97m[40m [13;2H[30m[47m│ it, the data should be kept.                                              │[97m[40m [14;2H[30m[47m│                                                                           │[97m[40m [15;2H[30m[47m│ Remove all MariaDB databases?                                             │[97m[40m [16;2H[30m[47m│                                                                           │[97m[40m [17;2H[30m[47m│                    <Yes>                       [37m[41m<No>[30m[47m                       │[97m[40m [18;2H[30m[47m│                                                                           │[97m[40m [19;2H[30m[47m└───────────────────────────────────────────────────────────────────────────┘[97m[40m [20;3H                                                                             [17;52H+ echo '=== INIZIO CONFIGURAZIONE SISTEMA ==='
-=== INIZIO CONFIGURAZIONE SISTEMA ===
-++ date
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-+ echo '🕒 Timestamp: Fri Mar 28 19:20:50 CET 2025'
-🕒 Timestamp: Fri Mar 28 19:20:50 CET 2025
-🕒 Timestamp: Fri Mar 28 19:20:50 CET 2025
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-++ grep -qi microsoft /proc/version
-++ echo WSL
-+ echo '🔍 Ambiente: WSL'
-🔍 Ambiente: WSL
-🔍 Ambiente: WSL
-+ echo '🔄 Aggiornamento repository e pacchetti...'
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-🔄 Aggiornamento repository e pacchetti...
-🔄 Aggiornamento repository e pacchetti...
-+ sudo apt-get update -y
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...Reading package lists...
-
-+ sudo apt-get upgrade -y
-+ tee -a /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../logs/system_setup.log
-E: dpkg was interrupted, you must manually run 'sudo dpkg --configure -a' to correct the problem. 
-++ echo 'Errore a linea 139'
-Errore a linea 139
-++ exit 1
-=== INIZIO CONFIGURAZIONE SISTEMA ===
-🕒 Timestamp: Fri Mar 28 19:23:15 CET 2025
-🕒 Timestamp: Fri Mar 28 19:23:15 CET 2025
-🔍 Ambiente: WSL
-🔍 Ambiente: WSL
-🔄 Aggiornamento repository e pacchetti...
-🔄 Aggiornamento repository e pacchetti...
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...Reading package lists...
-
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-Calculating upgrade...Calculating upgrade...
-
-The following packages were automatically installed and are no longer required:
-The following packages were automatically installed and are no longer required:
-  galera-4 libcgi-fast-perl libcgi-pm-perl libclone-perl
-  galera-4 libcgi-fast-perl libcgi-pm-perl libclone-perl
-  libconfig-inifiles-perl libdbd-mysql-perl libdbi-perl libencode-locale-perl
-  libconfig-inifiles-perl libdbd-mysql-perl libdbi-perl libencode-locale-perl
-  libfcgi-bin libfcgi-perl libfcgi0t64 libhtml-parser-perl libhtml-tagset-perl
-  libfcgi-bin libfcgi-perl libfcgi0t64 libhtml-parser-perl libhtml-tagset-perl
-  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
-  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
-  liblwp-mediatypes-perl libmariadb3 libmysqlclient21 libterm-readkey-perl
-  liblwp-mediatypes-perl libmariadb3 libmysqlclient21 libterm-readkey-perl
-  libtimedate-perl liburi-perl liburing2 libwrap0 libxmlrpc-epi0t64
-  libtimedate-perl liburi-perl liburing2 libwrap0 libxmlrpc-epi0t64
-  mariadb-client-core mariadb-common mariadb-server-core mysql-common pv socat
-  mariadb-client-core mariadb-common mariadb-server-core mysql-common pv socat
-Use 'sudo apt autoremove' to remove them.
-Use 'sudo apt autoremove' to remove them.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-📦 Installazione pacchetti principali...
-📦 Installazione pacchetti principali...
-Reading package lists...Reading package lists...
-
-Building dependency tree...Building dependency tree...
-Reading state information...
-Reading state information...
-
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-php8.3 is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mbstring is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-zip is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-intl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-curl is already the newest version (8.5.0-2ubuntu10.6).
-unzip is already the newest version (6.0-28ubuntu4.1).
-git is already the newest version (1:2.43.0-1ubuntu7.2).
-The following package was automatically installed and is no longer required:
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-php8.3 is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-fpm is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mysql is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-curl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-gd is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-xml is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-mbstring is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-zip is already the newest version (8.3.6-0ubuntu0.24.04.3).
-php8.3-intl is already the newest version (8.3.6-0ubuntu0.24.04.3).
-curl is already the newest version (8.5.0-2ubuntu10.6).
-unzip is already the newest version (6.0-28ubuntu4.1).
-git is already the newest version (1:2.43.0-1ubuntu7.2).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-The following additional packages will be installed:
-  mariadb-client mariadb-plugin-provider-bzip2 mariadb-plugin-provider-lz4
-  mariadb-plugin-provider-lzma mariadb-plugin-provider-lzo
-The following additional packages will be installed:
-  mariadb-client mariadb-plugin-provider-bzip2 mariadb-plugin-provider-lz4
-  mariadb-plugin-provider-lzma mariadb-plugin-provider-lzo
-  mariadb-plugin-provider-snappy
-  mariadb-plugin-provider-snappy
-Suggested packages:
-  mailx mariadb-test
-Suggested packages:
-  mailx mariadb-test
-The following NEW packages will be installed:
-The following NEW packages will be installed:
-  mariadb-client mariadb-plugin-provider-bzip2 mariadb-plugin-provider-lz4
-  mariadb-plugin-provider-lzma mariadb-plugin-provider-lzo
-  mariadb-client mariadb-plugin-provider-bzip2 mariadb-plugin-provider-lz4
-  mariadb-plugin-provider-lzma mariadb-plugin-provider-lzo
-  mariadb-plugin-provider-snappy mariadb-server
-  mariadb-plugin-provider-snappy mariadb-server
-0 upgraded, 7 newly installed, 0 to remove and 0 not upgraded.
-Need to get 2352 kB/5802 kB of archives.
-After this operation, 120 MB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 mariadb-client amd64 1:10.11.8-0ubuntu0.24.04.1 [2352 kB]
-0 upgraded, 7 newly installed, 0 to remove and 0 not upgraded.
-Need to get 2352 kB/5802 kB of archives.
-After this operation, 120 MB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 mariadb-client amd64 1:10.11.8-0ubuntu0.24.04.1 [2352 kB]
-Preconfiguring packages ...
-Preconfiguring packages ...
-Fetched 2352 kB in 1s (2175 kB/s)
-Fetched 2352 kB in 1s (2175 kB/s)
-Selecting previously unselected package mariadb-client.
-Selecting previously unselected package mariadb-client.
-(Reading database ... (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 60%(Reading database ... 65%(Reading database ... 65%(Reading database ... 70%(Reading database ... 70%(Reading database ... 75%(Reading database ... 75%(Reading database ... 80%(Reading database ... 80%(Reading database ... 85%(Reading database ... 85%(Reading database ... 90%(Reading database ... 90%(Reading database ... 95%(Reading database ... 95%(Reading database ... 100%(Reading database ... (Reading database ... 100%(Reading database ... 125406 files and directories currently installed.)
-125406 files and directories currently installed.)
-Preparing to unpack .../0-mariadb-client_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Preparing to unpack .../0-mariadb-client_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-client (1:10.11.8-0ubuntu0.24.04.1) ...
-Unpacking mariadb-client (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package mariadb-server.
-Selecting previously unselected package mariadb-server.
-Preparing to unpack .../1-mariadb-server_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Preparing to unpack .../1-mariadb-server_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-/var/lib/mysql: found previous version 10.11
-/var/lib/mysql: found previous version 10.11
-Unpacking mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-Unpacking mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package mariadb-plugin-provider-bzip2.
-Selecting previously unselected package mariadb-plugin-provider-bzip2.
-Preparing to unpack .../2-mariadb-plugin-provider-bzip2_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Preparing to unpack .../2-mariadb-plugin-provider-bzip2_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-plugin-provider-bzip2 (1:10.11.8-0ubuntu0.24.04.1) ...
-Unpacking mariadb-plugin-provider-bzip2 (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package mariadb-plugin-provider-lz4.
-Selecting previously unselected package mariadb-plugin-provider-lz4.
-Preparing to unpack .../3-mariadb-plugin-provider-lz4_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Preparing to unpack .../3-mariadb-plugin-provider-lz4_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-plugin-provider-lz4 (1:10.11.8-0ubuntu0.24.04.1) ...
-Unpacking mariadb-plugin-provider-lz4 (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package mariadb-plugin-provider-lzma.
-Selecting previously unselected package mariadb-plugin-provider-lzma.
-Preparing to unpack .../4-mariadb-plugin-provider-lzma_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Preparing to unpack .../4-mariadb-plugin-provider-lzma_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-plugin-provider-lzma (1:10.11.8-0ubuntu0.24.04.1) ...
-Unpacking mariadb-plugin-provider-lzma (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package mariadb-plugin-provider-lzo.
-Selecting previously unselected package mariadb-plugin-provider-lzo.
-Preparing to unpack .../5-mariadb-plugin-provider-lzo_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Preparing to unpack .../5-mariadb-plugin-provider-lzo_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-plugin-provider-lzo (1:10.11.8-0ubuntu0.24.04.1) ...
-Unpacking mariadb-plugin-provider-lzo (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package mariadb-plugin-provider-snappy.
-Selecting previously unselected package mariadb-plugin-provider-snappy.
-Preparing to unpack .../6-mariadb-plugin-provider-snappy_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Preparing to unpack .../6-mariadb-plugin-provider-snappy_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-plugin-provider-snappy (1:10.11.8-0ubuntu0.24.04.1) ...
-Unpacking mariadb-plugin-provider-snappy (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-client (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-client (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-bzip2 (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-bzip2 (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-lzma (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-lzma (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-lzo (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-lzo (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-lz4 (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-lz4 (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-snappy (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-snappy (1:10.11.8-0ubuntu0.24.04.1) ...
-Processing triggers for man-db (2.12.0-4build2) ...
-Processing triggers for man-db (2.12.0-4build2) ...
-🔧 Installazione e configurazione MariaDB...
-🔧 Installazione e configurazione MariaDB...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following packages were automatically installed and are no longer required:
-  galera-4 libcgi-fast-perl libcgi-pm-perl libclone-perl
-  libconfig-inifiles-perl libdbd-mysql-perl libdbi-perl libencode-locale-perl
-  libfcgi-bin libfcgi-perl libfcgi0t64 libhtml-parser-perl libhtml-tagset-perl
-  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
-  liblwp-mediatypes-perl libmariadb3 libmysqlclient21 libterm-readkey-perl
-  libtimedate-perl liburi-perl liburing2 libwrap0 libxmlrpc-epi0t64
-  mariadb-client-core mariadb-common mariadb-server-core mysql-common pv socat
-Use 'sudo apt autoremove' to remove them.
-The following packages will be REMOVED:
-  mariadb-client* mariadb-plugin-provider-bzip2* mariadb-plugin-provider-lz4*
-  mariadb-plugin-provider-lzma* mariadb-plugin-provider-lzo*
-  mariadb-plugin-provider-snappy* mariadb-server*
-0 upgraded, 0 newly installed, 7 to remove and 0 not upgraded.
-After this operation, 120 MB disk space will be freed.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 125651 files and directories currently installed.)
-Removing mariadb-plugin-provider-snappy (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-plugin-provider-lzo (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-plugin-provider-bzip2 (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-plugin-provider-lz4 (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-plugin-provider-lzma (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-Removing mariadb-client (1:10.11.8-0ubuntu0.24.04.1) ...
-Processing triggers for man-db (2.12.0-4build2) ...
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 125419 files and directories currently installed.)
-Purging configuration files for mariadb-client (1:10.11.8-0ubuntu0.24.04.1) ...
-Purging configuration files for mariadb-plugin-provider-lz4 (1:10.11.8-0ubuntu0.24.04.1) ...
-Purging configuration files for mariadb-plugin-provider-snappy (1:10.11.8-0ubuntu0.24.04.1) ...
-Purging configuration files for mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-[?1049h[22;0;0t[1;24r[4l[?25l(B[m[37m[40m[1;24r[H[2J[1;1H[97m[45m[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K
-[K[1;1H[37mPackage configuration[6;2H[30m[47m┌──────────────────────┤ [31mConfiguring mariadb-server[30m ├───────────────────────┐[7;2H│                                                                           │[97m[40m [8;2H[30m[47m│ The /var/lib/mysql directory which contains the MariaDB databases is      │[97m[40m [9;2H[30m[47m│ about to be removed.                                                      │[97m[40m [10;2H[30m[47m│                                                                           │[97m[40m [11;2H[30m[47m│ If you're removing the MariaDB package in order to later install a more   │[97m[40m [12;2H[30m[47m│ recent version or if a different mariadb-server package is already using  │[97m[40m [13;2H[30m[47m│ it, the data should be kept.                                              │[97m[40m [14;2H[30m[47m│                                                                           │[97m[40m [15;2H[30m[47m│ Remove all MariaDB databases?                                             │[97m[40m [16;2H[30m[47m│                                                                           │[97m[40m [17;2H[30m[47m│                    <Yes>                       [37m[41m<No>[30m[47m                       │[97m[40m [18;2H[30m[47m│                                                                           │[97m[40m [19;2H[30m[47m└───────────────────────────────────────────────────────────────────────────┘[97m[40m [20;3H                                                                             [17;52H=== SYSTEM SETUP STARTED ===
-🕒 Timestamp: Fri Mar 28 19:28:35 CET 2025
-🔍 Environment: WSL
-📋 Loading configuration...
-🛠️ Preparing system...
-📦 Installing system packages...
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
-Reading package lists...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-software-properties-common is already the newest version (0.99.49.1).
-apt-transport-https is already the newest version (2.7.14build2).
-ca-certificates is already the newest version (20240203).
-curl is already the newest version (8.5.0-2ubuntu10.6).
-gnupg is already the newest version (2.4.4-2ubuntu17).
-The following packages were automatically installed and are no longer required:
-  galera-4 libcgi-fast-perl libcgi-pm-perl libclone-perl
-  libconfig-inifiles-perl libdbd-mysql-perl libdbi-perl libencode-locale-perl
-  libfcgi-bin libfcgi-perl libfcgi0t64 libhtml-parser-perl libhtml-tagset-perl
-  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
-  liblwp-mediatypes-perl libmariadb3 libmysqlclient21 libterm-readkey-perl
-  libtimedate-perl liburi-perl liburing2 libwrap0 libxmlrpc-epi0t64
-  mariadb-client-core mariadb-common mariadb-server-core mysql-common pv socat
-Use 'sudo apt autoremove' to remove them.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Get:5 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble InRelease [24.4 kB]
-Get:6 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 Packages [129 kB]
-Get:7 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main Translation-en [39.8 kB]
-Fetched 193 kB in 1s (300 kB/s)
-Reading package lists...
-PPA publishes dbgsym, you may need to include 'main/debug' component
-Repository: 'Types: deb
-URIs: https://ppa.launchpadcontent.net/ondrej/php/ubuntu/
-Suites: noble
-Components: main
-'
-Description:
-Co-installable PHP versions: PHP 5.6, PHP 7.x, PHP 8.x and most requested extensions are included. Only Supported Ubuntu Releases (https://wiki.ubuntu.com/Releases) are provided.
-
-Debian oldstable and stable packages are provided as well: https://deb.sury.org/#debian-dpa
-
-You can get more information about the packages at https://deb.sury.org
-
-BUGS&FEATURES: This PPA now has a issue tracker:
-https://deb.sury.org/#bug-reporting
-
-CAVEATS:
-1. If you are using php-gearman, you need to add ppa:ondrej/pkg-gearman
-2. If you are using apache2, you are advised to add ppa:ondrej/apache2
-3. If you are using nginx, you are advised to add ppa:ondrej/nginx-mainline
-   or ppa:ondrej/nginx
-
-PLEASE READ: If you like my work and want to give me a little motivation, please consider donating regularly: https://donate.sury.org/
-
-WARNING: add-apt-repository is broken with non-UTF-8 locales, see
-https://github.com/oerdnj/deb.sury.org/issues/56 for workaround:
-
-# LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
-More info: https://launchpad.net/~ondrej/+archive/ubuntu/php
-Adding repository.
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:4 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble InRelease
-Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-unzip is already the newest version (6.0-28ubuntu4.1).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-The following additional packages will be installed:
-  mariadb-client mariadb-plugin-provider-bzip2 mariadb-plugin-provider-lz4
-  mariadb-plugin-provider-lzma mariadb-plugin-provider-lzo
-  mariadb-plugin-provider-snappy php8.3-cli php8.3-common php8.3-opcache
-  php8.3-readline tcl-expect
-Suggested packages:
-  tk8.6 mailx mariadb-test php-pear
-The following NEW packages will be installed:
-  expect mariadb-client mariadb-plugin-provider-bzip2
-  mariadb-plugin-provider-lz4 mariadb-plugin-provider-lzma
-  mariadb-plugin-provider-lzo mariadb-plugin-provider-snappy mariadb-server
-  tcl-expect
-The following packages will be upgraded:
-  php8.3 php8.3-cli php8.3-common php8.3-curl php8.3-fpm php8.3-gd php8.3-intl
-  php8.3-mbstring php8.3-mysql php8.3-opcache php8.3-readline php8.3-xml
-  php8.3-zip
-13 upgraded, 9 newly installed, 0 to remove and 9 not upgraded.
-Need to get 6312 kB/12.1 MB of archives.
-After this operation, 121 MB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble/universe amd64 tcl-expect amd64 5.45.4-3 [110 kB]
-Get:2 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-zip amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [29.4 kB]
-Get:3 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-intl amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [157 kB]
-Get:4 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-xml amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [128 kB]
-Get:5 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-readline amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [13.4 kB]
-Get:6 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-opcache amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [373 kB]
-Get:7 http://archive.ubuntu.com/ubuntu noble/universe amd64 expect amd64 5.45.4-3 [137 kB]
-Get:8 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-mysql amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [127 kB]
-Get:9 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-mbstring amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [512 kB]
-Get:10 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-gd amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [31.5 kB]
-Get:11 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-curl amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [40.7 kB]
-Get:12 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-fpm amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [1928 kB]
-Get:13 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-cli amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [1920 kB]
-Get:14 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3-common amd64 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [764 kB]
-Get:15 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble/main amd64 php8.3 all 8.3.19-1+ubuntu24.04.1+deb.sury.org+1 [40.0 kB]
-Preconfiguring packages ...
-Fetched 6312 kB in 2s (2664 kB/s)
-Selecting previously unselected package mariadb-client.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 125404 files and directories currently installed.)
-Preparing to unpack .../00-mariadb-client_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-client (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package mariadb-server.
-Preparing to unpack .../01-mariadb-server_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-/var/lib/mysql: found previous version 10.11
-Unpacking mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package tcl-expect:amd64.
-Preparing to unpack .../02-tcl-expect_5.45.4-3_amd64.deb ...
-Unpacking tcl-expect:amd64 (5.45.4-3) ...
-Selecting previously unselected package expect.
-Preparing to unpack .../03-expect_5.45.4-3_amd64.deb ...
-Unpacking expect (5.45.4-3) ...
-Selecting previously unselected package mariadb-plugin-provider-bzip2.
-Preparing to unpack .../04-mariadb-plugin-provider-bzip2_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-plugin-provider-bzip2 (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package mariadb-plugin-provider-lz4.
-Preparing to unpack .../05-mariadb-plugin-provider-lz4_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-plugin-provider-lz4 (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package mariadb-plugin-provider-lzma.
-Preparing to unpack .../06-mariadb-plugin-provider-lzma_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-plugin-provider-lzma (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package mariadb-plugin-provider-lzo.
-Preparing to unpack .../07-mariadb-plugin-provider-lzo_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-plugin-provider-lzo (1:10.11.8-0ubuntu0.24.04.1) ...
-Selecting previously unselected package mariadb-plugin-provider-snappy.
-Preparing to unpack .../08-mariadb-plugin-provider-snappy_1%3a10.11.8-0ubuntu0.24.04.1_amd64.deb ...
-Unpacking mariadb-plugin-provider-snappy (1:10.11.8-0ubuntu0.24.04.1) ...
-Preparing to unpack .../09-php8.3-zip_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-zip (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../10-php8.3-intl_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-intl (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../11-php8.3-xml_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-xml (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../12-php8.3-readline_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-readline (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../13-php8.3-opcache_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-opcache (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../14-php8.3-mysql_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-mysql (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../15-php8.3-mbstring_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-mbstring (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../16-php8.3-gd_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-gd (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../17-php8.3-curl_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-curl (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../18-php8.3-fpm_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-fpm (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../19-php8.3-cli_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-cli (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../20-php8.3-common_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_amd64.deb ...
-Unpacking php8.3-common (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Preparing to unpack .../21-php8.3_8.3.19-1+ubuntu24.04.1+deb.sury.org+1_all.deb ...
-Unpacking php8.3 (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) over (8.3.6-0ubuntu0.24.04.3) ...
-Setting up mariadb-client (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up tcl-expect:amd64 (5.45.4-3) ...
-Setting up php8.3-common (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up php8.3-zip (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up php8.3-mysql (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-bzip2 (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-lzma (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up php8.3-mbstring (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up php8.3-readline (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up mariadb-plugin-provider-lzo (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up php8.3-xml (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up php8.3-opcache (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up php8.3-gd (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up php8.3-curl (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up mariadb-plugin-provider-lz4 (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up mariadb-plugin-provider-snappy (1:10.11.8-0ubuntu0.24.04.1) ...
-Setting up expect (5.45.4-3) ...
-Setting up php8.3-intl (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up php8.3-cli (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up php8.3-fpm (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Setting up php8.3 (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Processing triggers for man-db (2.12.0-4build2) ...
-Processing triggers for libc-bin (2.39-0ubuntu8.4) ...
-Processing triggers for mariadb-server (1:10.11.8-0ubuntu0.24.04.1) ...
-Processing triggers for php8.3-cli (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-Processing triggers for php8.3-fpm (8.3.19-1+ubuntu24.04.1+deb.sury.org+1) ...
-⚙️ Configuring system services...
-Job for nginx.service failed because the control process exited with error code.
-See "systemctl status nginx.service" and "journalctl -xeu nginx.service" for details.
-Error at line 93
-=== SYSTEM SETUP STARTED ===
-🕒 Timestamp: Fri Mar 28 19:34:22 CET 2025
-🔍 Environment: WSL
-📋 Loading configuration...
-🛠️ Preparing system...
-📦 Installing system packages...
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:3 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-software-properties-common is already the newest version (0.99.49.1).
-apt-transport-https is already the newest version (2.7.14build2).
-ca-certificates is already the newest version (20240203).
-curl is already the newest version (8.5.0-2ubuntu10.6).
-gnupg is already the newest version (2.4.4-2ubuntu17).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 9 not upgraded.
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:5 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble InRelease
-Reading package lists...
-PPA publishes dbgsym, you may need to include 'main/debug' component
-Repository: 'Types: deb
-URIs: https://ppa.launchpadcontent.net/ondrej/php/ubuntu/
-Suites: noble
-Components: main
-'
-Description:
-Co-installable PHP versions: PHP 5.6, PHP 7.x, PHP 8.x and most requested extensions are included. Only Supported Ubuntu Releases (https://wiki.ubuntu.com/Releases) are provided.
-
-Debian oldstable and stable packages are provided as well: https://deb.sury.org/#debian-dpa
-
-You can get more information about the packages at https://deb.sury.org
-
-BUGS&FEATURES: This PPA now has a issue tracker:
-https://deb.sury.org/#bug-reporting
-
-CAVEATS:
-1. If you are using php-gearman, you need to add ppa:ondrej/pkg-gearman
-2. If you are using apache2, you are advised to add ppa:ondrej/apache2
-3. If you are using nginx, you are advised to add ppa:ondrej/nginx-mainline
-   or ppa:ondrej/nginx
-
-PLEASE READ: If you like my work and want to give me a little motivation, please consider donating regularly: https://donate.sury.org/
-
-WARNING: add-apt-repository is broken with non-UTF-8 locales, see
-https://github.com/oerdnj/deb.sury.org/issues/56 for workaround:
-
-# LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
-More info: https://launchpad.net/~ondrej/+archive/ubuntu/php
-Adding repository.
-Found existing deb entry in /etc/apt/sources.list.d/ondrej-ubuntu-php-noble.sources
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:3 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3 is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-fpm is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-mysql is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-curl is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-gd is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-mbstring is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-xml is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-zip is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-intl is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-unzip is already the newest version (6.0-28ubuntu4.1).
-expect is already the newest version (5.45.4-3).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 9 not upgraded.
-🌐 Configuring Nginx...
-2025/03/28 19:34:32 [emerg] 2307#2307: host not found in "${SERVER_PORT}" of the "listen" directive in /etc/nginx/nginx.conf:22
-nginx: configuration file /etc/nginx/nginx.conf test failed
-❌ Nginx configuration test failed, restoring backup
-=== SYSTEM SETUP STARTED ===
-🕒 Timestamp: Fri Mar 28 19:47:05 CET 2025
-📜 Loading configuration from: /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../config/wp_installer.cfg
-🔍 Environment: WSL
-🔍 DEBUG: === CONFIGURATION VALUES ===
-🔍 DEBUG: === CONFIGURATION VALUES ===
-🔍 DEBUG: DOMAIN=localhost
-🔍 DEBUG: DOMAIN=localhost
-🔍 DEBUG: WP_DIR=/var/www/html/wordpress
-🔍 DEBUG: WP_DIR=/var/www/html/wordpress
-🔍 DEBUG: SERVER_PORT=80
-🔍 DEBUG: SERVER_PORT=80
-🔍 DEBUG: PHP_VERSION=8.3
-🔍 DEBUG: PHP_VERSION=8.3
-🔍 DEBUG: SSL_TYPE=selfsigned
-🔍 DEBUG: SSL_TYPE=selfsigned
-🔍 DEBUG: ADMIN_EMAIL=admin@localhost
-🔍 DEBUG: ADMIN_EMAIL=admin@localhost
-🛠️ Preparing system...
-📦 Installing system packages...
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:5 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble InRelease
-Reading package lists...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-software-properties-common is already the newest version (0.99.49.1).
-apt-transport-https is already the newest version (2.7.14build2).
-ca-certificates is already the newest version (20240203).
-curl is already the newest version (8.5.0-2ubuntu10.6).
-gnupg is already the newest version (2.4.4-2ubuntu17).
-ufw is already the newest version (0.36.2-6).
-ufw set to manually installed.
-expect is already the newest version (5.45.4-3).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 9 not upgraded.
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:5 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble InRelease
-Reading package lists...
-PPA publishes dbgsym, you may need to include 'main/debug' component
-Repository: 'Types: deb
-URIs: https://ppa.launchpadcontent.net/ondrej/php/ubuntu/
-Suites: noble
-Components: main
-'
-Description:
-Co-installable PHP versions: PHP 5.6, PHP 7.x, PHP 8.x and most requested extensions are included. Only Supported Ubuntu Releases (https://wiki.ubuntu.com/Releases) are provided.
-
-Debian oldstable and stable packages are provided as well: https://deb.sury.org/#debian-dpa
-
-You can get more information about the packages at https://deb.sury.org
-
-BUGS&FEATURES: This PPA now has a issue tracker:
-https://deb.sury.org/#bug-reporting
-
-CAVEATS:
-1. If you are using php-gearman, you need to add ppa:ondrej/pkg-gearman
-2. If you are using apache2, you are advised to add ppa:ondrej/apache2
-3. If you are using nginx, you are advised to add ppa:ondrej/nginx-mainline
-   or ppa:ondrej/nginx
-
-PLEASE READ: If you like my work and want to give me a little motivation, please consider donating regularly: https://donate.sury.org/
-
-WARNING: add-apt-repository is broken with non-UTF-8 locales, see
-https://github.com/oerdnj/deb.sury.org/issues/56 for workaround:
-
-# LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
-More info: https://launchpad.net/~ondrej/+archive/ubuntu/php
-Adding repository.
-Found existing deb entry in /etc/apt/sources.list.d/ondrej-ubuntu-php-noble.sources
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:3 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-nginx is already the newest version (1.24.0-2ubuntu7.1).
-mariadb-server is already the newest version (1:10.11.8-0ubuntu0.24.04.1).
-php8.3 is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-fpm is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-mysql is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-curl is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-gd is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-mbstring is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-xml is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-zip is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-php8.3-intl is already the newest version (8.3.19-1+ubuntu24.04.1+deb.sury.org+1).
-unzip is already the newest version (6.0-28ubuntu4.1).
-The following package was automatically installed and is no longer required:
-  libxmlrpc-epi0t64
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 9 not upgraded.
-💾 Configuring MariaDB...
-mysql.user table already exists!
-Run mysql_upgrade, not mysql_install_db
-🔐 Configuring SSL (selfsigned)...
-🌐 Configuring Nginx...
-📂 Creating WordPress directory...
-⚙️ Starting services...
-🚀 Starting PHP-FPM...
-Usage: /etc/init.d/php-fpm8.3 {start|stop|status|restart|reload|force-reload}
-=== SYSTEM SETUP STARTED ===
-🕒 Timestamp: Fri Mar 28 22:28:56 CET 2025
-🔍 Environment: WSL
-🛠️ Preparing system...
-📦 Managing packages...
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Get:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
-Get:3 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
-Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
-Hit:5 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble InRelease
-Get:6 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [151 kB]
-Get:7 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Components [212 B]
-Get:8 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [365 kB]
-Get:9 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
-Get:10 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [7080 B]
-Get:11 http://archive.ubuntu.com/ubuntu noble-backports/restricted amd64 Components [216 B]
-Get:12 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [15.7 kB]
-Get:13 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Components [212 B]
-Get:14 http://security.ubuntu.com/ubuntu noble-security/main amd64 Components [8976 B]
-Get:15 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Components [212 B]
-Get:16 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Components [52.0 kB]
-Get:17 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Components [212 B]
-Fetched 980 kB in 1s (675 kB/s)
-Reading package lists...
-💾 Configuring MariaDB...
-🔍 Existing database found, running upgrade...
-This installation of MariaDB is already upgraded to 10.11.8-MariaDB.
-There is no need to run mysql_upgrade again for 10.11.8-MariaDB.
-You can use --force if you still want to run mysql_upgrade
-🐘 Configuring PHP-FPM...
-🔐 Configuring SSL (selfsigned)...
-🌐 Configuring Nginx...
-📂 Creating WordPress directory...
-⚙️ Managing mysql...
-⚙️ Managing php-fpm...
-Failed to restart php-fpm.service: Unit php-fpm.service not found.
-+ echo '=== SYSTEM SETUP STARTED ==='
-=== SYSTEM SETUP STARTED ===
-++ date
-+ echo '🕒 Timestamp: Fri Mar 28 22:29:25 CET 2025'
-🕒 Timestamp: Fri Mar 28 22:29:25 CET 2025
-+ grep -qi microsoft /proc/version
-+ echo '🔍 Environment: WSL'
-🔍 Environment: WSL
-+ export MYSQL_SOCKET=/run/mysqld/mysqld.sock
-+ MYSQL_SOCKET=/run/mysqld/mysqld.sock
-+ export SERVICE_CMD=service
-+ SERVICE_CMD=service
-+ [[ -f /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../config/wp_installer.cfg ]]
-+ source /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../config/wp_installer.cfg
-++ grep -qi microsoft /proc/version
-++ MYSQL_SOCKET=/run/mysqld/mysqld.sock
-++ SERVICE_CMD=service
-++ DOMAIN=localhost
-++ WP_DIR=/var/www/html/wordpress
-++ SERVER_PORT=80
-++ ADMIN_EMAIL=admin@localhost
-++ PHP_VERSION=8.3
-++ ENV_MODE=local
-++ SSL_TYPE=selfsigned
-++ MYSQL_CREDS_FILE=/root/.wp_mysql_creds
-++ '[' '!' -f /root/.wp_mysql_creds ']'
-++ source /root/.wp_mysql_creds
-+++ MYSQL_ROOT_PASS=gfsgIwYOcBvm9kljWygvvGjSTLiwOj2s
-+++ MYSQL_WP_PASS=B3TMWvY8Y0CmWoSqyGGbSq1xtpV2CHWj
-++ WP_DEBUG=false
-++ WP_MEMORY_LIMIT=256M
-++ WP_MAX_UPLOAD_SIZE=64M
-+ REQUIRED_VARS=('DOMAIN' 'WP_DIR' 'SERVER_PORT' 'PHP_VERSION' 'SSL_TYPE')
-+ declare -a REQUIRED_VARS
-+ for var in "${REQUIRED_VARS[@]}"
-+ [[ -n localhost ]]
-+ for var in "${REQUIRED_VARS[@]}"
-+ [[ -n /var/www/html/wordpress ]]
-+ for var in "${REQUIRED_VARS[@]}"
-+ [[ -n 80 ]]
-+ for var in "${REQUIRED_VARS[@]}"
-+ [[ -n 8.3 ]]
-+ for var in "${REQUIRED_VARS[@]}"
-+ [[ -n selfsigned ]]
-+ echo '🛠️ Preparing system...'
-🛠️ Preparing system...
-+ sudo rm -f /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend
-+ sudo rm -f /var/lib/apt/lists/lock
-+ sudo dpkg --configure -a
-+ export DEBIAN_FRONTEND=noninteractive
-+ DEBIAN_FRONTEND=noninteractive
-+ echo '📦 Managing packages...'
-📦 Managing packages...
-+ sudo apt-get update -y
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:3 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...
-+ PACKAGES=('software-properties-common' 'nginx' 'mariadb-server' 'php8.3' 'php8.3-fpm' 'unzip')
-+ declare -a PACKAGES
-+ for pkg in "${PACKAGES[@]}"
-+ dpkg -s software-properties-common
-+ for pkg in "${PACKAGES[@]}"
-+ dpkg -s nginx
-+ for pkg in "${PACKAGES[@]}"
-+ dpkg -s mariadb-server
-+ for pkg in "${PACKAGES[@]}"
-+ dpkg -s php8.3
-+ for pkg in "${PACKAGES[@]}"
-+ dpkg -s php8.3-fpm
-+ for pkg in "${PACKAGES[@]}"
-+ dpkg -s unzip
-+ grep -q ondrej/php /etc/apt/sources.list.d/google-cloud-sdk.list.distUpgrade /etc/apt/sources.list.d/nodesource.list.distUpgrade /etc/apt/sources.list.d/ondrej-ubuntu-php-noble.sources /etc/apt/sources.list.d/ookla_speedtest-cli.list.distUpgrade /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/windsurf.list.distUpgrade
-+ echo '💾 Configuring MariaDB...'
-💾 Configuring MariaDB...
-+ [[ ! -d /var/lib/mysql/mysql ]]
-+ echo '🔍 Existing database found, running upgrade...'
-🔍 Existing database found, running upgrade...
-+ sudo mysql_upgrade
-This installation of MariaDB is already upgraded to 10.11.8-MariaDB.
-There is no need to run mysql_upgrade again for 10.11.8-MariaDB.
-You can use --force if you still want to run mysql_upgrade
-+ echo '🐘 Configuring PHP-FPM...'
-🐘 Configuring PHP-FPM...
-+ PHP_FPM_SERVICE=php8.3-fpm
-+ systemctl list-unit-files
-+ grep -q php8.3-fpm
-+ PHP_FPM_SERVICE=php-fpm
-+ echo '🔐 Configuring SSL (selfsigned)...'
-🔐 Configuring SSL (selfsigned)...
-+ sudo mkdir -p /etc/nginx/ssl
-+ case "${SSL_TYPE}" in
-+ [[ ! -f /etc/nginx/ssl/localhost.key ]]
-+ echo '🌐 Configuring Nginx...'
-🌐 Configuring Nginx...
-+ sudo mkdir -p /etc/nginx/sites-available /etc/nginx/sites-enabled
-+ [[ ! -f /etc/nginx/sites-available/wordpress ]]
-+ [[ -L /etc/nginx/sites-enabled/wordpress ]]
-+ echo '📂 Creating WordPress directory...'
-📂 Creating WordPress directory...
-+ sudo mkdir -p /var/www/html/wordpress
-+ sudo chown -R www-data:www-data /var/www/html/wordpress
-+ sudo chmod 755 /var/www/html/wordpress
-+ manage_service mysql
-+ local service_name=mysql
-+ echo '⚙️ Managing mysql...'
-⚙️ Managing mysql...
-+ grep -qi microsoft /proc/version
-+ sudo service mysql restart
-+ manage_service php-fpm
-+ local service_name=php-fpm
-+ echo '⚙️ Managing php-fpm...'
-⚙️ Managing php-fpm...
-+ grep -qi microsoft /proc/version
-+ sudo service php-fpm restart
-Failed to restart php-fpm.service: Unit php-fpm.service not found.
-+ echo '=== SYSTEM SETUP STARTED ==='
-=== SYSTEM SETUP STARTED ===
-++ date
-+ echo '🕒 Timestamp: Fri Mar 28 22:40:56 CET 2025'
-🕒 Timestamp: Fri Mar 28 22:40:56 CET 2025
-+ grep -qi microsoft /proc/version
-+ echo '🔍 Environment: WSL'
-🔍 Environment: WSL
-+ export MYSQL_SOCKET=/run/mysqld/mysqld.sock
-+ MYSQL_SOCKET=/run/mysqld/mysqld.sock
-+ export SERVICE_CMD=service
-+ SERVICE_CMD=service
-+ [[ -f /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../config/wp_installer.cfg ]]
-+ source /mnt/c/Users/Francy/Documents/GitHub/Scripts/wpinstaller/scripts/../config/wp_installer.cfg
-++ grep -qi microsoft /proc/version
-++ MYSQL_SOCKET=/run/mysqld/mysqld.sock
-++ SERVICE_CMD=service
-++ DOMAIN=localhost
-++ WP_DIR=/var/www/html/wordpress
-++ SERVER_PORT=80
-++ ADMIN_EMAIL=admin@localhost
-++ PHP_VERSION=8.3
-++ ENV_MODE=local
-++ SSL_TYPE=selfsigned
-++ MYSQL_CREDS_FILE=/root/.wp_mysql_creds
-++ '[' '!' -f /root/.wp_mysql_creds ']'
-++ source /root/.wp_mysql_creds
-+++ MYSQL_ROOT_PASS=gfsgIwYOcBvm9kljWygvvGjSTLiwOj2s
-+++ MYSQL_WP_PASS=B3TMWvY8Y0CmWoSqyGGbSq1xtpV2CHWj
-++ WP_DEBUG=false
-++ WP_MEMORY_LIMIT=256M
-++ WP_MAX_UPLOAD_SIZE=64M
-+ REQUIRED_VARS=('DOMAIN' 'WP_DIR' 'SERVER_PORT' 'PHP_VERSION' 'SSL_TYPE')
-+ declare -a REQUIRED_VARS
-+ for var in "${REQUIRED_VARS[@]}"
-+ [[ -n localhost ]]
-+ for var in "${REQUIRED_VARS[@]}"
-+ [[ -n /var/www/html/wordpress ]]
-+ for var in "${REQUIRED_VARS[@]}"
-+ [[ -n 80 ]]
-+ for var in "${REQUIRED_VARS[@]}"
-+ [[ -n 8.3 ]]
-+ for var in "${REQUIRED_VARS[@]}"
-+ [[ -n selfsigned ]]
-+ echo '🛠️ Preparing system...'
-🛠️ Preparing system...
-+ sudo rm -f /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend
-+ sudo rm -f /var/lib/apt/lists/lock
-+ sudo dpkg --configure -a
-+ export DEBIAN_FRONTEND=noninteractive
-+ DEBIAN_FRONTEND=noninteractive
-+ echo '📦 Managing packages...'
-📦 Managing packages...
-+ sudo apt-get update -y
-Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:2 https://ppa.launchpadcontent.net/ondrej/php/ubuntu noble InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Reading package lists...
-+ CORE_PACKAGES=('software-properties-common' 'nginx' 'mariadb-server' 'unzip' 'curl' 'gnupg' 'apt-transport-https' 'ca-certificates')
-+ declare -a CORE_PACKAGES
-+ for pkg in "${CORE_PACKAGES[@]}"
-+ dpkg -s software-properties-common
-+ for pkg in "${CORE_PACKAGES[@]}"
-+ dpkg -s nginx
-+ for pkg in "${CORE_PACKAGES[@]}"
-+ dpkg -s mariadb-server
-+ for pkg in "${CORE_PACKAGES[@]}"
-+ dpkg -s unzip
-+ for pkg in "${CORE_PACKAGES[@]}"
-+ dpkg -s curl
-+ for pkg in "${CORE_PACKAGES[@]}"
-+ dpkg -s gnupg
-+ for pkg in "${CORE_PACKAGES[@]}"
-+ dpkg -s apt-transport-https
-+ for pkg in "${CORE_PACKAGES[@]}"
-+ dpkg -s ca-certificates
-+ PHP_PACKAGES=(php${PHP_VERSION} php${PHP_VERSION}-fpm php${PHP_VERSION}-mysql php${PHP_VERSION}-curl php${PHP_VERSION}-gd php${PHP_VERSION}-mbstring php${PHP_VERSION}-xml php${PHP_VERSION}-zip php${PHP_VERSION}-intl)
-+ for pkg in "${PHP_PACKAGES[@]}"
-+ dpkg -s php8.3
-+ for pkg in "${PHP_PACKAGES[@]}"
-+ dpkg -s php8.3-fpm
-+ for pkg in "${PHP_PACKAGES[@]}"
-+ dpkg -s php8.3-mysql
-+ for pkg in "${PHP_PACKAGES[@]}"
-+ dpkg -s php8.3-curl
-+ for pkg in "${PHP_PACKAGES[@]}"
-+ dpkg -s php8.3-gd
-+ for pkg in "${PHP_PACKAGES[@]}"
-+ dpkg -s php8.3-mbstring
-+ for pkg in "${PHP_PACKAGES[@]}"
-+ dpkg -s php8.3-xml
-+ for pkg in "${PHP_PACKAGES[@]}"
-+ dpkg -s php8.3-zip
-+ for pkg in "${PHP_PACKAGES[@]}"
-+ dpkg -s php8.3-intl
-+ echo '💾 Configuring MariaDB...'
-💾 Configuring MariaDB...
-+ sudo mysql -e 'SELECT 1'
-+ PHP_FPM_SERVICE=php8.3-fpm
-+ echo '🐘 Using PHP-FPM service: php8.3-fpm'
-🐘 Using PHP-FPM service: php8.3-fpm
-+ echo '🔐 Configuring SSL (selfsigned)...'
-🔐 Configuring SSL (selfsigned)...
-+ sudo mkdir -p /etc/nginx/ssl
-+ case "${SSL_TYPE}" in
-+ [[ ! -f /etc/nginx/ssl/localhost.key ]]
-+ echo '🌐 Configuring Nginx...'
-🌐 Configuring Nginx...
-+ sudo mkdir -p /etc/nginx/sites-available /etc/nginx/sites-enabled
-+ sudo tee /etc/nginx/nginx.conf
-+ ssl_config=
-+ [[ selfsigned != \n\o\n\e ]]
-+ ssl_config='
-    listen 443 ssl;
-    ssl_certificate /etc/nginx/ssl/localhost.crt;
-    ssl_certificate_key /etc/nginx/ssl/localhost.key;
-    ssl_protocols TLSv1.2 TLSv1.3;'
-+ sudo tee /etc/nginx/sites-available/wordpress
-+ sudo ln -sf /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress
-+ echo '📂 Creating WordPress directory...'
-📂 Creating WordPress directory...
-+ sudo mkdir -p /var/www/html/wordpress
-+ sudo chown -R www-data:www-data /var/www/html/wordpress
-+ sudo chmod 755 /var/www/html/wordpress
-+ echo '🔍 Testing Nginx configuration...'
-🔍 Testing Nginx configuration...
-+ sudo nginx -t
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
-+ manage_service mysql
-+ local service_name=mysql
-+ echo '⚙️ Managing mysql...'
-⚙️ Managing mysql...
-+ grep -qi microsoft /proc/version
-+ sudo service mysql restart
-+ manage_service php8.3-fpm
-+ local service_name=php8.3-fpm
-+ echo '⚙️ Managing php8.3-fpm...'
-⚙️ Managing php8.3-fpm...
-+ grep -qi microsoft /proc/version
-+ sudo service php8.3-fpm restart
-+ manage_service nginx
-+ local service_name=nginx
-+ echo '⚙️ Managing nginx...'
-⚙️ Managing nginx...
-+ grep -qi microsoft /proc/version
-+ sudo service nginx restart
-+ echo '✅ Verification:'
-✅ Verification:
-+ sudo systemctl status nginx
-+ head -n 5
-● nginx.service - A high performance web server and a reverse proxy server
-     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: enabled)
-     Active: active (running) since Fri 2025-03-28 22:41:05 CET; 31ms ago
-       Docs: man:nginx(8)
-    Process: 6007 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
-+ sudo systemctl status php8.3-fpm
-+ head -n 5
-● php8.3-fpm.service - The PHP 8.3 FastCGI Process Manager
-     Loaded: loaded (/usr/lib/systemd/system/php8.3-fpm.service; enabled; preset: enabled)
-     Active: active (running) since Fri 2025-03-28 22:41:04 CET; 482ms ago
-       Docs: man:php-fpm8.3(8)
-    Process: 5996 ExecStartPost=/usr/lib/php/php-fpm-socket-helper install /run/php/php-fpm.sock /etc/php/8.3/fpm/pool.d/www.conf 83 (code=exited, status=0/SUCCESS)
-+ sudo mysql -e 'SHOW DATABASES;'
-+ grep -q wordpress
-+ echo '💽 Creating WordPress database...'
-💽 Creating WordPress database...
-+ sudo mysql -e 'CREATE DATABASE wordpress;'
-+ echo '🧹 Final cleanup...'
-🧹 Final cleanup...
-+ sudo apt-get autoremove -y
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following packages will be REMOVED:
-  libxmlrpc-epi0t64
-0 upgraded, 0 newly installed, 1 to remove and 9 not upgraded.
-After this operation, 97.3 kB disk space will be freed.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 125733 files and directories currently installed.)
-Removing libxmlrpc-epi0t64:amd64 (0.54.2-2.1build1) ...
-Processing triggers for libc-bin (2.39-0ubuntu8.4) ...
-+ echo '✅ System setup completed successfully!'
-✅ System setup completed successfully!
-+ echo '=== SYSTEM SETUP FINISHED ==='
-=== SYSTEM SETUP FINISHED ===
-+ exit 0
