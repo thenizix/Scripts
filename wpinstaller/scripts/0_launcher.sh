@@ -281,7 +281,7 @@ main() {
         echo -e "\n${RED}File di configurazione non trovato: ${CONFIG_DIR}/config.cfg${NC}"
         echo -e "${RED}Assicurarsi che il file esista e sia leggibile.${NC}"
         exit 1
-    }
+    fi
     
     # Verifica se la modalità interattiva è disabilitata
     if [[ "${INTERACTIVE:-true}" == "false" ]]; then
